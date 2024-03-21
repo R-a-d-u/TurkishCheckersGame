@@ -36,8 +36,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.Board;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(784, 611);
+            ClientSize = new Size(780, 793);
             DoubleBuffered = true;
+            MaximumSize = new Size(796, 832);
+            MinimumSize = new Size(796, 832);
             Name = "GameBoard";
             Text = "GameBoard";
             ResumeLayout(false);

@@ -35,6 +35,27 @@ namespace TurkishDraughts
                 }
             }
         }
+        public void change_image(int i_initial, int j_initial, int i_final, int j_final)
+        {
+            pictureBoxButtons[i_final][j_final].getPictureBox().Image = pictureBoxButtons[i_initial][j_initial].getPictureBox().Image;
+            pictureBoxButtons[i_initial][j_initial].getPictureBox().Image = null;
+        }
+        public void move_reset(int i_initial,int j_initial,int i_final,int j_final)
+        {
+            
+        }
+        public void check_move(int i_initial, int j_initial, int i_final, int j_final)
+        { 
+        }
+        public void move_piece(int i_initial, int j_initial, int i_final, int j_final)
+        {
+            
+            
+        }
+        public void check_king(int i, int j)
+        {
+            
+        }
 
         public void pictureBox_click(object sender)
         {
@@ -48,6 +69,8 @@ namespace TurkishDraughts
             }
                    
         }
+
+
         public GameBoard()
         {
             i = 9;

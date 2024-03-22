@@ -87,7 +87,7 @@ namespace TurkishDraughts
         {
             i_firstMove = i;
             j_firstMove = j;
-            pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Green;
+            pictureBoxButtons[i][j].getPictureBox().BackColor = Color.GreenYellow;
             pictureBoxPressed.setPressed(true);
             check_legalMove(i, j);
         }
@@ -122,21 +122,38 @@ namespace TurkishDraughts
         {
             if (pictureBoxButtons[i][j].getValue() % 2 == 0)
             {
+                //spatiu gol
                 if (i > 1 && pictureBoxButtons[i - 1][j].getValue() == 0)
-                    pictureBoxButtons[i - 1][j].getPictureBox().BackColor = Color.Green;
+                    pictureBoxButtons[i - 1][j].getPictureBox().BackColor = Color.GreenYellow;
                 if (j > 1 && pictureBoxButtons[i][j - 1].getValue() == 0)
-                    pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.Green;
+                    pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.GreenYellow;
                 if (j < 7 && pictureBoxButtons[i][j + 1].getValue() == 0)
-                    pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.Green;
+                    pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.GreenYellow;
+                //piesa langa
+                if (i > 2 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
+                    pictureBoxButtons[i - 2][j].getPictureBox().BackColor = Color.GreenYellow;
+                if (j > 2 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 != 0)
+                    pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
+                if (j < 7 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
+                    pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
+
             }
             if (pictureBoxButtons[i][j].getValue() % 2 != 0)
             {
+                //spatiu gol
                 if (i < 7 && pictureBoxButtons[i + 1][j].getValue() == 0)
-                    pictureBoxButtons[i + 1][j].getPictureBox().BackColor = Color.Green;
+                    pictureBoxButtons[i + 1][j].getPictureBox().BackColor = Color.GreenYellow;
                 if (j < 7 && pictureBoxButtons[i][j + 1].getValue() == 0)
-                    pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.Green;
+                    pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.GreenYellow;
                 if (j > 1 && pictureBoxButtons[i][j - 1].getValue() == 0)
-                    pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.Green;
+                    pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.GreenYellow;
+                //piesa langa
+                if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
+                    pictureBoxButtons[i + 2][j].getPictureBox().BackColor = Color.GreenYellow;
+                if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0)
+                    pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
+                if (j > 2 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0)
+                    pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
         public void move_piece(int i_initial, int j_initial, int i_final, int j_final)

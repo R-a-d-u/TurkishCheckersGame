@@ -99,7 +99,8 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_final][j_final].getValue() != 0 ||
                     pictureBoxButtons[i_initial][j_initial].getValue() == 0 ||
                     pictureBoxButtons[i_initial][j_initial].getValue() % 2 != 0 && pictureBoxPressed.getPlayerTurn() == false ||
-                    pictureBoxButtons[i_initial][j_initial].getValue() % 2 == 0 && pictureBoxPressed.getPlayerTurn() == true
+                    pictureBoxButtons[i_initial][j_initial].getValue() % 2 == 0 && pictureBoxPressed.getPlayerTurn() == true ||
+                    pictureBoxButtons[i_final][j_final].getPictureBox().BackColor != Color.GreenYellow
                     )
                 {
                     move_reset(i_initial, j_initial, i_final, j_final);
@@ -118,23 +119,47 @@ namespace TurkishDraughts
                 check_emptySquare(i, j);
             }
         }
+        public bool check_multipleMoves(int i, int j)
+        {
+            if (pictureBoxButtons[i][j].getValue() % 2 == 0)
+            {
+                if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
+                    return true;
+                if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 != 0)
+                    return true;
+                if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
+                    return true;
+            }
+            if (pictureBoxButtons[i][j].getValue() % 2 != 0)
+            {
+                if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
+                    return true;
+                if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0)
+                    return true;
+                if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0)
+                    return true;
+            }
+
+            return false;
+
+        }
         public void check_emptySquare(int i, int j)
         {
             if (pictureBoxButtons[i][j].getValue() % 2 == 0)
             {
                 //spatiu gol
-                if (i > 1 && pictureBoxButtons[i - 1][j].getValue() == 0)
+                if (i > 0 && pictureBoxButtons[i - 1][j].getValue() == 0)
                     pictureBoxButtons[i - 1][j].getPictureBox().BackColor = Color.GreenYellow;
-                if (j > 1 && pictureBoxButtons[i][j - 1].getValue() == 0)
+                if (j > 0 && pictureBoxButtons[i][j - 1].getValue() == 0)
                     pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.GreenYellow;
                 if (j < 7 && pictureBoxButtons[i][j + 1].getValue() == 0)
                     pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.GreenYellow;
                 //piesa langa
-                if (i > 2 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
+                if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
                     pictureBoxButtons[i - 2][j].getPictureBox().BackColor = Color.GreenYellow;
-                if (j > 2 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 != 0)
+                if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 != 0)
                     pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
-                if (j < 7 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
+                if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
                     pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
 
             }
@@ -145,16 +170,45 @@ namespace TurkishDraughts
                     pictureBoxButtons[i + 1][j].getPictureBox().BackColor = Color.GreenYellow;
                 if (j < 7 && pictureBoxButtons[i][j + 1].getValue() == 0)
                     pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.GreenYellow;
-                if (j > 1 && pictureBoxButtons[i][j - 1].getValue() == 0)
+                if (j > 0 && pictureBoxButtons[i][j - 1].getValue() == 0)
                     pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.GreenYellow;
                 //piesa langa
                 if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
                     pictureBoxButtons[i + 2][j].getPictureBox().BackColor = Color.GreenYellow;
                 if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0)
                     pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
-                if (j > 2 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0)
+                if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0)
                     pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
             }
+        }
+        public bool check_pieceCrossed(int i_initial, int j_initial, int i_final, int j_final)
+        {
+            if (j_initial > j_final)
+            {
+                int j_temp = j_final; j_final = j_initial; j_initial = j_temp;
+            }
+            if (i_initial > i_final)
+            {
+                int i_temp = i_final; i_final = i_initial; i_initial = i_temp;
+            }
+
+            if (j_initial == j_final && i_initial != i_final + 1)
+                for (int i = i_initial + 1; i < i_final; i++)
+                    if (pictureBoxButtons[i][j_final].getValue() != 0)
+                    {
+                        pictureBoxButtons[i][j_final].setValue(0);
+                        pictureBoxButtons[i][j_final].getPictureBox().BackgroundImage = null;
+                        return true;
+                    }
+            if (i_initial == i_final && j_initial != j_final + 1)
+                for (int j = j_initial + 1; j < j_final; j++)
+                    if (pictureBoxButtons[i_initial][j].getValue() != 0)
+                    {
+                        pictureBoxButtons[i_initial][j].setValue(0);
+                        pictureBoxButtons[i_initial][j].getPictureBox().BackgroundImage = null;
+                        return true;
+                    }
+            return false;
         }
         public void move_piece(int i_initial, int j_initial, int i_final, int j_final)
         {
@@ -162,21 +216,39 @@ namespace TurkishDraughts
             pictureBoxPressed.setPressed(false);
             change_image(i_initial, j_initial, i_final, j_final);
             change_value(i_initial, j_initial, i_final, j_final);
-            change_playerTurn(pictureBoxPressed.getPlayerTurn());
-            change_currentPlayerName();
+            if (check_pieceCrossed(i_initial, j_initial, i_final, j_final))
+            {
+                check_pieceCrossed(i_initial, j_initial, i_final, j_final);
+                if (check_king(i_final, j_final) || check_multipleMoves(i_final, j_final) == false)
+                {
+                    check_king(i_final, j_final);
+                    change_playerTurn(pictureBoxPressed.getPlayerTurn());
+                    change_currentPlayerName();
+                }
+            }
+            else
+            {
+                change_playerTurn(pictureBoxPressed.getPlayerTurn());
+                change_currentPlayerName();
+            }
+           
+            
         }
-        public void check_king(int i, int j)
+        public bool check_king(int i, int j)
         {
             if (pictureBoxButtons[i][j].getValue() == 1 && i == 7)
             {
                 pictureBoxButtons[i][j].setValue(3);
                 pictureBoxButtons[i][j].getPictureBox().BackgroundImage = Resources.BlackKing;
+                return true;
             }
             if (pictureBoxButtons[i][j].getValue() == 2 && i == 0)
             {
                 pictureBoxButtons[i][j].setValue(4);
                 pictureBoxButtons[i][j].getPictureBox().BackgroundImage = Resources.RedKing;
+                return true;
             }
+            return false;
         }
 
         public void pictureBox_click(object sender)
@@ -192,7 +264,7 @@ namespace TurkishDraughts
                         else
                         {
                             check_finalMove(i_firstMove, j_firstMove, i, j);
-                            check_king(i, j);
+                           
                         }
                     }
                 }

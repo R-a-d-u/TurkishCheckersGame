@@ -32,6 +32,7 @@
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
+            buttonRules = new Button();
             SuspendLayout();
             // 
             // textBox1
@@ -71,11 +72,22 @@
             button3.Text = "Player vs Robot";
             button3.UseVisualStyleBackColor = true;
             // 
+            // buttonRules
+            // 
+            buttonRules.Location = new Point(82, 375);
+            buttonRules.Name = "buttonRules";
+            buttonRules.Size = new Size(590, 23);
+            buttonRules.TabIndex = 4;
+            buttonRules.Text = "Regulile Jocului";
+            buttonRules.UseVisualStyleBackColor = true;
+            buttonRules.Click += buttonRules_Click;
+            // 
             // GameMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonRules);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
@@ -92,5 +104,6 @@
         private Button button1;
         private Button button2;
         private Button button3;
+        private Button buttonRules;
     }
 }

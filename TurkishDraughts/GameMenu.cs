@@ -2,11 +2,11 @@ namespace TurkishDraughts
 {
     public partial class GameMenu : Form
     {
-        
+
         public GameMenu()
         {
             InitializeComponent();
-            MaximizeBox= false;
+            MaximizeBox = false;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -31,8 +31,13 @@ namespace TurkishDraughts
                 GameBoard gameBoard = new GameBoard();
                 gameBoard.Show();
                 this.textBox1.ForeColor = Color.Red;
-                    
+
             }
+        }
+
+        private void buttonRules_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("sdaaaaaaaaaaaaaaaaaaaaaaaaaaaa \n aaaaaaaaaa");
         }
     }
 }

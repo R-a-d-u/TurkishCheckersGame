@@ -228,9 +228,11 @@ namespace TurkishDraughts
             }
             else
             {
+                check_king(i_final, j_final);
                 change_playerTurn(pictureBoxPressed.getPlayerTurn());
                 change_currentPlayerName();
             }
+            
            
             
         }

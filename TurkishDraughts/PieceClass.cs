@@ -22,7 +22,11 @@ namespace TurkishDraughts
         {
             gameBoard.pictureBox_click(sender);
         }
-
+        //value=0 spatiu gol
+        //value=1 piesa neagra
+        //value=2 piesa rosie
+        //value=3 rege negru
+        //value=4 rege rosu
         public PieceClass(int i, int j, int value, GameBoard gameBoard)
         {
             this.gameBoard = gameBoard;

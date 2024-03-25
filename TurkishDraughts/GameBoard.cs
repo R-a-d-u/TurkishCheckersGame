@@ -55,16 +55,23 @@ namespace TurkishDraughts
             pictureBoxButtons[0][0].setValue(4);
             pictureBoxButtons[0][2].setValue(1);
             pictureBoxButtons[2][3].setValue(1);
+            //pictureBoxButtons[2][3].setValue(1);
             pictureBoxButtons[3][1].setValue(1);
             pictureBoxButtons[1][0].setValue(1);
+            pictureBoxButtons[6][0].setValue(1);
+
+            pictureBoxButtons[6][6].setValue(2);
 
 
             pictureBoxButtons[0][0].getPictureBox().BackgroundImage = Resources.RedKing;
 
             pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
             pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
             pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
             pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[6][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[6][6].getPictureBox().BackgroundImage = Resources.RedPiece;
         }
         private void initPlayerNames()
         {
@@ -180,13 +187,51 @@ namespace TurkishDraughts
             }
             //rege rosu
             if (pictureBoxButtons[i][j].getValue() == 4)
-            { 
-
+            {
+                int i_search = i, j_search = j;
+                bool redPieceInBetween = false;
+                while (j_search > 1 && !redPieceInBetween)
+                {
+                    j_search--;
+                    if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue()!=0)
+                        redPieceInBetween = true;
+                    if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search - 1].getValue() == 0)
+                        return true;      
+                }
+                i_search = i; j_search = j; redPieceInBetween = false;
+                while (j_search < 6 && !redPieceInBetween)
+                {
+                    j_search++;
+                    textBox1.Text = redPieceInBetween.ToString();
+                    if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                        redPieceInBetween = true;
+                    if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search + 1].getValue() == 0)
+                        return true;
+                }
+                i_search = i; j_search = j; redPieceInBetween = false;
+                while (i_search > 1 && !redPieceInBetween)
+                {
+                    i_search--;
+                    if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                        redPieceInBetween = true;
+                    if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search - 1][j].getValue() == 0)
+                        return true;
+                }
+                i_search = i; j_search = j; redPieceInBetween = false;
+                while (i_search < 6 && !redPieceInBetween)
+                {
+                    i_search++;
+                    if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                        redPieceInBetween = true;
+                    if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search + 1][j].getValue() == 0)
+                        return true;
+                }
+ 
             }
             //rege negru
             if (pictureBoxButtons[i][j].getValue() == 3)
-            { 
-            
+            {
+
             }
 
 

@@ -52,26 +52,28 @@ namespace TurkishDraughts
                 }
             }
 
-            pictureBoxButtons[0][0].setValue(4);
-            pictureBoxButtons[0][2].setValue(1);
-            pictureBoxButtons[2][3].setValue(1);
+            pictureBoxButtons[0][0].setValue(3);
+            pictureBoxButtons[0][2].setValue(2);
+            pictureBoxButtons[2][3].setValue(2);
             //pictureBoxButtons[2][3].setValue(1);
-            pictureBoxButtons[3][1].setValue(1);
-            pictureBoxButtons[1][0].setValue(1);
-            pictureBoxButtons[6][0].setValue(1);
+            pictureBoxButtons[3][1].setValue(2);
+            pictureBoxButtons[1][0].setValue(2);
+            pictureBoxButtons[6][0].setValue(2);
 
-            pictureBoxButtons[6][6].setValue(2);
+            pictureBoxButtons[6][6].setValue(1);
 
+            pictureBoxButtons[4][0].setValue(1);
 
-            pictureBoxButtons[0][0].getPictureBox().BackgroundImage = Resources.RedKing;
+            pictureBoxButtons[0][0].getPictureBox().BackgroundImage = Resources.BlackKing;
 
-            pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.RedPiece;
             //pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[6][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[6][6].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[6][0].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[6][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[4][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
         }
         private void initPlayerNames()
         {
@@ -231,6 +233,44 @@ namespace TurkishDraughts
             //rege negru
             if (pictureBoxButtons[i][j].getValue() == 3)
             {
+                int i_search = i, j_search = j;
+                bool blackPieceInBetween = false;
+                while (j_search > 1 && !blackPieceInBetween)
+                {
+                    j_search--;
+                    if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                        blackPieceInBetween = true;
+                    if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search - 1].getValue() == 0)
+                        return true;
+                }
+                i_search = i; j_search = j; blackPieceInBetween = false;
+                while (j_search < 6 && !blackPieceInBetween)
+                {
+                    j_search++;
+                    if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                        blackPieceInBetween = true;
+                    if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search + 1].getValue() == 0)
+                        return true;
+                }
+                i_search = i; j_search = j; blackPieceInBetween = false;
+                while (i_search > 1 && !blackPieceInBetween)
+                {
+                    i_search--;
+                    if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                        blackPieceInBetween = true;
+                    if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search - 1][j].getValue() == 0)
+                        return true;
+                }
+                i_search = i; j_search = j; blackPieceInBetween = false;
+                while (i_search < 6 && !blackPieceInBetween)
+                {
+                    i_search++;
+                    if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                        blackPieceInBetween = true;
+                    if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search + 1][j].getValue() == 0)
+                        return true;
+                }
+
 
             }
 

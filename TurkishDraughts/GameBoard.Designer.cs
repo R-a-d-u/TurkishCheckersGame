@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             currentPlayerTextBox = new TextBox();
+            textBox1 = new TextBox();
             SuspendLayout();
             // 
             // currentPlayerTextBox
@@ -41,6 +42,15 @@
             currentPlayerTextBox.Text = "Text";
             currentPlayerTextBox.TextAlign = HorizontalAlignment.Center;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(668, 458);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 1;
+            textBox1.TabStop = false;
+            textBox1.TextAlign = HorizontalAlignment.Center;
+            // 
             // GameBoard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -48,6 +58,7 @@
             BackgroundImage = Properties.Resources.Board;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(780, 793);
+            Controls.Add(textBox1);
             Controls.Add(currentPlayerTextBox);
             DoubleBuffered = true;
             MaximumSize = new Size(796, 832);
@@ -61,5 +72,6 @@
         #endregion
 
         private TextBox currentPlayerTextBox;
+        private TextBox textBox1;
     }
 }

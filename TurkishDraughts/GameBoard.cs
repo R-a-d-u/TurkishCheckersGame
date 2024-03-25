@@ -51,29 +51,37 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
                 }
             }
+        //   //cruce 
+        //     pictureBoxButtons[4][4].setValue(4);
+        //     pictureBoxButtons[6][4].setValue(1);
+        //     pictureBoxButtons[4][6].setValue(1);
+        //     pictureBoxButtons[4][2].setValue(1);
+        //     pictureBoxButtons[2][4].setValue(1);
+        //  
+        //  
+        //     pictureBoxButtons[4][4].getPictureBox().BackgroundImage = Resources.RedKing;
+        //     pictureBoxButtons[6][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
+        //     pictureBoxButtons[4][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
+        //     pictureBoxButtons[4][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+        //     pictureBoxButtons[2][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
 
-            pictureBoxButtons[0][0].setValue(3);
-            pictureBoxButtons[0][2].setValue(2);
-            pictureBoxButtons[2][3].setValue(2);
-            //pictureBoxButtons[2][3].setValue(1);
-            pictureBoxButtons[3][1].setValue(2);
-            pictureBoxButtons[1][0].setValue(2);
-            pictureBoxButtons[6][0].setValue(2);
+           pictureBoxButtons[0][0].setValue(4);
+           pictureBoxButtons[0][2].setValue(1);
+           pictureBoxButtons[2][3].setValue(1);
+           pictureBoxButtons[3][1].setValue(1);
+           pictureBoxButtons[1][0].setValue(1);
+           pictureBoxButtons[7][7].setValue(1);
+         
+         
+           pictureBoxButtons[0][0].getPictureBox().BackgroundImage = Resources.RedKing;
+           pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+           pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
+           pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
+           pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
+           pictureBoxButtons[7][7].getPictureBox().BackgroundImage = Resources.BlackPiece;
+         
 
-            pictureBoxButtons[6][6].setValue(1);
 
-            pictureBoxButtons[4][0].setValue(1);
-
-            pictureBoxButtons[0][0].getPictureBox().BackgroundImage = Resources.BlackKing;
-
-            pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.RedPiece;
-            pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.RedPiece;
-            //pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.RedPiece;
-            pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.RedPiece;
-            pictureBoxButtons[6][0].getPictureBox().BackgroundImage = Resources.RedPiece;
-            pictureBoxButtons[6][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[4][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
         }
         private void initPlayerNames()
         {
@@ -165,7 +173,7 @@ namespace TurkishDraughts
                 draw_LegalMovesTraces(i, j);
             }
         }
-        public bool check_multipleMoves(int i, int j)
+        public bool check_multipleMoves(int i_intial, int j_initial, int i, int j)
         {
             //piesa rosie
             if (pictureBoxButtons[i][j].getValue() == 2)
@@ -190,28 +198,42 @@ namespace TurkishDraughts
             //rege rosu
             if (pictureBoxButtons[i][j].getValue() == 4)
             {
+                bool i_up = false;
+                bool i_down = false;
+                bool j_right = false;
+                bool j_left = false;
+                if (i != i_intial)
+                    if (i - i_intial > 0)
+                        i_up = true;
+                    else
+                        i_down = true;
+                if (j != j_initial)
+                    if (j - j_initial > 0)
+                        j_left = true;
+                    else
+                        j_right = true;
+
                 int i_search = i, j_search = j;
                 bool redPieceInBetween = false;
-                while (j_search > 1 && !redPieceInBetween)
+                while (j_search > 1 && !redPieceInBetween && !j_left)
                 {
                     j_search--;
-                    if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue()!=0)
+                    if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
                         redPieceInBetween = true;
                     if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search - 1].getValue() == 0)
-                        return true;      
+                        return true;
                 }
                 i_search = i; j_search = j; redPieceInBetween = false;
-                while (j_search < 6 && !redPieceInBetween)
+                while (j_search < 6 && !redPieceInBetween && !j_right)
                 {
                     j_search++;
-                    textBox1.Text = redPieceInBetween.ToString();
                     if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
                         redPieceInBetween = true;
                     if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search + 1].getValue() == 0)
                         return true;
                 }
                 i_search = i; j_search = j; redPieceInBetween = false;
-                while (i_search > 1 && !redPieceInBetween)
+                while (i_search > 1 && !redPieceInBetween && !i_up)
                 {
                     i_search--;
                     if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
@@ -220,7 +242,7 @@ namespace TurkishDraughts
                         return true;
                 }
                 i_search = i; j_search = j; redPieceInBetween = false;
-                while (i_search < 6 && !redPieceInBetween)
+                while (i_search < 6 && !redPieceInBetween && !i_down)
                 {
                     i_search++;
                     if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
@@ -228,14 +250,30 @@ namespace TurkishDraughts
                     if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search + 1][j].getValue() == 0)
                         return true;
                 }
- 
+
             }
             //rege negru
             if (pictureBoxButtons[i][j].getValue() == 3)
             {
+                bool i_up = false;
+                bool i_down = false;
+                bool j_right = false;
+                bool j_left = false;
+                if(i != i_intial)
+                if (i - i_intial > 0 )
+                    i_up = true;
+                else
+                    i_down = true;
+                if(j != j_initial)
+                if (j - j_initial > 0)
+                    j_left = true;
+                else
+                    j_right = true;
+
+                
                 int i_search = i, j_search = j;
                 bool blackPieceInBetween = false;
-                while (j_search > 1 && !blackPieceInBetween)
+                while (j_search > 1 && !blackPieceInBetween && !j_left)
                 {
                     j_search--;
                     if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
@@ -244,7 +282,7 @@ namespace TurkishDraughts
                         return true;
                 }
                 i_search = i; j_search = j; blackPieceInBetween = false;
-                while (j_search < 6 && !blackPieceInBetween)
+                while (j_search < 6 && !blackPieceInBetween && !j_right)
                 {
                     j_search++;
                     if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
@@ -253,7 +291,7 @@ namespace TurkishDraughts
                         return true;
                 }
                 i_search = i; j_search = j; blackPieceInBetween = false;
-                while (i_search > 1 && !blackPieceInBetween)
+                while (i_search > 1 && !blackPieceInBetween && !i_up)
                 {
                     i_search--;
                     if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
@@ -262,7 +300,7 @@ namespace TurkishDraughts
                         return true;
                 }
                 i_search = i; j_search = j; blackPieceInBetween = false;
-                while (i_search < 6 && !blackPieceInBetween)
+                while (i_search < 6 && !blackPieceInBetween && !i_down)
                 {
                     i_search++;
                     if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
@@ -458,7 +496,7 @@ namespace TurkishDraughts
             if (remove_capturedPieces(i_initial, j_initial, i_final, j_final))
             {
                 remove_capturedPieces(i_initial, j_initial, i_final, j_final);
-                if (check_multipleMoves(i_final, j_final) == false)
+                if (check_multipleMoves(i_initial, j_initial, i_final, j_final) == false)
                 {
                     check_pieceIsKing(i_final, j_final);
                     swap_currentPlayerTurn(pictureBoxPressed.getPlayerTurn());

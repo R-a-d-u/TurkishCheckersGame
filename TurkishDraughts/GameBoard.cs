@@ -1,4 +1,5 @@
-﻿using TurkishDraughts.Properties;
+﻿using System.ComponentModel;
+using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
 {
@@ -28,69 +29,6 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-
-
-
-
-        }
-        private void testTabla()
-        {
-            int value = 0;//valoare default pentru picturebox gol
-            pictureBoxButtons = new PieceClass[8][];
-            for (int i = 0; i < 8; i++)
-            {
-                pictureBoxButtons[i] = new PieceClass[8];
-            }
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    pictureBoxButtons[i][j] = new PieceClass(i, j, value, this);
-                    Controls.Add(pictureBoxButtons[i][j].getPictureBox());
-                    pictureBoxButtons[i][j].setValue(0);
-                    pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-                }
-            }
-            //   //cruce 
-            //     pictureBoxButtons[4][4].setValue(4);
-            //     pictureBoxButtons[6][4].setValue(1);
-            //     pictureBoxButtons[4][6].setValue(1);
-            //     pictureBoxButtons[4][2].setValue(1);
-            //     pictureBoxButtons[2][4].setValue(1);
-            //  
-            //  
-            //     pictureBoxButtons[4][4].getPictureBox().BackgroundImage = Resources.RedKing;
-            //     pictureBoxButtons[6][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            //     pictureBoxButtons[4][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            //     pictureBoxButtons[4][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            //     pictureBoxButtons[2][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
-
-            pictureBoxButtons[3][3].setValue(1);
-            // pictureBoxButtons[0][2].setValue(1);
-            pictureBoxButtons[2][3].setValue(1);
-            pictureBoxButtons[0][1].setValue(1);
-            pictureBoxButtons[0][3].setValue(1);
-            pictureBoxButtons[1][4].setValue(1);
-            pictureBoxButtons[3][1].setValue(1);
-            pictureBoxButtons[1][0].setValue(1);
-            pictureBoxButtons[7][7].setValue(1);
-            pictureBoxButtons[6][0].setValue(1);
-            pictureBoxButtons[2][0].setValue(4);
-
-
-            pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            // pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[0][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[0][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[1][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[6][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[7][7].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[2][0].getPictureBox().BackgroundImage = Resources.RedKing;
-
-
 
         }
         private void initPlayerNames()
@@ -629,7 +567,6 @@ namespace TurkishDraughts
                     {
                         int i_initial = specialProprieties.getLastMultipleMoveI();
                         int j_initial = specialProprieties.getLastMultipleMoveJ();
-                        textBox1.Text = (specialProprieties.getLastMultipleMoveI().ToString() + ""+ specialProprieties.getLastMultipleMoveJ().ToString());
                         bool i_up = false;
                         bool i_down = false;
                         bool j_right = false;
@@ -812,7 +749,6 @@ namespace TurkishDraughts
             initPlayerNames();
             initStartState();
             initBtnTabla();
-            //testTabla();
             InitializeComponent();
             currentPlayerTextBox.Text = currentPlayer.getName();
             currentPlayerTextBox.ForeColor = Color.Red;

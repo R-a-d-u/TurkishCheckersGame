@@ -31,6 +31,43 @@ namespace TurkishDraughts
             }
 
         }
+        private void testTablA()
+        {
+            int value = 0;//valoare default pentru picturebox gol
+            pictureBoxButtons = new PieceClass[8][];
+            for (int i = 0; i < 8; i++)
+            {
+                pictureBoxButtons[i] = new PieceClass[8];
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    pictureBoxButtons[i][j] = new PieceClass(i, j, value, this);
+                    Controls.Add(pictureBoxButtons[i][j].getPictureBox());
+                    pictureBoxButtons[i][j].setValue(0);
+                    pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+                }
+            }
+
+            pictureBoxButtons[0][2].setValue(2);
+            pictureBoxButtons[2][3].setValue(2);
+            pictureBoxButtons[3][1].setValue(2);
+            pictureBoxButtons[1][0].setValue(2);
+            pictureBoxButtons[4][0].setValue(3);
+            pictureBoxButtons[7][7].setValue(2);
+
+            pictureBoxButtons[7][7].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[4][0].getPictureBox().BackgroundImage = Resources.RedKing;
+
+
+
+
+        }
         private void initPlayerNames()
         {
             player1 = new PlayerClass("Rosu");
@@ -293,7 +330,7 @@ namespace TurkishDraughts
             int i_search = i, j_search = j;
             bool blackPieceInBetween = false;
             bool doubleRedPiece = false;
-            while (i_search < 6 && !blackPieceInBetween && doubleRedPiece)
+            while (i_search < 6 && !blackPieceInBetween && !doubleRedPiece)
             {
                 i_search++;
                 if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 &&
@@ -748,7 +785,8 @@ namespace TurkishDraughts
             MaximizeBox = false;
             initPlayerNames();
             initStartState();
-            initBtnTabla();
+            //initBtnTabla();
+            testTablA();
             InitializeComponent();
             currentPlayerTextBox.Text = currentPlayer.getName();
             currentPlayerTextBox.ForeColor = Color.Red;

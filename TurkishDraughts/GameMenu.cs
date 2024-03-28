@@ -29,8 +29,12 @@ namespace TurkishDraughts
             }
             if (isopen == false)
             {
-                GameBoard gameBoard = new GameBoard();
+                String name1, name2;
+                name1 = player1LocalTextBox.Text;
+                name2 = player2LocalTextBox.Text;
+                GameBoard gameBoard = new GameBoard(name1,name2);
                 gameBoard.Show();
+
                 this.textBox1.ForeColor = Color.Red;
 
             }

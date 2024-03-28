@@ -37,10 +37,10 @@
             // 
             currentPlayerTextBox.BackColor = Color.PeachPuff;
             currentPlayerTextBox.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            currentPlayerTextBox.Location = new Point(663, 341);
+            currentPlayerTextBox.Location = new Point(666, 341);
             currentPlayerTextBox.Multiline = true;
             currentPlayerTextBox.Name = "currentPlayerTextBox";
-            currentPlayerTextBox.Size = new Size(110, 87);
+            currentPlayerTextBox.Size = new Size(105, 87);
             currentPlayerTextBox.TabIndex = 0;
             currentPlayerTextBox.TabStop = false;
             currentPlayerTextBox.Text = "Text";

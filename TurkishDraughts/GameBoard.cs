@@ -51,37 +51,43 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
                 }
             }
-        //   //cruce 
-        //     pictureBoxButtons[4][4].setValue(4);
-        //     pictureBoxButtons[6][4].setValue(1);
-        //     pictureBoxButtons[4][6].setValue(1);
-        //     pictureBoxButtons[4][2].setValue(1);
-        //     pictureBoxButtons[2][4].setValue(1);
-        //  
-        //  
-        //     pictureBoxButtons[4][4].getPictureBox().BackgroundImage = Resources.RedKing;
-        //     pictureBoxButtons[6][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
-        //     pictureBoxButtons[4][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
-        //     pictureBoxButtons[4][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-        //     pictureBoxButtons[2][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //   //cruce 
+            //     pictureBoxButtons[4][4].setValue(4);
+            //     pictureBoxButtons[6][4].setValue(1);
+            //     pictureBoxButtons[4][6].setValue(1);
+            //     pictureBoxButtons[4][2].setValue(1);
+            //     pictureBoxButtons[2][4].setValue(1);
+            //  
+            //  
+            //     pictureBoxButtons[4][4].getPictureBox().BackgroundImage = Resources.RedKing;
+            //     pictureBoxButtons[6][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //     pictureBoxButtons[4][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //     pictureBoxButtons[4][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //     pictureBoxButtons[2][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
 
-           pictureBoxButtons[2][0].setValue(4);
-          // pictureBoxButtons[0][2].setValue(1);
-           pictureBoxButtons[2][3].setValue(1);
-           pictureBoxButtons[3][1].setValue(1);
-           pictureBoxButtons[1][0].setValue(1);
-           pictureBoxButtons[7][7].setValue(2);
-            pictureBoxButtons[6][0].setValue(1);
+            pictureBoxButtons[3][3].setValue(1);
+            // pictureBoxButtons[0][2].setValue(1);
+            pictureBoxButtons[2][3].setValue(2);
+            pictureBoxButtons[0][1].setValue(2);
+            pictureBoxButtons[0][3].setValue(2);
+            pictureBoxButtons[1][4].setValue(2);
+            pictureBoxButtons[3][1].setValue(2);
+            pictureBoxButtons[1][0].setValue(2);
+            pictureBoxButtons[7][7].setValue(1);
+            pictureBoxButtons[6][0].setValue(2);
 
 
-            pictureBoxButtons[2][0].getPictureBox().BackgroundImage = Resources.RedKing;
-          // pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-           pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
-           pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
-           pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[6][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[7][7].getPictureBox().BackgroundImage = Resources.RedPiece;
-         
+            pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            // pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[0][3].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[0][1].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[1][4].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[6][0].getPictureBox().BackgroundImage = Resources.RedPiece;
+            pictureBoxButtons[7][7].getPictureBox().BackgroundImage = Resources.BlackPiece;
+
 
 
         }
@@ -93,7 +99,7 @@ namespace TurkishDraughts
         }
         private void initStartState()
         {
-            pictureBoxSpecialProprieties = new PictureBoxSpecialProprieties(false, false,false,0,0);
+            pictureBoxSpecialProprieties = new PictureBoxSpecialProprieties(false, false, false, 0, 0);
         }
         private void remove_boardTraces()
         {
@@ -157,8 +163,8 @@ namespace TurkishDraughts
                     pictureBoxButtons[i_initial][j_initial].getValue() % 2 != 0 && pictureBoxSpecialProprieties.getPlayerTurn() == false ||
                     pictureBoxButtons[i_initial][j_initial].getValue() % 2 == 0 && pictureBoxSpecialProprieties.getPlayerTurn() == true ||
                     pictureBoxButtons[i_final][j_final].getPictureBox().BackColor != Color.GreenYellow ||
-                    (pictureBoxSpecialProprieties.getMultipleMove() == true && 
-                    (pictureBoxSpecialProprieties.getI()!=i_initial || pictureBoxSpecialProprieties.getJ()!=j_initial))
+                    (pictureBoxSpecialProprieties.getMultipleMove() == true &&
+                    (pictureBoxSpecialProprieties.getI() != i_initial || pictureBoxSpecialProprieties.getJ() != j_initial))
                     )
                 {
                     reset_pictureboxPressed(i_initial, j_initial, i_final, j_final);
@@ -177,31 +183,211 @@ namespace TurkishDraughts
                 draw_LegalMovesTraces(i, j);
             }
         }
+        public bool check_multipleMovesBlackPiece(int i_intial, int j_initial, int i, int j)
+        {
+            if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
+                return true;
+            if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0)
+                return true;
+            if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0)
+                return true;
+            return false;
+        }
+        public bool check_multipleMovesRedPiece(int i_intial, int j_initial, int i, int j)
+        {
+            if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
+                return true;
+            if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 != 0)
+                return true;
+            if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
+                return true;
+            return false;
+        }
+        public bool check_multipleMovesRedKingLeft(int i_intial, int j_initial, int i, int j)
+        {
+            int i_search = i, j_search = j;
+            bool redPieceInBetween = false;
+            bool doubleBlackPiece = false;
+            while (j_search > 1 && !redPieceInBetween && !doubleBlackPiece)
+            {
+                j_search--;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 &&
+                 pictureBoxButtons[i][j_search].getValue() != 0 &&
+                 pictureBoxButtons[i][j_search - 1].getValue() % 2 != 0 &&
+                 pictureBoxButtons[i][j_search - 1].getValue() != 0)
+                    doubleBlackPiece = true;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    redPieceInBetween = true;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search - 1].getValue() == 0)
+                    return true;
+            }
+            return false;
+        }
+        public bool check_multipleMovesRedKingRight(int i_intial, int j_initial, int i, int j)
+        {
+            int i_search = i, j_search = j;
+            bool redPieceInBetween = false;
+            bool doubleBlackPiece = false;
+            while (j_search < 6 && !redPieceInBetween && !doubleBlackPiece)
+            {
+                j_search++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 &&
+                 pictureBoxButtons[i][j_search].getValue() != 0 &&
+                 pictureBoxButtons[i][j_search + 1].getValue() % 2 != 0 &&
+                 pictureBoxButtons[i][j_search + 1].getValue() != 0)
+                    doubleBlackPiece = true;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    redPieceInBetween = true;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search + 1].getValue() == 0)
+                    return true;
+            }
+            return false;
+        }
+        public bool check_multipleMovesRedKingUp(int i_intial, int j_initial, int i, int j)
+        {
+            int i_search = i, j_search = j;
+            bool redPieceInBetween = false;
+            bool doubleBlackPiece = false;
+            while (i_search > 1 && !redPieceInBetween && !doubleBlackPiece)
+            {
+                i_search--;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 &&
+                  pictureBoxButtons[i_search][j].getValue() != 0 &&
+                  pictureBoxButtons[i_search - 1][j].getValue() % 2 != 0 &&
+                  pictureBoxButtons[i_search - 1][j].getValue() != 0)
+                    doubleBlackPiece = true;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    redPieceInBetween = true;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search - 1][j].getValue() == 0)
+                    return true;
+            }
+
+            return false;
+        }
+        public bool check_multipleMovesRedKingDown(int i_intial, int j_initial, int i, int j)
+        {
+            int i_search = i, j_search = j;
+            bool redPieceInBetween = false;
+            bool doubleBlackPiece = false;
+            while (i_search < 6 && !redPieceInBetween && !doubleBlackPiece)
+            {
+                i_search++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 &&
+                   pictureBoxButtons[i_search][j].getValue() != 0 &&
+                   pictureBoxButtons[i_search + 1][j].getValue() % 2 != 0 &&
+                   pictureBoxButtons[i_search + 1][j].getValue() != 0)
+                    doubleBlackPiece = true;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    redPieceInBetween = true;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search + 1][j].getValue() == 0)
+                    return true;
+            }
+
+            return false;
+        }
+        public bool check_multipleMovesBlackKingLeft(int i_intial, int j_initial, int i, int j)
+        {
+            int i_search = i, j_search = j;
+            bool blackPieceInBetween = false;
+            bool doubleRedPiece = false;
+            while (j_search > 1 && !blackPieceInBetween && !doubleRedPiece)
+            {
+                j_search--;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 &&
+                  pictureBoxButtons[i][j_search].getValue() != 0 &&
+                  pictureBoxButtons[i][j_search - 1].getValue() % 2 == 0 &&
+                  pictureBoxButtons[i][j_search - 1].getValue() != 0)
+                    doubleRedPiece = true;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    blackPieceInBetween = true;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search - 1].getValue() == 0)
+                    return true;
+            }
+            return false;
+        }
+        public bool check_multipleMovesBlackKingRight(int i_intial, int j_initial, int i, int j)
+        {
+            int i_search = i, j_search = j;
+            bool blackPieceInBetween = false;
+            bool doubleRedPiece = false;
+            while (j_search < 6 && !blackPieceInBetween && !doubleRedPiece)
+            {
+                j_search++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 &&
+                  pictureBoxButtons[i][j_search].getValue() != 0 &&
+                  pictureBoxButtons[i][j_search + 1].getValue() % 2 == 0 &&
+                  pictureBoxButtons[i][j_search + 1].getValue() != 0)
+                    doubleRedPiece = true;
+
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    blackPieceInBetween = true;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search + 1].getValue() == 0)
+                    return true;
+            }
+            return false;
+        }
+        public bool check_multipleMovesBlackKingUp(int i_intial, int j_initial, int i, int j)
+        {
+            int i_search = i, j_search = j;
+            bool blackPieceInBetween = false;
+            bool doubleRedPiece = false;
+            while (i_search > 1 && !blackPieceInBetween && !doubleRedPiece)
+            {
+                i_search--;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 &&
+                   pictureBoxButtons[i_search][j].getValue() != 0 &&
+                   pictureBoxButtons[i_search - 1][j].getValue() % 2 == 0 &&
+                   pictureBoxButtons[i_search - 1][j].getValue() != 0)
+                    doubleRedPiece = true;
+
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    blackPieceInBetween = true;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search - 1][j].getValue() == 0)
+                    return true;
+            }
+            return false;
+
+        }
+        public bool check_multipleMovesBlackKingDown(int i_intial, int j_initial, int i, int j)
+        {
+            int i_search = i, j_search = j;
+            bool blackPieceInBetween = false;
+            bool doubleRedPiece = false;
+            while (i_search < 6 && !blackPieceInBetween && doubleRedPiece)
+            {
+                i_search++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 &&
+                    pictureBoxButtons[i_search][j].getValue() != 0 &&
+                    pictureBoxButtons[i_search + 1][j].getValue() % 2 == 0 &&
+                    pictureBoxButtons[i_search + 1][j].getValue() != 0)
+                    doubleRedPiece = true;
+
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    blackPieceInBetween = true;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search + 1][j].getValue() == 0)
+                    return true;
+            }
+            return false;
+        }
+
         public bool check_multipleMoves(int i_intial, int j_initial, int i, int j)
         {
             //piesa rosie
             if (pictureBoxButtons[i][j].getValue() == 2)
             {
-                if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
-                    return true;
-                if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 != 0)
-                    return true;
-                if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
+                if (check_multipleMovesRedPiece(i_intial, j_initial, i, j))
                     return true;
             }
             //piesa neagra
             if (pictureBoxButtons[i][j].getValue() == 1)
             {
-                if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
-                    return true;
-                if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0)
-                    return true;
-                if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0)
+                if (check_multipleMovesBlackPiece(i_intial, j_initial, i, j))
                     return true;
             }
             //rege rosu
             if (pictureBoxButtons[i][j].getValue() == 4)
             {
+                //nu permitem ca regele sa faca o miscare multipla la 180 de grade
                 bool i_up = false;
                 bool i_down = false;
                 bool j_right = false;
@@ -211,254 +397,240 @@ namespace TurkishDraughts
                         i_up = true;
                     else
                         i_down = true;
+
                 if (j != j_initial)
                     if (j - j_initial > 0)
                         j_left = true;
                     else
                         j_right = true;
 
-                int i_search = i, j_search = j;
-                bool redPieceInBetween = false;
-                while (j_search > 1 && !redPieceInBetween && !j_left)
-                {
-                    j_search--;
-                    if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                        redPieceInBetween = true;
-                    if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search - 1].getValue() == 0)
+                if (!j_left)
+                    if (check_multipleMovesRedKingLeft(i_intial, j_initial, i, j))
                         return true;
-                }
-                i_search = i; j_search = j; redPieceInBetween = false;
-                while (j_search < 6 && !redPieceInBetween && !j_right)
-                {
-                    j_search++;
-                    if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                        redPieceInBetween = true;
-                    if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search + 1].getValue() == 0)
+                if (!j_right)
+                    if (check_multipleMovesRedKingRight(i_intial, j_initial, i, j))
                         return true;
-                }
-                i_search = i; j_search = j; redPieceInBetween = false;
-                while (i_search > 1 && !redPieceInBetween && !i_up)
-                {
-                    i_search--;
-                    if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                        redPieceInBetween = true;
-                    if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search - 1][j].getValue() == 0)
+                if (!i_up)
+                    if (check_multipleMovesRedKingUp(i_intial, j_initial, i, j))
                         return true;
-                }
-                i_search = i; j_search = j; redPieceInBetween = false;
-                while (i_search < 6 && !redPieceInBetween && !i_down)
-                {
-                    i_search++;
-                    if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                        redPieceInBetween = true;
-                    if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search + 1][j].getValue() == 0)
+                if (!i_down)
+                    if (check_multipleMovesRedKingDown(i_intial, j_initial, i, j))
                         return true;
-                }
 
             }
             //rege negru
             if (pictureBoxButtons[i][j].getValue() == 3)
             {
+                //nu permitem ca regele sa faca o miscare multipla la 180 de grade
                 bool i_up = false;
                 bool i_down = false;
                 bool j_right = false;
                 bool j_left = false;
-                if(i != i_intial)
-                if (i - i_intial > 0 )
-                    i_up = true;
-                else
-                    i_down = true;
-                if(j != j_initial)
-                if (j - j_initial > 0)
-                    j_left = true;
-                else
-                    j_right = true;
+                if (i != i_intial)
+                    if (i - i_intial > 0)
+                        i_up = true;
+                    else
+                        i_down = true;
 
-                
-                int i_search = i, j_search = j;
-                bool blackPieceInBetween = false;
-                while (j_search > 1 && !blackPieceInBetween && !j_left)
-                {
-                    j_search--;
-                    if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                        blackPieceInBetween = true;
-                    if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search - 1].getValue() == 0)
-                        return true;
-                }
-                i_search = i; j_search = j; blackPieceInBetween = false;
-                while (j_search < 6 && !blackPieceInBetween && !j_right)
-                {
-                    j_search++;
-                    if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                        blackPieceInBetween = true;
-                    if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0 && pictureBoxButtons[i][j_search + 1].getValue() == 0)
-                        return true;
-                }
-                i_search = i; j_search = j; blackPieceInBetween = false;
-                while (i_search > 1 && !blackPieceInBetween && !i_up)
-                {
-                    i_search--;
-                    if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                        blackPieceInBetween = true;
-                    if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search - 1][j].getValue() == 0)
-                        return true;
-                }
-                i_search = i; j_search = j; blackPieceInBetween = false;
-                while (i_search < 6 && !blackPieceInBetween && !i_down)
-                {
-                    i_search++;
-                    if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                        blackPieceInBetween = true;
-                    if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search + 1][j].getValue() == 0)
-                        return true;
-                }
+                if (j != j_initial)
+                    if (j - j_initial > 0)
+                        j_left = true;
+                    else
+                        j_right = true;
 
+                if (!j_left)
+                    if (check_multipleMovesBlackKingLeft(i_intial, j_initial, i, j))
+                        return true;
 
+                if (!j_right)
+                    if (check_multipleMovesBlackKingRight(i_intial, j_initial, i, j))
+                        return true;
+                if (!i_up)
+                    if (check_multipleMovesBlackKingUp(i_intial, j_initial, i, j))
+                        return true;
+                if (!i_down)
+                    if (check_multipleMovesBlackKingDown(i_intial, j_initial, i, j))
+                        return true;
             }
-
-
             return false;
-
         }
-        public void draw_LegalMovesTraces(int i, int j)
+        public void draw_redPieceTrace(int i, int j)
         {
-            if (pictureBoxButtons[i][j].getValue() % 2 == 0)
+            //spatiu gol
+            if (pictureBoxSpecialProprieties.getMultipleMove() == false)
             {
-                //spatiu gol
                 if (i > 0 && pictureBoxButtons[i - 1][j].getValue() == 0)
                     pictureBoxButtons[i - 1][j].getPictureBox().BackColor = Color.GreenYellow;
                 if (j > 0 && pictureBoxButtons[i][j - 1].getValue() == 0)
                     pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.GreenYellow;
                 if (j < 7 && pictureBoxButtons[i][j + 1].getValue() == 0)
                     pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.GreenYellow;
-                //piesa langa
-                if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
-                    pictureBoxButtons[i - 2][j].getPictureBox().BackColor = Color.GreenYellow;
-                if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 != 0)
-                    pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
-                if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
-                    pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
-
-                //rege rosu - stanga
-                if (pictureBoxButtons[i][j].getValue() == 4)
-                {
-                    int i_search = i, j_search = j, contor = 0;
-                    while (j_search > 0 && contor < 2)
-                    {
-                        j_search--;
-                        if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                            contor++;
-                        if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                            contor = 2;
-                        if (pictureBoxButtons[i][j_search].getValue() == 0)
-                            pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
-                    }
-                    //rege rosu - dreapta 
-                    i_search = i; j_search = j; contor = 0;
-                    while (j_search < 7 && contor < 2)
-                    {
-                        j_search++;
-                        if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                            contor++;
-                        if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                            contor = 2;
-                        if (pictureBoxButtons[i][j_search].getValue() == 0)
-                            pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
-                    }
-                    //rege rosu -sus
-                    i_search = i; j_search = j; contor = 0;
-                    while (i_search > 0 && contor < 2)
-                    {
-                        i_search--;
-                        if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                            contor++;
-                        if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                            contor = 2;
-                        if (pictureBoxButtons[i_search][j].getValue() == 0)
-                            pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
-                    }
-                    //rege rosu -jos
-                    i_search = i; j_search = j; contor = 0;
-                    while (i_search < 7 && contor < 2)
-                    {
-                        i_search++;
-                        if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                            contor++;
-                        if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                            contor = 2;
-                        if (pictureBoxButtons[i_search][j].getValue() == 0)
-                            pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
-                    }
-                }
             }
-            if (pictureBoxButtons[i][j].getValue() % 2 != 0)
+            //piesa langa
+            if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
+                pictureBoxButtons[i - 2][j].getPictureBox().BackColor = Color.GreenYellow;
+            if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 != 0)
+                pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
+            if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
+                pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
+        }
+        public void draw_blackPieceTrace(int i, int j)
+        {
+            //spatiu gol
+            if (pictureBoxSpecialProprieties.getMultipleMove() == false)
             {
-                //spatiu gol
                 if (i < 7 && pictureBoxButtons[i + 1][j].getValue() == 0)
                     pictureBoxButtons[i + 1][j].getPictureBox().BackColor = Color.GreenYellow;
                 if (j < 7 && pictureBoxButtons[i][j + 1].getValue() == 0)
                     pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.GreenYellow;
                 if (j > 0 && pictureBoxButtons[i][j - 1].getValue() == 0)
                     pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.GreenYellow;
-                //piesa langa
-                if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
-                    pictureBoxButtons[i + 2][j].getPictureBox().BackColor = Color.GreenYellow;
-                if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0)
-                    pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
-                if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0)
-                    pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
+            }
+            //piesa langa
+            if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
+                pictureBoxButtons[i + 2][j].getPictureBox().BackColor = Color.GreenYellow;
+            if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0)
+                pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
+            if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0)
+                pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
+        }
+        public void draw_LegalMovesRedKingLeft(int i, int j)
+        {
+            int i_search = i, j_search = j, contor = 0;
+            while (j_search > 0 && contor < 2)
+            {
+                j_search--;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i][j_search].getValue() == 0)
+                    pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+            }
+        }
+        public void draw_LegalMovesRedKingRight(int i, int j)
+        {
+            int i_search = i, j_search = j, contor = 0;
+            while (j_search < 7 && contor < 2)
+            {
+                j_search++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i][j_search].getValue() == 0)
+                    pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+            }
+        }
+        public void draw_LegalMovesRedKingUp(int i, int j)
+        {
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search > 0 && contor < 2)
+            {
+                i_search--;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i_search][j].getValue() == 0)
+                    pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+            }
+        }
 
-                //rege negru -stanga
+        public void draw_LegalMovesRedKingDown(int i, int j)
+        {
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search < 7 && contor < 2)
+            {
+                i_search++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i_search][j].getValue() == 0)
+                    pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+            }
+        }
+        public void draw_LegalMovesBlackKingLeft(int i, int j)
+        {
+            int i_search = i, j_search = j, contor = 0;
+            while (j_search > 0 && contor < 2)
+            {
+                j_search--;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i][j_search].getValue() == 0)
+                    pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+            }
+        }
+        public void draw_LegalMovesBlackKingRight(int i, int j)
+        {
+            int i_search = i, j_search = j, contor = 0;
+            while (j_search < 7 && contor < 2)
+            {
+                j_search++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i][j_search].getValue() == 0)
+                    pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+            }
+        }
+        public void draw_LegalMovesBlackKingUp(int i, int j)
+        {
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search > 0 && contor < 2)
+            {
+                i_search--;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i_search][j].getValue() == 0)
+                    pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+
+            }
+        }
+        public void draw_LegalMovesBlackKingDown(int i, int j)
+        {
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search < 7 && contor < 2)
+            {
+                i_search++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i_search][j].getValue() == 0)
+                    pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+            }
+        }
+        public void draw_LegalMovesTraces(int i, int j)
+        {
+
+            if (pictureBoxButtons[i][j].getValue() % 2 == 0)
+            {
+                draw_redPieceTrace(i, j);
+                if (pictureBoxButtons[i][j].getValue() == 4)
+                {
+                    draw_LegalMovesRedKingLeft(i, j);
+                    draw_LegalMovesRedKingRight(i, j);
+                    draw_LegalMovesRedKingUp(i, j);
+                    draw_LegalMovesRedKingDown(i, j);
+                }
+            }
+            if (pictureBoxButtons[i][j].getValue() % 2 != 0)
+            {
+                draw_blackPieceTrace(i, j);
                 if (pictureBoxButtons[i][j].getValue() == 3)
                 {
-                    int i_search = i, j_search = j, contor = 0;
-                    while (j_search > 0 && contor < 2)
-                    {
-                        j_search--;
-                        if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                            contor++;
-                        if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                            contor = 2;
-                        if (pictureBoxButtons[i][j_search].getValue() == 0)
-                            pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
-                    }
-                    //rege negru-dreapta
-                    i_search = i; j_search = j; contor = 0;
-                    while (j_search < 7 && contor < 2)
-                    {
-                        j_search++;
-                        if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                            contor++;
-                        if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                            contor = 2;
-                        if (pictureBoxButtons[i][j_search].getValue() == 0)
-                            pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
-                    }
-                    //rege negru-sus
-                    i_search = i; j_search = j; contor = 0;
-                    while (i_search > 0 && contor < 2)
-                    {
-                        i_search--;
-                        if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                            contor++;
-                        if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                            contor = 2;
-                        if (pictureBoxButtons[i_search][j].getValue() == 0)
-                            pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
-
-                    }
-                    //rege negru-jos
-                    i_search = i; j_search = j; contor = 0;
-                    while (i_search < 7 && contor < 2)
-                    {
-                        i_search++;
-                        if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                            contor++;
-                        if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                            contor = 2;
-                        if (pictureBoxButtons[i_search][j].getValue() == 0)
-                            pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
-                    }
+                    draw_LegalMovesBlackKingLeft(i, j);
+                    draw_LegalMovesBlackKingRight(i, j);
+                    draw_LegalMovesBlackKingUp(i, j);
+                    draw_LegalMovesBlackKingDown(i, j);
                 }
             }
         }

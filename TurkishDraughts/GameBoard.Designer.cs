@@ -64,6 +64,7 @@
             MaximumSize = new Size(796, 832);
             MinimumSize = new Size(796, 832);
             Name = "GameBoard";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "GameBoard";
             ResumeLayout(false);
             PerformLayout();

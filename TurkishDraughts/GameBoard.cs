@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.PerformanceData;
 using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
@@ -50,19 +51,21 @@ namespace TurkishDraughts
                 }
             }
 
-            pictureBoxButtons[0][2].setValue(2);
-            pictureBoxButtons[2][3].setValue(2);
-            pictureBoxButtons[3][1].setValue(2);
-            pictureBoxButtons[1][0].setValue(2);
-            pictureBoxButtons[4][0].setValue(3);
-            pictureBoxButtons[7][7].setValue(2);
+            // pictureBoxButtons[0][2].setValue(1);
+            // pictureBoxButtons[2][3].setValue(1);
+            // pictureBoxButtons[3][1].setValue(1);
+            // pictureBoxButtons[1][0].setValue(1);
+            pictureBoxButtons[4][0].setValue(4);
+            // pictureBoxButtons[7][7].setValue(1);
+            pictureBoxButtons[3][0].setValue(3);
 
-            pictureBoxButtons[7][7].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            // pictureBoxButtons[7][7].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            // pictureBoxButtons[0][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            // pictureBoxButtons[2][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            // pictureBoxButtons[3][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            // pictureBoxButtons[1][0].getPictureBox().BackgroundImage = Resources.BlackPiece;
             pictureBoxButtons[4][0].getPictureBox().BackgroundImage = Resources.RedKing;
+            pictureBoxButtons[3][0].getPictureBox().BackgroundImage = Resources.BlackKing;
 
 
 
@@ -76,7 +79,7 @@ namespace TurkishDraughts
         }
         private void initStartState()
         {
-            specialProprieties = new SpecialProprieties(false, false, false, 0, 0,0,0);
+            specialProprieties = new SpecialProprieties(false, false, false, 0, 0, 0, 0);
         }
         private void remove_boardTraces()
         {
@@ -85,6 +88,46 @@ namespace TurkishDraughts
                 {
                     pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
                 }
+        }
+        private void block_pictureBox()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    pictureBoxButtons[i][j].getPictureBox().Enabled = false;
+                }
+            }
+            remove_boardTraces();
+        }
+        private bool check_gameOver(PlayerClass player1, PlayerClass player2)
+        {
+            int counterRed = 0, counterBlack = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (pictureBoxButtons[i][j].getValue() % 2 == 0 && pictureBoxButtons[i][j].getValue() != 0)
+                        counterRed++;
+                    if (pictureBoxButtons[i][j].getValue() % 2 != 0 && pictureBoxButtons[i][j].getValue() != 0)
+                        counterBlack++;
+                }
+            }
+            if (counterBlack == 0)
+            {
+                textBox1.Text = player1.getName();
+                MessageBox.Show(player1.getName() + " a castigat");
+                return true;
+            }
+            if (counterRed == 0)
+            {
+                textBox1.Text = player2.getName();
+                MessageBox.Show(player2.getName() + " a castigat");
+                return true;
+            }
+            return false;
+
+
         }
         public void swap_currentPlayerName()
         {
@@ -151,6 +194,14 @@ namespace TurkishDraughts
                     move_piece(i_initial, j_initial, i_final, j_final);
                 }
                 remove_boardTraces();
+            }
+            if (check_gameOver(player1, player2))
+            {
+                block_pictureBox();
+                remove_boardTraces();
+                currentPlayerTextBox.Text = "Final";
+                currentPlayerTextBox.ForeColor = Color.Blue;
+
             }
         }
         public void check_legalMoves(int i, int j)
@@ -620,9 +671,9 @@ namespace TurkishDraughts
                             else
                                 j_right = true;
 
-                        if(!j_left)
-                        if (check_multipleMovesRedKingLeft(i_initial,j_initial,i,j))
-                            draw_redKingLeftTrace(i, j);
+                        if (!j_left)
+                            if (check_multipleMovesRedKingLeft(i_initial, j_initial, i, j))
+                                draw_redKingLeftTrace(i, j);
                         if (!j_right)
                             if (check_multipleMovesRedKingRight(i_initial, j_initial, i, j))
                                 draw_redKingRightTrace(i, j);
@@ -785,8 +836,8 @@ namespace TurkishDraughts
             MaximizeBox = false;
             initPlayerNames();
             initStartState();
-            //initBtnTabla();
-            testTablA();
+            initBtnTabla();
+            //testTablA();
             InitializeComponent();
             currentPlayerTextBox.Text = currentPlayer.getName();
             currentPlayerTextBox.ForeColor = Color.Red;

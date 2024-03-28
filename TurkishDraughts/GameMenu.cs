@@ -6,6 +6,7 @@ namespace TurkishDraughts
         public GameMenu()
         {
             InitializeComponent();
+
             MaximizeBox = false;
         }
 
@@ -38,12 +39,12 @@ namespace TurkishDraughts
         private void buttonRules_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Regulile Jocului: \n " +
-                "*Tabla are 8x8 pozitii, piesele sunt asezate pe randurile 2,3 respectiv 6,7 \n"+
-                "*Piesele obisnuite pot muta o pozitie in fata sau lateral, dar nu in spate sau in diagonala \n"+
-                "*Piesele obisnuite pot captura (sari peste o piesa inamica) in fata sau lateral, dar nu in spate sau in diagonala \n"+
-                "*Daca o piesa ajunge pe randul final opus culorii lui, acesta se transforma in rege \n"+
-                "*Regele poate muta sau captura pe toata lungimea si latimea tablei,dar nu in diagonala \n"+
-                "*Daca orice piesa captureaza o piesa a inamicului si poate captura o alta succesiv, este oblicata sa o faca \n"+
+                "*Tabla are 8x8 pozitii, piesele sunt asezate pe randurile 2,3 respectiv 6,7 \n" +
+                "*Piesele obisnuite pot muta o pozitie in fata sau lateral, dar nu in spate sau in diagonala \n" +
+                "*Piesele obisnuite pot captura (sari peste o piesa inamica) in fata sau lateral, dar nu in spate sau in diagonala \n" +
+                "*Daca o piesa ajunge pe randul final opus culorii lui, acesta se transforma in rege \n" +
+                "*Regele poate muta sau captura pe toata lungimea si latimea tablei,dar nu in diagonala \n" +
+                "*Daca orice piesa captureaza o piesa a inamicului si poate captura o alta succesiv, este oblicata sa o faca \n" +
                 ""
                 );
         }

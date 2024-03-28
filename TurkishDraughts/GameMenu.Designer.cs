@@ -93,6 +93,7 @@
             Controls.Add(button1);
             Controls.Add(textBox1);
             Name = "GameMenu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             ResumeLayout(false);
             PerformLayout();

@@ -29,27 +29,51 @@
         private void InitializeComponent()
         {
             currentPlayerTextBox = new TextBox();
-            textBox1 = new TextBox();
+            player1TextBox = new TextBox();
+            player2TextBox = new TextBox();
             SuspendLayout();
             // 
             // currentPlayerTextBox
             // 
-            currentPlayerTextBox.Location = new Point(668, 324);
+            currentPlayerTextBox.BackColor = Color.PeachPuff;
+            currentPlayerTextBox.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            currentPlayerTextBox.Location = new Point(663, 341);
+            currentPlayerTextBox.Multiline = true;
             currentPlayerTextBox.Name = "currentPlayerTextBox";
-            currentPlayerTextBox.Size = new Size(100, 23);
+            currentPlayerTextBox.Size = new Size(110, 87);
             currentPlayerTextBox.TabIndex = 0;
             currentPlayerTextBox.TabStop = false;
             currentPlayerTextBox.Text = "Text";
             currentPlayerTextBox.TextAlign = HorizontalAlignment.Center;
             // 
-            // textBox1
+            // player1TextBox
             // 
-            textBox1.Location = new Point(668, 458);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 1;
-            textBox1.TabStop = false;
-            textBox1.TextAlign = HorizontalAlignment.Center;
+            player1TextBox.BackColor = Color.DarkGoldenrod;
+            player1TextBox.BorderStyle = BorderStyle.None;
+            player1TextBox.Font = new Font("Segoe UI", 23F, FontStyle.Regular, GraphicsUnit.Point);
+            player1TextBox.ForeColor = Color.Black;
+            player1TextBox.Location = new Point(26, 726);
+            player1TextBox.Name = "player1TextBox";
+            player1TextBox.Size = new Size(628, 41);
+            player1TextBox.TabIndex = 0;
+            player1TextBox.TabStop = false;
+            player1TextBox.Text = "00";
+            player1TextBox.TextAlign = HorizontalAlignment.Center;
+            player1TextBox.TextChanged += player1TextBox_TextChanged;
+            // 
+            // player2TextBox
+            // 
+            player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
+            player2TextBox.BorderStyle = BorderStyle.None;
+            player2TextBox.Font = new Font("Segoe UI", 23F, FontStyle.Regular, GraphicsUnit.Point);
+            player2TextBox.ForeColor = Color.Black;
+            player2TextBox.Location = new Point(26, 12);
+            player2TextBox.Name = "player2TextBox";
+            player2TextBox.Size = new Size(628, 41);
+            player2TextBox.TabIndex = 0;
+            player2TextBox.TabStop = false;
+            player2TextBox.Text = "00";
+            player2TextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // GameBoard
             // 
@@ -58,9 +82,11 @@
             BackgroundImage = Properties.Resources.Board;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(780, 793);
-            Controls.Add(textBox1);
+            Controls.Add(player2TextBox);
+            Controls.Add(player1TextBox);
             Controls.Add(currentPlayerTextBox);
             DoubleBuffered = true;
+            ForeColor = Color.Black;
             MaximumSize = new Size(796, 832);
             MinimumSize = new Size(796, 832);
             Name = "GameBoard";
@@ -73,6 +99,7 @@
         #endregion
 
         private TextBox currentPlayerTextBox;
-        private TextBox textBox1;
+        private TextBox player1TextBox;
+        private TextBox player2TextBox;
     }
 }

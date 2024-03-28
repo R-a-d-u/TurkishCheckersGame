@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics.PerformanceData;
-using TurkishDraughts.Properties;
+﻿using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
 {
@@ -73,9 +71,15 @@ namespace TurkishDraughts
         }
         private void initPlayerNames()
         {
-            player1 = new PlayerClass("Rosu");
-            player2 = new PlayerClass("Negru");
+            player1 = new PlayerClass("Marinel Marian");
+            player1TextBox.Text = player1.getName();
+            player2 = new PlayerClass("Radu cel mare");
+            player2TextBox.Text = player2.getName();
             currentPlayer = player1;
+            currentPlayerTextBox.Text = "Rosu muta";
+            player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
+            player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
+
         }
         private void initStartState()
         {
@@ -113,33 +117,48 @@ namespace TurkishDraughts
                         counterBlack++;
                 }
             }
-            if (counterBlack == 0)
+            if (counterBlack == 0 || counterRed == 0)
             {
-                textBox1.Text = player1.getName();
-                MessageBox.Show(player1.getName() + " a castigat");
-                return true;
-            }
-            if (counterRed == 0)
-            {
-                textBox1.Text = player2.getName();
-                MessageBox.Show(player2.getName() + " a castigat");
+                if (counterBlack == 0)
+                {
+                    player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                    player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                    currentPlayerTextBox.Text = "Final";
+                    currentPlayerTextBox.ForeColor = Color.Blue;
+                    MessageBox.Show(player1.getName() + " a castigat");
+                }
+                if (counterRed == 0)
+                {
+                    player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                    player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                    currentPlayerTextBox.Text = "Final";
+                    currentPlayerTextBox.ForeColor = Color.Blue;
+                    MessageBox.Show(player2.getName() + " a castigat");
+                }
                 return true;
             }
             return false;
-
-
         }
         public void swap_currentPlayerName()
         {
             if (specialProprieties.getPlayerTurn() == false)
             {
-                currentPlayerTextBox.Text = player1.getName();
+                currentPlayerTextBox.Text = "Rosu muta";
                 currentPlayerTextBox.ForeColor = Color.Red;
+                player1TextBox.BackColor = Color.DarkGoldenrod;
+
+                player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
+
             }
             else
             {
-                currentPlayerTextBox.Text = player2.getName();
+                currentPlayerTextBox.Text = "Negru muta";
                 currentPlayerTextBox.ForeColor = Color.Black;
+                player2TextBox.BackColor = Color.DarkGoldenrod;
+                player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                player1TextBox.ForeColor = Color.FromArgb(49, 46, 43);
+
             }
         }
         public void swap_currentPlayerTurn(bool turn)
@@ -199,9 +218,6 @@ namespace TurkishDraughts
             {
                 block_pictureBox();
                 remove_boardTraces();
-                currentPlayerTextBox.Text = "Final";
-                currentPlayerTextBox.ForeColor = Color.Blue;
-
             }
         }
         public void check_legalMoves(int i, int j)
@@ -834,13 +850,19 @@ namespace TurkishDraughts
         public GameBoard()
         {
             MaximizeBox = false;
-            initPlayerNames();
+
             initStartState();
             initBtnTabla();
             //testTablA();
             InitializeComponent();
-            currentPlayerTextBox.Text = currentPlayer.getName();
+            initPlayerNames();
+            currentPlayerTextBox.Text = "Rosu muta";
             currentPlayerTextBox.ForeColor = Color.Red;
+
+        }
+
+        private void player1TextBox_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

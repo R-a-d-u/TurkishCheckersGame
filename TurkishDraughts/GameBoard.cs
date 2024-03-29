@@ -71,6 +71,10 @@ namespace TurkishDraughts
         }
         private void initPlayerNames(String name1,String name2)
         {
+            if (name1 == "")
+                name1 = "Rosu";
+            if (name2 == "")
+                name2 = "Negru";
             player1 = new PlayerClass(name1);
             player1TextBox.Text = player1.getName();
             player2 = new PlayerClass(name2);
@@ -123,7 +127,7 @@ namespace TurkishDraughts
                 {
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
-                    currentPlayerTextBox.Text = "Final";
+                    currentPlayerTextBox.Text = "Jocul s-a incheiat";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     MessageBox.Show(player1.getName() + " a castigat");
                 }
@@ -131,7 +135,7 @@ namespace TurkishDraughts
                 {
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
-                    currentPlayerTextBox.Text = "Final";
+                    currentPlayerTextBox.Text = "Jocul s-a incheiat";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     MessageBox.Show(player2.getName() + " a castigat");
                 }
@@ -852,8 +856,8 @@ namespace TurkishDraughts
             MaximizeBox = false;
 
             initStartState();
-            initBtnTabla();
-            //testTablA();
+            //initBtnTabla();
+            testTablA();
             InitializeComponent();
             initPlayerNames(player1,player2);
             currentPlayerTextBox.Text = "Rosu muta";

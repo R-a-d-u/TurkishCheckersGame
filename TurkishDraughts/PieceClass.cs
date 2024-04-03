@@ -17,19 +17,24 @@ namespace TurkishDraughts
         private int i, j, value;
         public PictureBox pictureBoxButtons;
         protected GameBoard gameBoard;
+        protected GameBoardNetwork gameBoardNetwork;
 
         private void pictureBox_click(object sender, EventArgs e)
         {
-            gameBoard.pictureBox_click(sender);
+           if(gameBoard!=null)
+                gameBoard.pictureBox_click(sender);
+           if(gameBoardNetwork!=null)
+                gameBoardNetwork.pictureBox_click(sender);
         }
         //value=0 spatiu gol
         //value=1 piesa neagra
         //value=2 piesa rosie
         //value=3 rege negru
         //value=4 rege rosu
-        public PieceClass(int i, int j, int value, GameBoard gameBoard)
+        public PieceClass(int i, int j, int value, GameBoard gameBoard, GameBoardNetwork gameBoardNetwork)
         {
             this.gameBoard = gameBoard;
+            this.gameBoardNetwork = gameBoardNetwork;
             this.i = i;
             this.j = j;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameBoard));
@@ -63,6 +68,7 @@ namespace TurkishDraughts
 
             };
             pictureBoxButtons.Click += new System.EventHandler(this.pictureBox_click); //atribuie functia generala de click de piesa locatiei curente
+            
         }
         public PictureBox getPictureBox()
         {

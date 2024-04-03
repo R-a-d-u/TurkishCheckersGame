@@ -28,7 +28,76 @@
         /// </summary>
         private void InitializeComponent()
         {
+            serverStartButton = new Button();
+            clientButton = new Button();
+            clientIPTextBox = new TextBox();
+            currentPlayerTextBox = new TextBox();
+            player2TextBox = new TextBox();
+            player1TextBox = new TextBox();
             SuspendLayout();
+            // 
+            // serverStartButton
+            // 
+            serverStartButton.Location = new Point(675, 98);
+            serverStartButton.Name = "serverStartButton";
+            serverStartButton.Size = new Size(75, 23);
+            serverStartButton.TabIndex = 0;
+            serverStartButton.Text = "Start Server";
+            serverStartButton.UseVisualStyleBackColor = true;
+            serverStartButton.Click += serverStartButton_Click;
+            // 
+            // clientButton
+            // 
+            clientButton.Location = new Point(662, 210);
+            clientButton.Name = "clientButton";
+            clientButton.Size = new Size(106, 23);
+            clientButton.TabIndex = 1;
+            clientButton.Text = "Connect to Host";
+            clientButton.UseVisualStyleBackColor = true;
+            clientButton.Click += clientButton_Click;
+            // 
+            // clientIPTextBox
+            // 
+            clientIPTextBox.Location = new Point(662, 150);
+            clientIPTextBox.Name = "clientIPTextBox";
+            clientIPTextBox.Size = new Size(100, 23);
+            clientIPTextBox.TabIndex = 2;
+            // 
+            // currentPlayerTextBox
+            // 
+            currentPlayerTextBox.BackColor = Color.PeachPuff;
+            currentPlayerTextBox.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            currentPlayerTextBox.Location = new Point(668, 338);
+            currentPlayerTextBox.Multiline = true;
+            currentPlayerTextBox.Name = "currentPlayerTextBox";
+            currentPlayerTextBox.Size = new Size(100, 71);
+            currentPlayerTextBox.TabIndex = 3;
+            currentPlayerTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // player2TextBox
+            // 
+            player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
+            player2TextBox.BorderStyle = BorderStyle.None;
+            player2TextBox.Font = new Font("Segoe UI", 19F, FontStyle.Regular, GraphicsUnit.Point);
+            player2TextBox.Location = new Point(25, 12);
+            player2TextBox.Name = "player2TextBox";
+            player2TextBox.Size = new Size(635, 34);
+            player2TextBox.TabIndex = 4;
+            player2TextBox.Text = "00";
+            player2TextBox.TextAlign = HorizontalAlignment.Center;
+            player2TextBox.TextChanged += player2TextBox_TextChanged;
+            // 
+            // player1TextBox
+            // 
+            player1TextBox.BackColor = Color.DarkGoldenrod;
+            player1TextBox.BorderStyle = BorderStyle.None;
+            player1TextBox.Font = new Font("Segoe UI", 19F, FontStyle.Regular, GraphicsUnit.Point);
+            player1TextBox.Location = new Point(25, 726);
+            player1TextBox.Name = "player1TextBox";
+            player1TextBox.Size = new Size(635, 34);
+            player1TextBox.TabIndex = 5;
+            player1TextBox.Text = "00";
+            player1TextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // GameBoardNetwork
             // 
@@ -37,14 +106,28 @@
             BackgroundImage = Properties.Resources.Board;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(780, 793);
+            Controls.Add(player1TextBox);
+            Controls.Add(player2TextBox);
+            Controls.Add(currentPlayerTextBox);
+            Controls.Add(clientIPTextBox);
+            Controls.Add(clientButton);
+            Controls.Add(serverStartButton);
             DoubleBuffered = true;
             MaximumSize = new Size(796, 832);
             MinimumSize = new Size(796, 832);
             Name = "GameBoardNetwork";
             Text = "GameBoardNetwork";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Button serverStartButton;
+        private Button clientButton;
+        private TextBox clientIPTextBox;
+        private TextBox currentPlayerTextBox;
+        private TextBox player2TextBox;
+        private TextBox player1TextBox;
     }
 }

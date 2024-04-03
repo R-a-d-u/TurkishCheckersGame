@@ -78,12 +78,10 @@ namespace TurkishDraughts
             }
             if (isopen == false)
             {
-                //String name1, name2;
-                //name1 = playerNetworkTextBox.Text;
-                //name2 = null;
-                GameBoardNetwork gameBoardNetwork = new GameBoardNetwork();
-                //gameBoardNetwork.Text=gameBoardNetwork.Name.ToString();
-                //GameBoard gameBoard = new GameBoard(name1, name2);
+                String name1, name2;
+                name1 = player1LocalTextBox.Text;
+                name2 = player2LocalTextBox.Text;
+                GameBoardNetwork gameBoardNetwork = new GameBoardNetwork(name1,name2);
                 gameBoardNetwork.Show();
                 
             }

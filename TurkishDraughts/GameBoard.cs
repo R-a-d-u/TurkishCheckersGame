@@ -10,7 +10,19 @@ namespace TurkishDraughts
         SpecialProprieties specialProprieties;
         private int contor;
         private int i_firstMove, j_firstMove;
+        public GameBoard(String player1, String player2)
+        {
+            MaximizeBox = false;
 
+            initStartState();
+            initBtnTabla();
+            //testTablA();
+            InitializeComponent();
+            initPlayerNames(player1, player2);
+            currentPlayerTextBox.Text = "Rosu muta";
+            currentPlayerTextBox.ForeColor = Color.Red;
+
+        }
 
         private void initBtnTabla()
         {
@@ -24,7 +36,7 @@ namespace TurkishDraughts
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    pictureBoxButtons[i][j] = new PieceClass(i, j, value, this);
+                    pictureBoxButtons[i][j] = new PieceClass(i, j, value, this,null);
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
@@ -42,7 +54,7 @@ namespace TurkishDraughts
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    pictureBoxButtons[i][j] = new PieceClass(i, j, value, this);
+                    pictureBoxButtons[i][j] = new PieceClass(i, j, value, this, null);
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                     pictureBoxButtons[i][j].setValue(0);
                     pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
@@ -851,19 +863,7 @@ namespace TurkishDraughts
 
         }
 
-        public GameBoard(String player1, String player2)
-        {
-            MaximizeBox = false;
-
-            initStartState();
-            initBtnTabla();
-            //testTablA();
-            InitializeComponent();
-            initPlayerNames(player1, player2);
-            currentPlayerTextBox.Text = "Rosu muta";
-            currentPlayerTextBox.ForeColor = Color.Red;
-
-        }
+        
 
         private void player1TextBox_TextChanged(object sender, EventArgs e)
         {

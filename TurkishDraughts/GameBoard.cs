@@ -69,7 +69,7 @@ namespace TurkishDraughts
 
 
         }
-        private void initPlayerNames(String name1,String name2)
+        private void initPlayerNames(String name1, String name2)
         {
             if (name1 == "")
                 name1 = "Rosu";
@@ -851,15 +851,15 @@ namespace TurkishDraughts
 
         }
 
-        public GameBoard(String player1,String player2)
+        public GameBoard(String player1, String player2)
         {
             MaximizeBox = false;
 
             initStartState();
-            //initBtnTabla();
-            testTablA();
+            initBtnTabla();
+            //testTablA();
             InitializeComponent();
-            initPlayerNames(player1,player2);
+            initPlayerNames(player1, player2);
             currentPlayerTextBox.Text = "Rosu muta";
             currentPlayerTextBox.ForeColor = Color.Red;
 

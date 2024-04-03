@@ -17,27 +17,15 @@ namespace TurkishDraughts
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool isopen = false;
-            foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
-            {
-                if (f.Name == "GameBoard")
-                {
-                    isopen = true;
-                    f.BringToFront();//se selecteaza ultimul forms deschis ca principal
-                    break;
-                }
-            }
-            if (isopen == false)
-            {
-                String name1, name2;
-                name1 = player1LocalTextBox.Text;
-                name2 = player2LocalTextBox.Text;
-                GameBoard gameBoard = new GameBoard(name1,name2);
-                gameBoard.Show();
 
-                this.textBox1.ForeColor = Color.Red;
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
 
-            }
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void buttonRules_Click(object sender, EventArgs e)
@@ -51,6 +39,59 @@ namespace TurkishDraughts
                 "*Daca orice piesa captureaza o piesa a inamicului si poate captura o alta succesiv, este oblicata sa o faca \n" +
                 ""
                 );
+        }
+
+        private void startGameLocalButton_Click(object sender, EventArgs e)
+        {
+            bool isopen = false;
+            foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
+            {
+                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork")
+                {
+                    isopen = true;
+                    f.BringToFront();//se selecteaza ultimul forms deschis ca principal
+                    break;
+                }
+            }
+            if (isopen == false)
+            {
+                String name1, name2;
+                name1 = player1LocalTextBox.Text;
+                name2 = player2LocalTextBox.Text;
+                GameBoard gameBoard = new GameBoard(name1, name2);
+                gameBoard.Show();
+            }
+        }
+
+        private void startGame2Button_Click(object sender, EventArgs e)
+        {
+            
+            bool isopen = false;
+            foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
+            {
+                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork")
+                {
+                    isopen = true;
+                    f.BringToFront();//se selecteaza ultimul forms deschis ca principal
+                    break;
+                }
+            }
+            if (isopen == false)
+            {
+                //String name1, name2;
+                //name1 = playerNetworkTextBox.Text;
+                //name2 = null;
+                GameBoardNetwork gameBoardNetwork = new GameBoardNetwork();
+                //gameBoardNetwork.Text=gameBoardNetwork.Name.ToString();
+                //GameBoard gameBoard = new GameBoard(name1, name2);
+                gameBoardNetwork.Show();
+                
+            }
+        }
+
+        private void startGame3Button_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

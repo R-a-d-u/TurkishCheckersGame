@@ -19,12 +19,12 @@ namespace TurkishDraughts
         protected GameBoard gameBoard;
         protected GameBoardNetwork gameBoardNetwork;
 
-        private void pictureBox_click(object sender, EventArgs e)
+        private void pictureBoxClick(object sender, EventArgs e)
         {
            if(gameBoard!=null)
-                gameBoard.pictureBox_click(sender);
+                gameBoard.pictureBoxClick(sender);
            if(gameBoardNetwork!=null)
-                gameBoardNetwork.pictureBox_click(sender);
+                gameBoardNetwork.pictureBoxClick(sender);
         }
         //value=0 spatiu gol
         //value=1 piesa neagra
@@ -67,7 +67,7 @@ namespace TurkishDraughts
                 TabStop = false,
 
             };
-            pictureBoxButtons.Click += new System.EventHandler(this.pictureBox_click); //atribuie functia generala de click de piesa locatiei curente
+            pictureBoxButtons.Click += new System.EventHandler(this.pictureBoxClick); //atribuie functia generala de click de piesa locatiei curente
             
         }
         public PictureBox getPictureBox()

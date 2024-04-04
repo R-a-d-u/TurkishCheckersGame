@@ -62,6 +62,7 @@
             clientIPTextBox.Name = "clientIPTextBox";
             clientIPTextBox.Size = new Size(100, 23);
             clientIPTextBox.TabIndex = 2;
+            clientIPTextBox.Text = "127.0.0.1";
             // 
             // currentPlayerTextBox
             // 

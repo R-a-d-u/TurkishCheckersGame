@@ -34,6 +34,9 @@
             currentPlayerTextBox = new TextBox();
             player2TextBox = new TextBox();
             player1TextBox = new TextBox();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            button1 = new Button();
             SuspendLayout();
             // 
             // serverStartButton
@@ -100,6 +103,30 @@
             player1TextBox.Text = "00";
             player1TextBox.TextAlign = HorizontalAlignment.Center;
             // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(662, 522);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(109, 23);
+            textBox1.TabIndex = 6;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(662, 671);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(109, 23);
+            textBox2.TabIndex = 7;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(662, 493);
+            button1.Name = "button1";
+            button1.Size = new Size(109, 23);
+            button1.TabIndex = 8;
+            button1.Text = "Timite Mesaj";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // GameBoardNetwork
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -107,6 +134,9 @@
             BackgroundImage = Properties.Resources.Board;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(780, 793);
+            Controls.Add(button1);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
             Controls.Add(player1TextBox);
             Controls.Add(player2TextBox);
             Controls.Add(currentPlayerTextBox);
@@ -130,5 +160,8 @@
         private TextBox currentPlayerTextBox;
         private TextBox player2TextBox;
         private TextBox player1TextBox;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private Button button1;
     }
 }

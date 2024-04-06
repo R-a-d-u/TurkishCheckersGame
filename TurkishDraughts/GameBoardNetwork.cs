@@ -1,5 +1,8 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
@@ -55,14 +58,17 @@ namespace TurkishDraughts
                 client = server.EndAcceptTcpClient(result);
                 MessageBox.Show("Client connected.");
 
-                
-               // recivePictureBoxes();
+
+                // ReceiveMessages();
+                ReceiveData();
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
+
 
         private void clientButton_Click(object sender, EventArgs e)
         {
@@ -71,7 +77,9 @@ namespace TurkishDraughts
                 client = new TcpClient();
                 client.Connect(clientIPTextBox.Text, ServerPort);
                 MessageBox.Show("Connected to the server.");
-                //recivePictureBoxes();
+                // ReceiveMessages();
+                ReceiveData();
+
             }
             catch (Exception ex)
             {
@@ -83,14 +91,64 @@ namespace TurkishDraughts
         {
             StartServer();
         }
-        private void sendPictureBoxes(string message)
+
+        private void ReceiveData()
         {
-         
+            ThreadPool.QueueUserWorkItem(state =>
+            {
+                try
+                {
+                    while (true)
+                    {
+                        NetworkStream stream = client.GetStream();
+                        byte[] data = new byte[1024];
+                        int bytesRead = stream.Read(data, 0, data.Length);
+                        string message = Encoding.ASCII.GetString(data, 0, bytesRead);
+
+                        // Update textBox2 in a thread-safe manner
+                        DisplayReceivedMessage(message);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+            });
         }
-        private void recivePictureBoxes()
+        private void button1_Click(object sender, EventArgs e)
         {
-       
+            try
+            {
+                if (client == null || !client.Connected)
+                {
+                    MessageBox.Show("Not connected to the server.");
+                    return;
+                }
+
+                NetworkStream stream = client.GetStream();
+                byte[] data = Encoding.ASCII.GetBytes(textBox1.Text);
+                stream.Write(data, 0, data.Length);
+                MessageBox.Show("Message sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
+
+        private void DisplayReceivedMessage(string message)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke((Action)(() => DisplayReceivedMessage(message)));
+                return;
+            }
+
+            textBox2.Text = message.ToString();
+        }
+
+
 
 
 
@@ -119,7 +177,8 @@ namespace TurkishDraughts
                 }
             }
 
-        } 
+
+        }
         private void initPlayerNames(String name1, String name2)
         {
             if (name1 == "")
@@ -262,17 +321,58 @@ namespace TurkishDraughts
                     )
                 {
                     resetPictureboxPressed(i_initial, j_initial, i_final, j_final);
+                    removeBoardTraces();
                 }
                 else
                 {
                     movePiece(i_initial, j_initial, i_final, j_final);
+                    removeBoardTraces();
+
+                    //aici transmiti in retea matricea de pictureboxuri
+
+
                 }
-                removeBoardTraces();
             }
             if (checkGameOver(player1, player2))
             {
                 blockPictureBox();
                 removeBoardTraces();
+            }
+        }
+        public void SendPictureBoxMatrix()
+        {
+            if (client != null && client.Connected)
+            {
+                NetworkStream stream = client.GetStream();
+
+                // Serialize the matrix into a string representation
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < 7; i++)
+                {
+                    for (int j = 0; j < 7; j++)
+                    {
+                        sb.Append($"{pictureBoxButtons[i][j].getValue()},");
+                    }
+                }
+
+                // Convert the string to byte array and send it over the network
+                //byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
+                //stream.Write(data, 0, data.Length);
+
+                //textBox1.Text = "ggata";
+
+                StringBuilder sb_1 = new StringBuilder();
+
+                Random random = new Random();
+                int randomNumber = random.Next(100);
+                string stringValue = "" + randomNumber;
+                sb_1.Append(stringValue);
+                byte[] data = Encoding.ASCII.GetBytes(sb_1.ToString());
+
+                stream.Write(data, 0, data.Length);
+                //textBox1.Text = "" + sb_1.ToString();
+
+
             }
         }
         public void checkLegalMoves(int i, int j)
@@ -847,6 +947,8 @@ namespace TurkishDraughts
                     swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                     swapCurrentPlayerName();
                     specialProprieties.setMultipleMoves(false);
+                    //aici pui functia in care transmiti ca s-a schimbat randul jucatorului
+                    //aici pui functia in care transmiti ca s-a schimbat numele jucatorului
                 }
                 else
                 {
@@ -855,7 +957,6 @@ namespace TurkishDraughts
                     specialProprieties.setLastMultipleMoveJ(j_initial);
                     specialProprieties.setCurrentMultipleMoveI(i_final);
                     specialProprieties.setCurrentMultipleMoveJ(j_final);
-                    //daca piesa ajunge la final si inca mai poate sari peste alta piesa, sare pestea ea apoi devine rege
                 }
             }
             else
@@ -863,6 +964,8 @@ namespace TurkishDraughts
                 checkIfPieceIsKing(i_final, j_final);
                 swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                 swapCurrentPlayerName();
+                //aici pui functia in care transmiti ca s-a schimbat randul jucatorului
+                //aici pui functia in care transmiti ca s-a schimbat numele jucatorului
             }
         }
         public bool checkIfPieceIsKing(int i, int j)
@@ -890,6 +993,7 @@ namespace TurkishDraughts
                 {
                     if (sender == pictureBoxButtons[i][j].getPictureBox())
                     {
+
                         if (specialProprieties.getPressed() == false)
                             checkInitialMove(i, j);
                         else
@@ -901,6 +1005,8 @@ namespace TurkishDraughts
             }
 
         }
+
+
     }
 
 }

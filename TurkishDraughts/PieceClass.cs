@@ -9,15 +9,17 @@ using System.Drawing;
 using System.Xml.Serialization;
 using System.Threading.Tasks.Sources;
 using System.CodeDom;
+using System.Runtime.Serialization;
 
 namespace TurkishDraughts
 {
-    internal class PieceClass
+    [Serializable]
+    internal class PieceClass : ISerializable
     {
         private int i, j, value;
-        public PictureBox pictureBoxButtons;
-        protected GameBoard gameBoard;
-        protected GameBoardNetwork gameBoardNetwork;
+        private PictureBox? pictureBoxButtons;
+        private GameBoard? gameBoard;
+        private GameBoardNetwork? gameBoardNetwork;
 
         private void pictureBoxClick(object sender, EventArgs e)
         {
@@ -37,6 +39,7 @@ namespace TurkishDraughts
             this.gameBoardNetwork = gameBoardNetwork;
             this.i = i;
             this.j = j;
+
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameBoard));
             Image tempRes = ((System.Drawing.Image)(resources.GetObject("EmptySquare"))); //imagine default
             if (i == 1 || i == 2)
@@ -69,6 +72,23 @@ namespace TurkishDraughts
             };
             pictureBoxButtons.Click += new System.EventHandler(this.pictureBoxClick); //atribuie functia generala de click de piesa locatiei curente
             
+        }
+        
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            // Serialize necessary data
+            info.AddValue("i", this.i);
+            info.AddValue("j", this.j);
+            info.AddValue("value", this.value);
+            // Serialize other properties as needed
+        }
+        public PieceClass(SerializationInfo info, StreamingContext context)
+        {
+            // Deserialize data
+            this.i = (int)info.GetValue("i", typeof(int));
+            this.j = (int)info.GetValue("j", typeof(int));
+            this.value = (int)info.GetValue("value", typeof(int));
+            // Deserialize other properties as needed
         }
         public PictureBox getPictureBox()
         {

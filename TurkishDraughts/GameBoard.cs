@@ -189,6 +189,7 @@ namespace TurkishDraughts
                     )
                 {
                     resetPictureboxPressed(i_initial, j_initial, i_final, j_final);
+                    removeBoardTraces();
                 }
                 else
                 {

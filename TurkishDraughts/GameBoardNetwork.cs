@@ -16,6 +16,8 @@ namespace TurkishDraughts
         private const int ServerPort = 8888; // Port to communicate
         private TcpClient client;
         private TcpListener server;
+        PieceClass[][] pictureBoxButtonsMatrix;
+
         public GameBoardNetwork(String player1, String player2)
         {
 
@@ -60,6 +62,7 @@ namespace TurkishDraughts
 
 
                 // ReceiveMessages();
+                //processReceivedMatrix(sendMatrixToClient());
                 ReceiveData();
 
             }
@@ -78,6 +81,7 @@ namespace TurkishDraughts
                 client.Connect(clientIPTextBox.Text, ServerPort);
                 MessageBox.Show("Connected to the server.");
                 // ReceiveMessages();
+               //processReceivedMatrix(sendMatrixToClient());
                 ReceiveData();
 
             }
@@ -106,7 +110,10 @@ namespace TurkishDraughts
                         string message = Encoding.ASCII.GetString(data, 0, bytesRead);
 
                         // Update textBox2 in a thread-safe manner
+                        UpdatePictureBoxes(message);
                         DisplayReceivedMessage(message);
+                        //processReceivedMatrix(sendMatrixToClient());
+                        
 
                     }
                 }
@@ -148,6 +155,31 @@ namespace TurkishDraughts
             textBox2.Text = message.ToString();
         }
 
+        private void UpdatePictureBoxes(string message)
+        {
+            // Split the received message to extract index and value
+            string[] parts = message.Split(',');
+            if (parts.Length == 3 && int.TryParse(parts[0], out int i)&& int.TryParse(parts[1], out int j) && int.TryParse(parts[2], out int value))
+            {
+                // Update the picture box on the other side based on the received index and value
+                pictureBoxButtons[i][j].setValue(value);
+                changeImageFromValue(i, j, value);
+            }
+        }
+        private void changeImageFromValue(int i,int j,int value)
+        {
+            if (value == 0)
+                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+            if (value == 1)
+                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            if (value == 2)
+                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = Resources.RedPiece;
+            if(value == 3)
+                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = Resources.BlackKing;
+            if(value == 4)
+                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = Resources.RedKing;
+
+        }
 
 
 
@@ -936,6 +968,16 @@ namespace TurkishDraughts
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
             specialProprieties.setPressed(false);
+           
+            //
+            int newValue = pictureBoxButtons[i_initial][j_initial].getValue();
+            if (client != null && client.Connected)
+            {
+                NetworkStream stream = client.GetStream();
+                byte[] data = Encoding.ASCII.GetBytes($"{i_final},{j_final},{newValue}");
+                stream.Write(data, 0, data.Length);
+            }
+            //
             swapImage(i_initial, j_initial, i_final, j_final);
             swapValue(i_initial, j_initial, i_final, j_final);
             if (removeCapturedPieces(i_initial, j_initial, i_final, j_final))
@@ -999,10 +1041,12 @@ namespace TurkishDraughts
                         else
                         {
                             checkFinalMove(i_firstMove, j_firstMove, i, j);
+                            
                         }
                     }
                 }
             }
+            
 
         }
 

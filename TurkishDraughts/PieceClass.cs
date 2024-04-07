@@ -13,8 +13,8 @@ using System.Runtime.Serialization;
 
 namespace TurkishDraughts
 {
-    [Serializable]
-    internal class PieceClass : ISerializable
+    
+    internal class PieceClass 
     {
         private int i, j, value;
         private PictureBox? pictureBoxButtons;
@@ -74,22 +74,6 @@ namespace TurkishDraughts
             
         }
         
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            // Serialize necessary data
-            info.AddValue("i", this.i);
-            info.AddValue("j", this.j);
-            info.AddValue("value", this.value);
-            // Serialize other properties as needed
-        }
-        public PieceClass(SerializationInfo info, StreamingContext context)
-        {
-            // Deserialize data
-            this.i = (int)info.GetValue("i", typeof(int));
-            this.j = (int)info.GetValue("j", typeof(int));
-            this.value = (int)info.GetValue("value", typeof(int));
-            // Deserialize other properties as needed
-        }
         public PictureBox getPictureBox()
         {
             return pictureBoxButtons;

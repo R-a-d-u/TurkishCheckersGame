@@ -227,12 +227,12 @@ namespace TurkishDraughts
             {
                 if (isServer && specialProprieties.getPlayerTurn() == true)
                 {
-                    clientIPTextBox.ForeColor = Color.Blue;
+                    clientIPTextBox.ForeColor = Color.Black;
                     blockPictureBoxes();
                 }
                 if (!isServer && specialProprieties.getPlayerTurn() == false)
                 {
-                    clientIPTextBox.ForeColor = Color.Blue;
+                    clientIPTextBox.ForeColor = Color.Black;
                     blockPictureBoxes();
                 }
             }

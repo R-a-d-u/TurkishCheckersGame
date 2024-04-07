@@ -79,9 +79,8 @@ namespace TurkishDraughts
             if (isopen == false)
             {
                 String name1, name2;
-                name1 = player1LocalTextBox.Text;
-                name2 = player2LocalTextBox.Text;
-                GameBoardNetwork gameBoardNetwork = new GameBoardNetwork(name1,name2);
+                name1 = playerNetworkTextBox.Text;
+                GameBoardNetwork gameBoardNetwork = new GameBoardNetwork(name1,"");
                 gameBoardNetwork.Show();
                 
             }

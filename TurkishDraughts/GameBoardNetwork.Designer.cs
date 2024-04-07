@@ -41,41 +41,46 @@
             // 
             // serverStartButton
             // 
-            serverStartButton.Location = new Point(675, 98);
+            serverStartButton.Location = new Point(662, 80);
             serverStartButton.Name = "serverStartButton";
-            serverStartButton.Size = new Size(75, 23);
+            serverStartButton.Size = new Size(109, 23);
             serverStartButton.TabIndex = 0;
+            serverStartButton.TabStop = false;
             serverStartButton.Text = "Start Server";
             serverStartButton.UseVisualStyleBackColor = true;
             serverStartButton.Click += serverStartButton_Click;
             // 
             // clientButton
             // 
-            clientButton.Location = new Point(662, 210);
+            clientButton.Location = new Point(662, 109);
             clientButton.Name = "clientButton";
-            clientButton.Size = new Size(106, 23);
+            clientButton.Size = new Size(109, 23);
             clientButton.TabIndex = 1;
+            clientButton.TabStop = false;
             clientButton.Text = "Connect to Host";
             clientButton.UseVisualStyleBackColor = true;
             clientButton.Click += clientButton_Click;
             // 
             // clientIPTextBox
             // 
-            clientIPTextBox.Location = new Point(662, 150);
+            clientIPTextBox.Location = new Point(662, 138);
             clientIPTextBox.Name = "clientIPTextBox";
-            clientIPTextBox.Size = new Size(100, 23);
+            clientIPTextBox.Size = new Size(109, 23);
             clientIPTextBox.TabIndex = 2;
+            clientIPTextBox.TabStop = false;
             clientIPTextBox.Text = "127.0.0.1";
+            clientIPTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // currentPlayerTextBox
             // 
             currentPlayerTextBox.BackColor = Color.PeachPuff;
             currentPlayerTextBox.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            currentPlayerTextBox.Location = new Point(668, 338);
+            currentPlayerTextBox.Location = new Point(665, 350);
             currentPlayerTextBox.Multiline = true;
             currentPlayerTextBox.Name = "currentPlayerTextBox";
-            currentPlayerTextBox.Size = new Size(100, 71);
+            currentPlayerTextBox.Size = new Size(106, 71);
             currentPlayerTextBox.TabIndex = 3;
+            currentPlayerTextBox.TabStop = false;
             currentPlayerTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // player2TextBox
@@ -87,7 +92,8 @@
             player2TextBox.Name = "player2TextBox";
             player2TextBox.Size = new Size(635, 34);
             player2TextBox.TabIndex = 4;
-            player2TextBox.Text = "00";
+            player2TextBox.TabStop = false;
+            player2TextBox.Text = "Negru";
             player2TextBox.TextAlign = HorizontalAlignment.Center;
             player2TextBox.TextChanged += player2TextBox_TextChanged;
             // 
@@ -100,15 +106,17 @@
             player1TextBox.Name = "player1TextBox";
             player1TextBox.Size = new Size(635, 34);
             player1TextBox.TabIndex = 5;
-            player1TextBox.Text = "00";
+            player1TextBox.TabStop = false;
+            player1TextBox.Text = "Rosu";
             player1TextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(662, 522);
+            textBox1.Location = new Point(662, 642);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(109, 23);
             textBox1.TabIndex = 6;
+            textBox1.TabStop = false;
             // 
             // textBox2
             // 
@@ -116,13 +124,15 @@
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(109, 23);
             textBox2.TabIndex = 7;
+            textBox2.TabStop = false;
             // 
             // button1
             // 
-            button1.Location = new Point(662, 493);
+            button1.Location = new Point(662, 613);
             button1.Name = "button1";
             button1.Size = new Size(109, 23);
             button1.TabIndex = 8;
+            button1.TabStop = false;
             button1.Text = "Timite Mesaj";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;

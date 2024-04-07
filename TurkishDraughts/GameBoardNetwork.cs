@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Windows.Forms;
 using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
@@ -26,7 +25,7 @@ namespace TurkishDraughts
             initBtnTabla();
             InitializeComponent();
 
-            initPlayerNames(player1, player2);
+           // initPlayerNames(player1, player2);
             currentPlayerTextBox.Text = "Rosu muta";
             currentPlayerTextBox.ForeColor = Color.Red;
             InitializeButtons();
@@ -113,7 +112,7 @@ namespace TurkishDraughts
                         UpdatePictureBoxesInNetwork(message);
                         checkIfBoardIsServer();
                         DisplayReceivedMessage(message);
- 
+
 
 
                     }
@@ -170,7 +169,7 @@ namespace TurkishDraughts
             {
 
                 movePieceInNetwork(i_initial, j_initial, i_final, j_final);
-                
+
             }
         }
 
@@ -219,10 +218,10 @@ namespace TurkishDraughts
                 swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                 swapCurrentPlayerName();
                 checkIfBoardIsServer();
-            }  
+            }
         }
-       private void checkIfBoardIsServer()
-       {
+        private void checkIfBoardIsServer()
+        {
             if (isServer && specialProprieties.getPlayerTurn() == true || !isServer && specialProprieties.getPlayerTurn() == false)
             {
                 if (isServer && specialProprieties.getPlayerTurn() == true)
@@ -241,15 +240,15 @@ namespace TurkishDraughts
                 clientIPTextBox.ForeColor = Color.Green;
                 unblockPictureBoxes();
             }
-           
-           
-                
-               
-           
 
-           
+
+
+
+
+
+
         }
-       
+
         private void player2TextBox_TextChanged(object sender, EventArgs e)
         {
 
@@ -276,12 +275,23 @@ namespace TurkishDraughts
 
 
         }
-        private void initPlayerNames(String name1, String name2)
+        private void initPlayerNames(String name1,String name2)
         {
-            if (name1 == "")
-                name1 = "Rosu";
-            if (name2 == "")
-                name2 = "Negru";
+
+            if (isServer)
+            {
+                if (name1 == "")
+                    name1 = "Rosu";
+
+            }
+            else
+            {
+                if (name1 == "")
+                    name1 = "Rosu";
+                name2 = name1;
+            }
+
+
             player1 = new PlayerClass(name1);
             player1TextBox.Text = player1.getName();
             player2 = new PlayerClass(name2);
@@ -322,7 +332,7 @@ namespace TurkishDraughts
                 }
                 removeBoardTraces();
             }
-            
+
         }
         private void unblockPictureBoxes()
         {
@@ -1106,7 +1116,7 @@ namespace TurkishDraughts
             {
                 checkIfPieceIsKing(i_final, j_final);
                 //
-                
+
                 //
                 swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                 swapCurrentPlayerName();
@@ -1116,7 +1126,7 @@ namespace TurkishDraughts
 
 
             }
-            
+
         }
         public bool checkIfPieceIsKing(int i, int j)
         {

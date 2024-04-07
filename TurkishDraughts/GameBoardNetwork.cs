@@ -159,26 +159,55 @@ namespace TurkishDraughts
         {
             // Split the received message to extract index and value
             string[] parts = message.Split(',');
-            if (parts.Length == 3 && int.TryParse(parts[0], out int i)&& int.TryParse(parts[1], out int j) && int.TryParse(parts[2], out int value))
+            if (parts.Length == 5 &&
+                int.TryParse(parts[0], out int i_initial)&&
+                int.TryParse(parts[1], out int j_initial) &&
+                int.TryParse(parts[2], out int i_final)&&
+                int.TryParse(parts[3], out int j_final) &&
+                int.TryParse(parts[4], out int value) 
+                )
             {
                 // Update the picture box on the other side based on the received index and value
-                pictureBoxButtons[i][j].setValue(value);
-                changeImageFromValue(i, j, value);
+                movePieceNetwork(i_initial, j_initial, i_final, j_final);
             }
         }
-        private void changeImageFromValue(int i,int j,int value)
+        private void movePieceNetwork(int i_initial, int j_initial, int i_final, int j_final)
         {
-            if (value == 0)
-                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-            if (value == 1)
-                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            if (value == 2)
-                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = Resources.RedPiece;
-            if(value == 3)
-                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = Resources.BlackKing;
-            if(value == 4)
-                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = Resources.RedKing;
+            pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
+            specialProprieties.setPressed(false);
 
+           
+            swapImage(i_initial, j_initial, i_final, j_final);
+            swapValue(i_initial, j_initial, i_final, j_final);
+            if (removeCapturedPieces(i_initial, j_initial, i_final, j_final))
+            {
+                removeCapturedPieces(i_initial, j_initial, i_final, j_final);
+                if (checkMultipleMoves(i_initial, j_initial, i_final, j_final) == false)
+                {
+                    checkIfPieceIsKing(i_final, j_final);
+                   // swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                   // swapCurrentPlayerName();
+                    specialProprieties.setMultipleMoves(false);
+                    //aici pui functia in care transmiti ca s-a schimbat randul jucatorului
+                    //aici pui functia in care transmiti ca s-a schimbat numele jucatorului
+                }
+                else
+                {
+                    specialProprieties.setMultipleMoves(true);
+                    specialProprieties.setLastMultipleMoveI(i_initial);
+                    specialProprieties.setLastMultipleMoveJ(j_initial);
+                    specialProprieties.setCurrentMultipleMoveI(i_final);
+                    specialProprieties.setCurrentMultipleMoveJ(j_final);
+                }
+            }
+            else
+            {
+                checkIfPieceIsKing(i_final, j_final);
+                //swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                //swapCurrentPlayerName();
+                //aici pui functia in care transmiti ca s-a schimbat randul jucatorului
+                //aici pui functia in care transmiti ca s-a schimbat numele jucatorului
+            }
         }
 
 
@@ -974,7 +1003,7 @@ namespace TurkishDraughts
             if (client != null && client.Connected)
             {
                 NetworkStream stream = client.GetStream();
-                byte[] data = Encoding.ASCII.GetBytes($"{i_final},{j_final},{newValue}");
+                byte[] data = Encoding.ASCII.GetBytes($"{i_initial},{j_initial},{i_final},{j_final},{newValue}");
                 stream.Write(data, 0, data.Length);
             }
             //

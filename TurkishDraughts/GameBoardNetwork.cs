@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows.Forms;
 using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
@@ -14,7 +15,7 @@ namespace TurkishDraughts
         private const int ServerPort = 8888; // Port to communicate
         private TcpClient client;
         private TcpListener server;
-        PieceClass[][] pictureBoxButtonsMatrix;
+        private bool isServer = false;
 
         public GameBoardNetwork(String player1, String player2)
         {
@@ -81,7 +82,11 @@ namespace TurkishDraughts
                 // ReceiveMessages();
                 //processReceivedMatrix(sendMatrixToClient());
                 ReceiveData();
-
+                clientIPTextBox.Text = "Client";
+                isServer = false;
+                clientButton.Enabled = false;
+                serverStartButton.Enabled = false;
+                blockPictureBoxes();
             }
             catch (Exception ex)
             {
@@ -92,6 +97,10 @@ namespace TurkishDraughts
         private void serverStartButton_Click(object sender, EventArgs e)
         {
             StartServer();
+            clientIPTextBox.Text = "Server";
+            isServer = true;
+            clientButton.Enabled = false;
+            serverStartButton.Enabled = false;
         }
 
         private void ReceiveData()
@@ -109,7 +118,7 @@ namespace TurkishDraughts
 
                         // Update textBox2 in a thread-safe manner
                         UpdatePictureBoxesInNetwork(message);
-                       
+                        checkIfBoardIsServer();
                         DisplayReceivedMessage(message);
                         //processReceivedMatrix(sendMatrixToClient());
 
@@ -168,9 +177,10 @@ namespace TurkishDraughts
             {
                 // Update the picture box on the other side based on the received index and value
                 movePieceInNetwork(i_initial, j_initial, i_final, j_final);
+                
             }
         }
-    
+
         private void storeMovedPieceInfo(int i_initial, int j_initial, int i_final, int j_final)
         {
             int newValue = pictureBoxButtons[i_initial][j_initial].getValue();
@@ -181,7 +191,7 @@ namespace TurkishDraughts
                 stream.Write(data, 0, data.Length);
             }
         }
-       
+
         private void movePieceInNetwork(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
@@ -196,10 +206,10 @@ namespace TurkishDraughts
                 if (checkMultipleMoves(i_initial, j_initial, i_final, j_final) == false)
                 {
                     checkIfPieceIsKing(i_final, j_final);
-                     swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
-                     swapCurrentPlayerName();
+                    swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                    swapCurrentPlayerName();
                     specialProprieties.setMultipleMoves(false);
-
+                    checkIfBoardIsServer();
                 }
                 else
                 {
@@ -215,14 +225,44 @@ namespace TurkishDraughts
                 checkIfPieceIsKing(i_final, j_final);
                 swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                 swapCurrentPlayerName();
+                checkIfBoardIsServer();
+                //blockPictureBoxes();
 
             }
+            
         }
+       private void checkIfBoardIsServer()
+       {
 
 
+            
+            if (isServer && specialProprieties.getPlayerTurn() == true || !isServer && specialProprieties.getPlayerTurn() == false)
+            {
+                if (isServer && specialProprieties.getPlayerTurn() == true)
+                {
+                    clientIPTextBox.ForeColor = Color.Blue;
+                    blockPictureBoxes();
+                }
+                if (!isServer && specialProprieties.getPlayerTurn() == false)
+                {
+                    clientIPTextBox.ForeColor = Color.Blue;
+                    blockPictureBoxes();
+                }
+            }
+            else
+            {
+                clientIPTextBox.ForeColor = Color.Green;
+                unblockPictureBoxes();
+            }
+           
+           
+                
+               
+           
 
-
-
+           
+        }
+       
         private void player2TextBox_TextChanged(object sender, EventArgs e)
         {
 
@@ -277,16 +317,45 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
                 }
         }
-        private void blockPictureBox()
+        private void blockPictureBoxes()
         {
-            for (int i = 0; i < 8; i++)
+            if (InvokeRequired)
             {
-                for (int j = 0; j < 8; j++)
-                {
-                    pictureBoxButtons[i][j].getPictureBox().Enabled = false;
-                }
+                BeginInvoke((Action)(() => blockPictureBoxes()));
+                return;
             }
-            removeBoardTraces();
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        pictureBoxButtons[i][j].getPictureBox().Enabled = false;
+                    }
+                }
+                removeBoardTraces();
+            }
+            
+        }
+        private void unblockPictureBoxes()
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke((Action)(() => unblockPictureBoxes()));
+                return;
+            }
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        pictureBoxButtons[i][j].getPictureBox().Enabled = true;
+                    }
+                }
+                removeBoardTraces();
+            }
+
         }
         private bool checkGameOver(PlayerClass player1, PlayerClass player2)
         {
@@ -412,7 +481,7 @@ namespace TurkishDraughts
             }
             if (checkGameOver(player1, player2))
             {
-                blockPictureBox();
+                blockPictureBoxes();
                 removeBoardTraces();
             }
         }
@@ -1016,7 +1085,7 @@ namespace TurkishDraughts
 
             //
             storeMovedPieceInfo(i_initial, j_initial, i_final, j_final);
-            
+
             //
             swapImage(i_initial, j_initial, i_final, j_final);
             swapValue(i_initial, j_initial, i_final, j_final);
@@ -1026,12 +1095,15 @@ namespace TurkishDraughts
                 if (checkMultipleMoves(i_initial, j_initial, i_final, j_final) == false)
                 {
                     checkIfPieceIsKing(i_final, j_final);
-                   
+
                     swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                     swapCurrentPlayerName();
-                    
-                    
+                    checkIfBoardIsServer();
+
+
                     specialProprieties.setMultipleMoves(false);
+                    //checkIfBoardIsServer();
+
 
                 }
                 else
@@ -1047,14 +1119,17 @@ namespace TurkishDraughts
             {
                 checkIfPieceIsKing(i_final, j_final);
                 //
-               
+                
                 //
                 swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                 swapCurrentPlayerName();
-                
-                
+
+                checkIfBoardIsServer();
+
+
 
             }
+            
         }
         public bool checkIfPieceIsKing(int i, int j)
         {

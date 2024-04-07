@@ -1,7 +1,5 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using TurkishDraughts.Properties;
 
@@ -81,7 +79,7 @@ namespace TurkishDraughts
                 client.Connect(clientIPTextBox.Text, ServerPort);
                 MessageBox.Show("Connected to the server.");
                 // ReceiveMessages();
-               //processReceivedMatrix(sendMatrixToClient());
+                //processReceivedMatrix(sendMatrixToClient());
                 ReceiveData();
 
             }
@@ -110,10 +108,11 @@ namespace TurkishDraughts
                         string message = Encoding.ASCII.GetString(data, 0, bytesRead);
 
                         // Update textBox2 in a thread-safe manner
-                        UpdatePictureBoxes(message);
+                        UpdatePictureBoxesInNetwork(message);
+                       
                         DisplayReceivedMessage(message);
                         //processReceivedMatrix(sendMatrixToClient());
-                        
+
 
                     }
                 }
@@ -155,28 +154,40 @@ namespace TurkishDraughts
             textBox2.Text = message.ToString();
         }
 
-        private void UpdatePictureBoxes(string message)
+        private void UpdatePictureBoxesInNetwork(string message)
         {
             // Split the received message to extract index and value
             string[] parts = message.Split(',');
             if (parts.Length == 5 &&
-                int.TryParse(parts[0], out int i_initial)&&
+                int.TryParse(parts[0], out int i_initial) &&
                 int.TryParse(parts[1], out int j_initial) &&
-                int.TryParse(parts[2], out int i_final)&&
+                int.TryParse(parts[2], out int i_final) &&
                 int.TryParse(parts[3], out int j_final) &&
-                int.TryParse(parts[4], out int value) 
+                int.TryParse(parts[4], out int value)
                 )
             {
                 // Update the picture box on the other side based on the received index and value
-                movePieceNetwork(i_initial, j_initial, i_final, j_final);
+                movePieceInNetwork(i_initial, j_initial, i_final, j_final);
             }
         }
-        private void movePieceNetwork(int i_initial, int j_initial, int i_final, int j_final)
+    
+        private void storeMovedPieceInfo(int i_initial, int j_initial, int i_final, int j_final)
+        {
+            int newValue = pictureBoxButtons[i_initial][j_initial].getValue();
+            if (client != null && client.Connected)
+            {
+                NetworkStream stream = client.GetStream();
+                byte[] data = Encoding.ASCII.GetBytes($"{i_initial},{j_initial},{i_final},{j_final},{newValue}");
+                stream.Write(data, 0, data.Length);
+            }
+        }
+       
+        private void movePieceInNetwork(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
             specialProprieties.setPressed(false);
 
-           
+
             swapImage(i_initial, j_initial, i_final, j_final);
             swapValue(i_initial, j_initial, i_final, j_final);
             if (removeCapturedPieces(i_initial, j_initial, i_final, j_final))
@@ -185,11 +196,10 @@ namespace TurkishDraughts
                 if (checkMultipleMoves(i_initial, j_initial, i_final, j_final) == false)
                 {
                     checkIfPieceIsKing(i_final, j_final);
-                   // swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
-                   // swapCurrentPlayerName();
+                     swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                     swapCurrentPlayerName();
                     specialProprieties.setMultipleMoves(false);
-                    //aici pui functia in care transmiti ca s-a schimbat randul jucatorului
-                    //aici pui functia in care transmiti ca s-a schimbat numele jucatorului
+
                 }
                 else
                 {
@@ -203,10 +213,9 @@ namespace TurkishDraughts
             else
             {
                 checkIfPieceIsKing(i_final, j_final);
-                //swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
-                //swapCurrentPlayerName();
-                //aici pui functia in care transmiti ca s-a schimbat randul jucatorului
-                //aici pui functia in care transmiti ca s-a schimbat numele jucatorului
+                swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                swapCurrentPlayerName();
+
             }
         }
 
@@ -316,24 +325,31 @@ namespace TurkishDraughts
         }
         public void swapCurrentPlayerName()
         {
-            if (specialProprieties.getPlayerTurn() == false)
+            if (currentPlayerTextBox.InvokeRequired)
             {
-                currentPlayerTextBox.Text = "Rosu muta";
-                currentPlayerTextBox.ForeColor = Color.Red;
-                player1TextBox.BackColor = Color.DarkGoldenrod;
-
-                player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
-                player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
-
+                currentPlayerTextBox.Invoke(new Action(() => swapCurrentPlayerName()));
             }
             else
             {
-                currentPlayerTextBox.Text = "Negru muta";
-                currentPlayerTextBox.ForeColor = Color.Black;
-                player2TextBox.BackColor = Color.DarkGoldenrod;
-                player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
-                player1TextBox.ForeColor = Color.FromArgb(49, 46, 43);
+                if (specialProprieties.getPlayerTurn() == false)
+                {
+                    currentPlayerTextBox.Text = "Rosu muta";
+                    currentPlayerTextBox.ForeColor = Color.Red;
+                    player1TextBox.BackColor = Color.DarkGoldenrod;
 
+                    player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                    player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
+
+                }
+                else
+                {
+                    currentPlayerTextBox.Text = "Negru muta";
+                    currentPlayerTextBox.ForeColor = Color.Black;
+                    player2TextBox.BackColor = Color.DarkGoldenrod;
+                    player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                    player1TextBox.ForeColor = Color.FromArgb(49, 46, 43);
+
+                }
             }
         }
         public void swapCurrentPlayerTurn(bool turn)
@@ -997,15 +1013,10 @@ namespace TurkishDraughts
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
             specialProprieties.setPressed(false);
-           
+
             //
-            int newValue = pictureBoxButtons[i_initial][j_initial].getValue();
-            if (client != null && client.Connected)
-            {
-                NetworkStream stream = client.GetStream();
-                byte[] data = Encoding.ASCII.GetBytes($"{i_initial},{j_initial},{i_final},{j_final},{newValue}");
-                stream.Write(data, 0, data.Length);
-            }
+            storeMovedPieceInfo(i_initial, j_initial, i_final, j_final);
+            
             //
             swapImage(i_initial, j_initial, i_final, j_final);
             swapValue(i_initial, j_initial, i_final, j_final);
@@ -1015,11 +1026,13 @@ namespace TurkishDraughts
                 if (checkMultipleMoves(i_initial, j_initial, i_final, j_final) == false)
                 {
                     checkIfPieceIsKing(i_final, j_final);
+                   
                     swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                     swapCurrentPlayerName();
+                    
+                    
                     specialProprieties.setMultipleMoves(false);
-                    //aici pui functia in care transmiti ca s-a schimbat randul jucatorului
-                    //aici pui functia in care transmiti ca s-a schimbat numele jucatorului
+
                 }
                 else
                 {
@@ -1033,10 +1046,14 @@ namespace TurkishDraughts
             else
             {
                 checkIfPieceIsKing(i_final, j_final);
+                //
+               
+                //
                 swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                 swapCurrentPlayerName();
-                //aici pui functia in care transmiti ca s-a schimbat randul jucatorului
-                //aici pui functia in care transmiti ca s-a schimbat numele jucatorului
+                
+                
+
             }
         }
         public bool checkIfPieceIsKing(int i, int j)
@@ -1070,12 +1087,11 @@ namespace TurkishDraughts
                         else
                         {
                             checkFinalMove(i_firstMove, j_firstMove, i, j);
-                            
                         }
                     }
                 }
             }
-            
+
 
         }
 

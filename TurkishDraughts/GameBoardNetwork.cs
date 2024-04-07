@@ -42,7 +42,6 @@ namespace TurkishDraughts
                 server = new TcpListener(IPAddress.Any, ServerPort);
                 server.Start();
                 MessageBox.Show("Server started. Waiting for connections...");
-
                 // Start accepting client connections asynchronously
                 server.BeginAcceptTcpClient(HandleClientConnection, null);
             }
@@ -58,10 +57,6 @@ namespace TurkishDraughts
                 // Accept the client connection
                 client = server.EndAcceptTcpClient(result);
                 MessageBox.Show("Client connected.");
-
-
-                // ReceiveMessages();
-                //processReceivedMatrix(sendMatrixToClient());
                 ReceiveData();
 
             }
@@ -79,8 +74,6 @@ namespace TurkishDraughts
                 client = new TcpClient();
                 client.Connect(clientIPTextBox.Text, ServerPort);
                 MessageBox.Show("Connected to the server.");
-                // ReceiveMessages();
-                //processReceivedMatrix(sendMatrixToClient());
                 ReceiveData();
                 clientIPTextBox.Text = "Client";
                 isServer = false;
@@ -116,11 +109,11 @@ namespace TurkishDraughts
                         int bytesRead = stream.Read(data, 0, data.Length);
                         string message = Encoding.ASCII.GetString(data, 0, bytesRead);
 
-                        // Update textBox2 in a thread-safe manner
+
                         UpdatePictureBoxesInNetwork(message);
                         checkIfBoardIsServer();
                         DisplayReceivedMessage(message);
-                        //processReceivedMatrix(sendMatrixToClient());
+ 
 
 
                     }
@@ -165,7 +158,7 @@ namespace TurkishDraughts
 
         private void UpdatePictureBoxesInNetwork(string message)
         {
-            // Split the received message to extract index and value
+
             string[] parts = message.Split(',');
             if (parts.Length == 5 &&
                 int.TryParse(parts[0], out int i_initial) &&
@@ -175,7 +168,7 @@ namespace TurkishDraughts
                 int.TryParse(parts[4], out int value)
                 )
             {
-                // Update the picture box on the other side based on the received index and value
+
                 movePieceInNetwork(i_initial, j_initial, i_final, j_final);
                 
             }
@@ -226,16 +219,10 @@ namespace TurkishDraughts
                 swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                 swapCurrentPlayerName();
                 checkIfBoardIsServer();
-                //blockPictureBoxes();
-
-            }
-            
+            }  
         }
        private void checkIfBoardIsServer()
        {
-
-
-            
             if (isServer && specialProprieties.getPlayerTurn() == true || !isServer && specialProprieties.getPlayerTurn() == false)
             {
                 if (isServer && specialProprieties.getPlayerTurn() == true)

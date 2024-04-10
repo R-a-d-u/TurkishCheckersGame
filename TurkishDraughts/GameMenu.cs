@@ -80,7 +80,7 @@ namespace TurkishDraughts
             {
                 String name1, name2;
                 name1 = playerNetworkTextBox.Text;
-                GameBoardNetwork gameBoardNetwork = new GameBoardNetwork(name1,"");
+                GameBoardNetwork gameBoardNetwork = new GameBoardNetwork(name1);
                 gameBoardNetwork.Show();
                 
             }

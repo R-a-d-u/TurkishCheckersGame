@@ -15,8 +15,9 @@ namespace TurkishDraughts
         private TcpClient client;
         private TcpListener server;
         private bool isServer = false;
+        String playerae;
 
-        public GameBoardNetwork(String player1, String player2)
+        public GameBoardNetwork(String playerName)
         {
 
             MaximizeBox = false;
@@ -25,15 +26,73 @@ namespace TurkishDraughts
             initBtnTabla();
             InitializeComponent();
 
-           // initPlayerNames(player1, player2);
+            initPlayerNames();
+            playerae = playerName;
             currentPlayerTextBox.Text = "Rosu muta";
             currentPlayerTextBox.ForeColor = Color.Red;
-            InitializeButtons();
+           
+            
         }
-        private void InitializeButtons()
+        private void initLocalNames(String playerName)
+        {
+            if (isServer)
+            {
+                player1 = new PlayerClass(playerName);
+                player1TextBox.Text = player1.getName();
+                currentPlayer = player1;
+                currentPlayerTextBox.Text = "Rosu muta";
+            }
+            else
+            {
+                player2 = new PlayerClass(playerName);
+                player2TextBox.Text = player2.getName();
+                player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
+            }
+           
+        }
+        private void initClientNames(String playerName)
+        {
+            if (isServer)
+            {
+                if (InvokeRequired)
+                {
+                    BeginInvoke((Action)(() => initClientNames(playerName)));
+                    return;
+                }
+                player2 = new PlayerClass(playerName);
+                player2TextBox.Text = player2.getName();
+                player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
+            }
+        }
+        private void initServerNames(String playerName)
+        {
+            if (!isServer)
+            {
+                if (InvokeRequired)
+                {
+                    BeginInvoke((Action)(() => initServerNames(playerName)));
+                    return;
+                }
+
+                player1 = new PlayerClass(playerName);
+                player1TextBox.Text = player1.getName();
+                currentPlayer = player1;
+                currentPlayerTextBox.Text = "Rosu muta";
+            }
+        }
+        private void storePlayerName()
         {
 
+            if (client != null && client.Connected)
+            {
+                NetworkStream stream = client.GetStream();
+                byte[] data = Encoding.ASCII.GetBytes(playerae);
+                stream.Write(data, 0, data.Length);
+            }
         }
+
         private void StartServer()
         {
             try
@@ -41,6 +100,7 @@ namespace TurkishDraughts
                 server = new TcpListener(IPAddress.Any, ServerPort);
                 server.Start();
                 MessageBox.Show("Server started. Waiting for connections...");
+                storePlayerName();
                 // Start accepting client connections asynchronously
                 server.BeginAcceptTcpClient(HandleClientConnection, null);
             }
@@ -56,6 +116,8 @@ namespace TurkishDraughts
                 // Accept the client connection
                 client = server.EndAcceptTcpClient(result);
                 MessageBox.Show("Client connected.");
+                storePlayerName();
+                //ReceivePlayerName();
                 ReceiveData();
 
             }
@@ -64,7 +126,7 @@ namespace TurkishDraughts
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
-
+        
 
         private void clientButton_Click(object sender, EventArgs e)
         {
@@ -73,12 +135,19 @@ namespace TurkishDraughts
                 client = new TcpClient();
                 client.Connect(clientIPTextBox.Text, ServerPort);
                 MessageBox.Show("Connected to the server.");
-                ReceiveData();
+                
+                ReceivePlayerName();
+                storePlayerName();
                 clientIPTextBox.Text = "Client";
                 isServer = false;
                 clientButton.Enabled = false;
                 serverStartButton.Enabled = false;
                 blockPictureBoxes();
+                ReceiveData();
+               
+                
+                initLocalNames(playerae);
+                //initServerNames(playerae);
             }
             catch (Exception ex)
             {
@@ -88,13 +157,45 @@ namespace TurkishDraughts
 
         private void serverStartButton_Click(object sender, EventArgs e)
         {
+            
+
             StartServer();
+            //ReceivePlayerName();
             clientIPTextBox.Text = "Server";
             isServer = true;
             clientButton.Enabled = false;
             serverStartButton.Enabled = false;
+            //initClientNames(playerae);
+            initLocalNames(playerae);
         }
 
+        private void ReceivePlayerName()
+        {
+            ThreadPool.QueueUserWorkItem(state =>
+            {
+                try
+                {
+                    
+                        NetworkStream stream = client.GetStream();
+                        byte[] data = new byte[1024];
+                        int bytesRead = stream.Read(data, 0, data.Length);
+                        string message = Encoding.ASCII.GetString(data, 0, bytesRead);
+
+                    if (!isServer)
+                        initServerNames(message);
+                    else
+                        initClientNames(message);
+                       
+
+
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+            });
+        }
         private void ReceiveData()
         {
             ThreadPool.QueueUserWorkItem(state =>
@@ -108,7 +209,7 @@ namespace TurkishDraughts
                         int bytesRead = stream.Read(data, 0, data.Length);
                         string message = Encoding.ASCII.GetString(data, 0, bytesRead);
 
-
+                        
                         UpdatePictureBoxesInNetwork(message);
                         checkIfBoardIsServer();
                         DisplayReceivedMessage(message);
@@ -275,27 +376,21 @@ namespace TurkishDraughts
 
 
         }
-        private void initPlayerNames(String name1,String name2)
+        private void initPlayerNames()
         {
 
-            if (isServer)
-            {
-                if (name1 == "")
-                    name1 = "Rosu";
+            String name1 = "Rosu";
+            String name2 = "Negru";
 
-            }
-            else
-            {
-                if (name1 == "")
-                    name1 = "Rosu";
-                name2 = name1;
-            }
+           
 
 
             player1 = new PlayerClass(name1);
             player1TextBox.Text = player1.getName();
+
             player2 = new PlayerClass(name2);
             player2TextBox.Text = player2.getName();
+
             currentPlayer = player1;
             currentPlayerTextBox.Text = "Rosu muta";
             player2TextBox.BackColor = Color.FromArgb(49, 46, 43);

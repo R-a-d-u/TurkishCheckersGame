@@ -65,7 +65,7 @@ namespace TurkishDraughts
 
         private void startGame2Button_Click(object sender, EventArgs e)
         {
-            
+
             bool isopen = false;
             foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
             {
@@ -82,7 +82,7 @@ namespace TurkishDraughts
                 name1 = playerNetworkTextBox.Text;
                 GameBoardNetwork gameBoardNetwork = new GameBoardNetwork(name1);
                 gameBoardNetwork.Show();
-                
+
             }
         }
 

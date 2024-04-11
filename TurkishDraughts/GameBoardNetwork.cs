@@ -19,7 +19,7 @@ namespace TurkishDraughts
 
         public GameBoardNetwork(String playerName)
         {
-
+            //
             MaximizeBox = false;
 
             initStartState();

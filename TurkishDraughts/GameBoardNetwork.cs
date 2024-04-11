@@ -320,6 +320,11 @@ namespace TurkishDraughts
                 swapCurrentPlayerName();
                 checkIfBoardIsServer();
             }
+            if (checkGameOver(player1, player2))
+            {
+                blockPictureBoxes();
+                removeBoardTraces();
+            }
         }
         private void checkIfBoardIsServer()
         {
@@ -451,6 +456,11 @@ namespace TurkishDraughts
         }
         private bool checkGameOver(PlayerClass player1, PlayerClass player2)
         {
+            if (InvokeRequired)
+            {
+                BeginInvoke((Action)(() => checkGameOver(player1,player2)));
+                return false ;
+            }
             int counterRed = 0, counterBlack = 0;
             for (int i = 0; i < 8; i++)
             {
@@ -464,6 +474,7 @@ namespace TurkishDraughts
             }
             if (counterBlack == 0 || counterRed == 0)
             {
+                blockPictureBoxes();
                 if (counterBlack == 0)
                 {
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);

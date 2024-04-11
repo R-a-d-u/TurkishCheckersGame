@@ -19,7 +19,7 @@ namespace TurkishDraughts
 
         public GameBoardNetwork(String playerName)
         {
-            //
+            
             MaximizeBox = false;
 
             initStartState();
@@ -117,7 +117,7 @@ namespace TurkishDraughts
                 client = server.EndAcceptTcpClient(result);
                 MessageBox.Show("Client connected.");
                 storePlayerName();
-                //ReceivePlayerName();
+                ReceivePlayerName();
                 ReceiveData();
 
             }
@@ -212,7 +212,7 @@ namespace TurkishDraughts
                         
                         UpdatePictureBoxesInNetwork(message);
                         checkIfBoardIsServer();
-                        DisplayReceivedMessage(message);
+                        //DisplayReceivedMessage(message);
 
 
 

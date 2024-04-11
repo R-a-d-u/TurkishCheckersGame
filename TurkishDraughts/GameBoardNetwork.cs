@@ -28,6 +28,8 @@ namespace TurkishDraughts
 
             initPlayerNames();
             playerae = playerName;
+           
+
             currentPlayerTextBox.Text = "Rosu muta";
             currentPlayerTextBox.ForeColor = Color.Red;
            
@@ -37,6 +39,7 @@ namespace TurkishDraughts
         {
             if (isServer)
             {
+               
                 player1 = new PlayerClass(playerName);
                 player1TextBox.Text = player1.getName();
                 currentPlayer = player1;
@@ -44,6 +47,7 @@ namespace TurkishDraughts
             }
             else
             {
+               
                 player2 = new PlayerClass(playerName);
                 player2TextBox.Text = player2.getName();
                 player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
@@ -53,13 +57,16 @@ namespace TurkishDraughts
         }
         private void initClientNames(String playerName)
         {
+            
             if (isServer)
             {
+                
                 if (InvokeRequired)
                 {
                     BeginInvoke((Action)(() => initClientNames(playerName)));
                     return;
                 }
+                
                 player2 = new PlayerClass(playerName);
                 player2TextBox.Text = player2.getName();
                 player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
@@ -68,6 +75,8 @@ namespace TurkishDraughts
         }
         private void initServerNames(String playerName)
         {
+            if (playerName == "")
+                playerName = "Rosu";
             if (!isServer)
             {
                 if (InvokeRequired)
@@ -75,7 +84,7 @@ namespace TurkishDraughts
                     BeginInvoke((Action)(() => initServerNames(playerName)));
                     return;
                 }
-
+               
                 player1 = new PlayerClass(playerName);
                 player1TextBox.Text = player1.getName();
                 currentPlayer = player1;
@@ -84,6 +93,7 @@ namespace TurkishDraughts
         }
         private void storePlayerName()
         {
+            
 
             if (client != null && client.Connected)
             {

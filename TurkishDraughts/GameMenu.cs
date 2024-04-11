@@ -58,8 +58,11 @@ namespace TurkishDraughts
                 String name1, name2;
                 name1 = player1LocalTextBox.Text;
                 name2 = player2LocalTextBox.Text;
-                GameBoard gameBoard = new GameBoard(name1, name2);
-                gameBoard.Show();
+                if (name1 != "" && name2 != "")
+                {
+                    GameBoard gameBoard = new GameBoard(name1, name2);
+                    gameBoard.Show();
+                }
             }
         }
 
@@ -80,8 +83,11 @@ namespace TurkishDraughts
             {
                 String name1, name2;
                 name1 = playerNetworkTextBox.Text;
-                GameBoardNetwork gameBoardNetwork = new GameBoardNetwork(name1);
-                gameBoardNetwork.Show();
+                if (name1 != "")
+                {
+                    GameBoardNetwork gameBoardNetwork = new GameBoardNetwork(name1);
+                    gameBoardNetwork.Show();
+                }
 
             }
         }

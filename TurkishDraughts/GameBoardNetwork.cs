@@ -15,7 +15,7 @@ namespace TurkishDraughts
         private TcpClient client;
         private TcpListener server;
         private bool isServer = false;
-        String playerNameGlobal;
+        String playerNameGlobal="";
 
         public GameBoardNetwork(String playerName)
         {
@@ -115,7 +115,7 @@ namespace TurkishDraughts
                 server = new TcpListener(IPAddress.Any, ServerPort);
                 server.Start();
                 //MessageBox.Show("Server started. Waiting for connections...");
-                storePlayerName();
+                
 
                 // Start accepting client connections asynchronously
                 server.BeginAcceptTcpClient(handleClientConnection, null);
@@ -173,13 +173,17 @@ namespace TurkishDraughts
 
         private void serverStartButton_Click(object sender, EventArgs e)
         {
-            startServer();            
-            clientIPTextBox.Text = "Server";
             isServer = true;
+            initLocalNames(playerNameGlobal);
+            storePlayerName();
+            clientIPTextBox.Text = "Server";
+
             //clientIPTextBox.ReadOnly = true;
             clientButton.Enabled = false;
             serverStartButton.Enabled = false;
-            initLocalNames(playerNameGlobal);
+            startServer();            
+           
+            
         }
 
         private void receivePlayerName()

@@ -34,35 +34,37 @@
             currentPlayerTextBox = new TextBox();
             player2TextBox = new TextBox();
             player1TextBox = new TextBox();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            button1 = new Button();
             SuspendLayout();
             // 
             // serverStartButton
             // 
+            serverStartButton.BackColor = Color.DarkGoldenrod;
+            serverStartButton.FlatStyle = FlatStyle.Popup;
             serverStartButton.Location = new Point(662, 80);
             serverStartButton.Name = "serverStartButton";
             serverStartButton.Size = new Size(109, 23);
             serverStartButton.TabIndex = 0;
             serverStartButton.TabStop = false;
             serverStartButton.Text = "Start Server";
-            serverStartButton.UseVisualStyleBackColor = true;
+            serverStartButton.UseVisualStyleBackColor = false;
             serverStartButton.Click += serverStartButton_Click;
             // 
             // clientButton
             // 
+            clientButton.BackColor = Color.DarkGoldenrod;
+            clientButton.FlatStyle = FlatStyle.Flat;
             clientButton.Location = new Point(662, 109);
             clientButton.Name = "clientButton";
             clientButton.Size = new Size(109, 23);
             clientButton.TabIndex = 1;
             clientButton.TabStop = false;
             clientButton.Text = "Connect to Host";
-            clientButton.UseVisualStyleBackColor = true;
+            clientButton.UseVisualStyleBackColor = false;
             clientButton.Click += clientButton_Click;
             // 
             // clientIPTextBox
             // 
+            clientIPTextBox.BackColor = Color.PeachPuff;
             clientIPTextBox.Location = new Point(662, 138);
             clientIPTextBox.Name = "clientIPTextBox";
             clientIPTextBox.Size = new Size(109, 23);
@@ -110,33 +112,6 @@
             player1TextBox.Text = "Rosu";
             player1TextBox.TextAlign = HorizontalAlignment.Center;
             // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(662, 642);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(109, 23);
-            textBox1.TabIndex = 6;
-            textBox1.TabStop = false;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(662, 671);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(109, 23);
-            textBox2.TabIndex = 7;
-            textBox2.TabStop = false;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(662, 613);
-            button1.Name = "button1";
-            button1.Size = new Size(109, 23);
-            button1.TabIndex = 8;
-            button1.TabStop = false;
-            button1.Text = "Timite Mesaj";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // GameBoardNetwork
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -144,9 +119,6 @@
             BackgroundImage = Properties.Resources.Board;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(780, 793);
-            Controls.Add(button1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
             Controls.Add(player1TextBox);
             Controls.Add(player2TextBox);
             Controls.Add(currentPlayerTextBox);
@@ -170,8 +142,5 @@
         private TextBox currentPlayerTextBox;
         private TextBox player2TextBox;
         private TextBox player1TextBox;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private Button button1;
     }
 }

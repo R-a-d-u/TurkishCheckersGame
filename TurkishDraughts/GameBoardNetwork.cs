@@ -15,7 +15,7 @@ namespace TurkishDraughts
         private TcpClient client;
         private TcpListener server;
         private bool isServer = false;
-        String playerNameGlobal="";
+        String playerNameGlobal = "";
 
         public GameBoardNetwork(String playerName)
         {
@@ -26,9 +26,9 @@ namespace TurkishDraughts
             initBoardButtons();
             InitializeComponent();
             initPlayerNames();
-            
 
-            
+
+
         }
         private void initPlayerNames()
         {
@@ -111,7 +111,7 @@ namespace TurkishDraughts
         {
             try
             {
-                
+
                 server = new TcpListener(IPAddress.Any, ServerPort);
                 server.Start();
                 //MessageBox.Show("Server started. Waiting for connections...");
@@ -128,12 +128,13 @@ namespace TurkishDraughts
         {
             try
             {
-               
+
                 // Accept the client connection
                 client = server.EndAcceptTcpClient(result);
                 //MessageBox.Show("Client connected.");
-                storePlayerName();
+
                 receivePlayerName();
+                storePlayerName();
                 receiveGameData();
 
             }
@@ -148,22 +149,23 @@ namespace TurkishDraughts
         {
             try
             {
-              
+
                 client = new TcpClient();
                 client.Connect(clientIPTextBox.Text, ServerPort);
                 //MessageBox.Show("Connected to the server.");
+
                 storePlayerName();
                 receivePlayerName();
-                
+
                 clientIPTextBox.Text = "Client";
                 isServer = false;
-                //clientIPTextBox.ReadOnly = true;
+                clientIPTextBox.ReadOnly = true;
                 clientButton.Enabled = false;
                 serverStartButton.Enabled = false;
                 initLocalNames(playerNameGlobal);
                 blockPictureBoxes();
                 receiveGameData();
-                
+
 
             }
             catch (Exception ex)
@@ -176,15 +178,15 @@ namespace TurkishDraughts
         {
             isServer = true;
             initLocalNames(playerNameGlobal);
-            
+
             clientIPTextBox.Text = "Server";
 
-            //clientIPTextBox.ReadOnly = true;
+            clientIPTextBox.ReadOnly = true;
             clientButton.Enabled = false;
             serverStartButton.Enabled = false;
-            startServer();            
-           
-            
+            startServer();
+
+
         }
 
         private void receivePlayerName()
@@ -240,7 +242,7 @@ namespace TurkishDraughts
                 int.TryParse(parts[1], out int j_initial) &&
                 int.TryParse(parts[2], out int i_final) &&
                 int.TryParse(parts[3], out int j_final) &&
-                int.TryParse(parts[4], out int value) 
+                int.TryParse(parts[4], out int value)
                 )
             {
                 movePieceInNetwork(i_initial, j_initial, i_final, j_final);

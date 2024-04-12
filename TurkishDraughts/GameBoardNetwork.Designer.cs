@@ -80,6 +80,7 @@
             currentPlayerTextBox.Location = new Point(665, 350);
             currentPlayerTextBox.Multiline = true;
             currentPlayerTextBox.Name = "currentPlayerTextBox";
+            currentPlayerTextBox.ReadOnly = true;
             currentPlayerTextBox.Size = new Size(106, 71);
             currentPlayerTextBox.TabIndex = 3;
             currentPlayerTextBox.TabStop = false;

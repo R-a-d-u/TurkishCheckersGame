@@ -51,37 +51,44 @@
             // player1LocalTextBox
             // 
             player1LocalTextBox.BackColor = Color.FromArgb(192, 0, 0);
+            player1LocalTextBox.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             player1LocalTextBox.ForeColor = Color.White;
             player1LocalTextBox.Location = new Point(126, 157);
             player1LocalTextBox.Name = "player1LocalTextBox";
-            player1LocalTextBox.Size = new Size(100, 23);
+            player1LocalTextBox.Size = new Size(100, 25);
             player1LocalTextBox.TabIndex = 5;
             player1LocalTextBox.TabStop = false;
             // 
             // player2LocalTextBox
             // 
             player2LocalTextBox.BackColor = Color.Black;
+            player2LocalTextBox.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             player2LocalTextBox.ForeColor = Color.White;
             player2LocalTextBox.Location = new Point(126, 205);
             player2LocalTextBox.Name = "player2LocalTextBox";
-            player2LocalTextBox.Size = new Size(100, 23);
+            player2LocalTextBox.Size = new Size(100, 25);
             player2LocalTextBox.TabIndex = 6;
             player2LocalTextBox.TabStop = false;
             // 
             // startGame1Button
             // 
-            startGame1Button.Location = new Point(60, 275);
+            startGame1Button.BackColor = SystemColors.AppWorkspace;
+            startGame1Button.BackgroundImageLayout = ImageLayout.None;
+            startGame1Button.FlatStyle = FlatStyle.Flat;
+            startGame1Button.Location = new Point(60, 258);
             startGame1Button.Name = "startGame1Button";
             startGame1Button.Size = new Size(166, 23);
             startGame1Button.TabIndex = 14;
             startGame1Button.TabStop = false;
             startGame1Button.Text = "Start Game";
-            startGame1Button.UseVisualStyleBackColor = true;
+            startGame1Button.UseVisualStyleBackColor = false;
             startGame1Button.Click += startGameLocalButton_Click;
             // 
             // playerNetworkTextBox
             // 
-            playerNetworkTextBox.Location = new Point(377, 153);
+            playerNetworkTextBox.BackColor = SystemColors.AppWorkspace;
+            playerNetworkTextBox.BorderStyle = BorderStyle.FixedSingle;
+            playerNetworkTextBox.Location = new Point(377, 157);
             playerNetworkTextBox.Name = "playerNetworkTextBox";
             playerNetworkTextBox.Size = new Size(114, 23);
             playerNetworkTextBox.TabIndex = 18;
@@ -89,7 +96,9 @@
             // 
             // playerVsAITextBox
             // 
-            playerVsAITextBox.Location = new Point(637, 183);
+            playerVsAITextBox.BackColor = SystemColors.AppWorkspace;
+            playerVsAITextBox.BorderStyle = BorderStyle.FixedSingle;
+            playerVsAITextBox.Location = new Point(637, 187);
             playerVsAITextBox.Name = "playerVsAITextBox";
             playerVsAITextBox.Size = new Size(100, 23);
             playerVsAITextBox.TabIndex = 19;
@@ -97,24 +106,28 @@
             // 
             // startGame2Button
             // 
-            startGame2Button.Location = new Point(325, 275);
+            startGame2Button.BackColor = SystemColors.AppWorkspace;
+            startGame2Button.FlatStyle = FlatStyle.Flat;
+            startGame2Button.Location = new Point(325, 258);
             startGame2Button.Name = "startGame2Button";
             startGame2Button.Size = new Size(166, 23);
             startGame2Button.TabIndex = 20;
             startGame2Button.TabStop = false;
             startGame2Button.Text = "Start Game";
-            startGame2Button.UseVisualStyleBackColor = true;
+            startGame2Button.UseVisualStyleBackColor = false;
             startGame2Button.Click += startGame2Button_Click;
             // 
             // startGame3Button
             // 
-            startGame3Button.Location = new Point(578, 275);
+            startGame3Button.BackColor = SystemColors.AppWorkspace;
+            startGame3Button.FlatStyle = FlatStyle.Flat;
+            startGame3Button.Location = new Point(578, 258);
             startGame3Button.Name = "startGame3Button";
             startGame3Button.Size = new Size(166, 23);
             startGame3Button.TabIndex = 21;
             startGame3Button.TabStop = false;
             startGame3Button.Text = "Start Game";
-            startGame3Button.UseVisualStyleBackColor = true;
+            startGame3Button.UseVisualStyleBackColor = false;
             startGame3Button.Click += startGame3Button_Click;
             // 
             // textBox2
@@ -184,7 +197,7 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(578, 114);
+            label3.Location = new Point(578, 115);
             label3.Name = "label3";
             label3.Size = new Size(166, 21);
             label3.TabIndex = 30;

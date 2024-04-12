@@ -55,6 +55,7 @@
             player1TextBox.ForeColor = Color.Black;
             player1TextBox.Location = new Point(24, 714);
             player1TextBox.Name = "player1TextBox";
+            player1TextBox.ReadOnly = true;
             player1TextBox.Size = new Size(634, 41);
             player1TextBox.TabIndex = 0;
             player1TextBox.TabStop = false;
@@ -70,6 +71,7 @@
             player2TextBox.ForeColor = Color.Black;
             player2TextBox.Location = new Point(24, 20);
             player2TextBox.Name = "player2TextBox";
+            player2TextBox.ReadOnly = true;
             player2TextBox.Size = new Size(634, 41);
             player2TextBox.TabIndex = 0;
             player2TextBox.TabStop = false;

@@ -18,9 +18,6 @@ namespace TurkishDraughts
             InitializeComponent();
             initPlayerNames(player1, player2);
             //stare initiala jucator actual
-            currentPlayerTextBox.Text = "Rosu muta";
-            currentPlayerTextBox.ForeColor = Color.Red;
-
         }
 
         private void initBoardButtons()
@@ -44,16 +41,13 @@ namespace TurkishDraughts
         }
         private void initPlayerNames(String name1, String name2)
         {
-            if (name1 == "")
-                name1 = "Rosu";
-            if (name2 == "")
-                name2 = "Negru";
             player1 = new PlayerClass(name1);
             player1TextBox.Text = player1.getName();
             player2 = new PlayerClass(name2);
             player2TextBox.Text = player2.getName();
             currentPlayer = player1;
             currentPlayerTextBox.Text = "Rosu muta";
+            currentPlayerTextBox.ForeColor = Color.Red;
             player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
             player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
 

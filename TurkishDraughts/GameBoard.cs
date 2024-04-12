@@ -14,7 +14,7 @@ namespace TurkishDraughts
             MaximizeBox = false;
 
             initStartState();
-            initBtnTabla();//pune pictureboxurile pe tabla
+            initBoardButtons();//pune pictureboxurile pe tabla
             InitializeComponent();
             initPlayerNames(player1, player2);
             //stare initiala jucator actual
@@ -23,7 +23,7 @@ namespace TurkishDraughts
 
         }
 
-        private void initBtnTabla()
+        private void initBoardButtons()
         {
             //atribuim o matrice de clase piesa, fiecare legat de picturebox
             int value = 0;

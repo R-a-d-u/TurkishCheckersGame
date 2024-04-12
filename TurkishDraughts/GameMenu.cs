@@ -68,7 +68,7 @@ namespace TurkishDraughts
             }
             if (isopen == false)
             {
-                String name1, name2;
+                String name1;
                 name1 = playerNetworkTextBox.Text;
                 if (name1 != "")
                 {

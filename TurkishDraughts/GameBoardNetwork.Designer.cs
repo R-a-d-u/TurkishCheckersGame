@@ -97,7 +97,6 @@
             player2TextBox.TabStop = false;
             player2TextBox.Text = "Negru";
             player2TextBox.TextAlign = HorizontalAlignment.Center;
-            player2TextBox.TextChanged += player2TextBox_TextChanged;
             // 
             // player1TextBox
             // 

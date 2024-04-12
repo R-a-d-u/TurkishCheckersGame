@@ -9,31 +9,12 @@ namespace TurkishDraughts
 
             MaximizeBox = false;
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void startGameLocalButton_Click(object sender, EventArgs e)
         {
             bool isopen = false;
             foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
             {
-                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork")
+                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork" || f.Name == "GameBoardVsRobot")
                 {
                     isopen = true;
                     f.BringToFront();//se selecteaza ultimul forms deschis ca principal
@@ -52,14 +33,13 @@ namespace TurkishDraughts
                 }
             }
         }
-
         private void startGame2Button_Click(object sender, EventArgs e)
         {
 
             bool isopen = false;
             foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
             {
-                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork")
+                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork" || f.Name == "GameBoardVsRobot")
                 {
                     isopen = true;
                     f.BringToFront();//se selecteaza ultimul forms deschis ca principal
@@ -78,10 +58,28 @@ namespace TurkishDraughts
 
             }
         }
-
         private void startGame3Button_Click(object sender, EventArgs e)
         {
+            bool isopen = false;
+            foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
+            {
+                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork" || f.Name=="GameBoardVsRobot")
+                {
+                    isopen = true;
+                    f.BringToFront();//se selecteaza ultimul forms deschis ca principal
+                    break;
+                }
+            }
+            if (isopen == false)
+            {
+                //String name1;
+                //name1 = playerNetworkTextBox.Text;
+                
+                    GameBoardVsRobot gameBoardVsRobot = new GameBoardVsRobot();
+                    gameBoardVsRobot.Show();
+                
 
+            }
         }
     }
 }

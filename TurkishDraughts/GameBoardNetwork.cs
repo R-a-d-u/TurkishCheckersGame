@@ -115,7 +115,6 @@ namespace TurkishDraughts
                 server = new TcpListener(IPAddress.Any, ServerPort);
                 server.Start();
                 //MessageBox.Show("Server started. Waiting for connections...");
-                
 
                 // Start accepting client connections asynchronously
                 server.BeginAcceptTcpClient(handleClientConnection, null);
@@ -129,6 +128,7 @@ namespace TurkishDraughts
         {
             try
             {
+               
                 // Accept the client connection
                 client = server.EndAcceptTcpClient(result);
                 //MessageBox.Show("Client connected.");
@@ -148,12 +148,13 @@ namespace TurkishDraughts
         {
             try
             {
+              
                 client = new TcpClient();
                 client.Connect(clientIPTextBox.Text, ServerPort);
                 //MessageBox.Show("Connected to the server.");
-               
-                receivePlayerName();
                 storePlayerName();
+                receivePlayerName();
+                
                 clientIPTextBox.Text = "Client";
                 isServer = false;
                 //clientIPTextBox.ReadOnly = true;
@@ -175,7 +176,7 @@ namespace TurkishDraughts
         {
             isServer = true;
             initLocalNames(playerNameGlobal);
-            storePlayerName();
+            
             clientIPTextBox.Text = "Server";
 
             //clientIPTextBox.ReadOnly = true;

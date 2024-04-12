@@ -97,6 +97,7 @@
             player2TextBox.TabStop = false;
             player2TextBox.Text = "Negru";
             player2TextBox.TextAlign = HorizontalAlignment.Center;
+            player2TextBox.TextChanged += player2TextBox_TextChanged;
             // 
             // player1TextBox
             // 
@@ -110,6 +111,7 @@
             player1TextBox.TabStop = false;
             player1TextBox.Text = "Rosu";
             player1TextBox.TextAlign = HorizontalAlignment.Center;
+            player1TextBox.TextChanged += player1TextBox_TextChanged;
             // 
             // GameBoardNetwork
             // 

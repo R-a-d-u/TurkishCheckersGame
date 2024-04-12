@@ -21,12 +21,14 @@ namespace TurkishDraughts
         {
 
             MaximizeBox = false;
-
+            playerNameGlobal = playerName;
             initStartState();
             initBoardButtons();
             InitializeComponent();
             initPlayerNames();
-            playerNameGlobal = playerName;       
+            
+
+            
         }
         private void initPlayerNames()
         {
@@ -48,13 +50,14 @@ namespace TurkishDraughts
         {
             if (isServer)
             {
-                player1 = new PlayerClass(playerName);
+                player1.setName(playerName);
                 player1TextBox.Text = player1.getName();
-                currentPlayer = player1;     
+                currentPlayer = player1;
+                currentPlayerTextBox.Text = "Rosu muta";
             }
             else
             {
-                player2 = new PlayerClass(playerName);
+                player2.setName(playerName);
                 player2TextBox.Text = player2.getName();
             }
 
@@ -71,7 +74,7 @@ namespace TurkishDraughts
                     return;
                 }
 
-                player2 = new PlayerClass(playerName);
+                player2.setName(playerName); ;
                 player2TextBox.Text = player2.getName();
                 player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
@@ -89,7 +92,7 @@ namespace TurkishDraughts
                     return;
                 }
 
-                player1 = new PlayerClass(playerName);
+                player1.setName(playerName); ;
                 player1TextBox.Text = player1.getName();
                 currentPlayer = player1;
                 currentPlayerTextBox.Text = "Rosu muta";
@@ -108,11 +111,12 @@ namespace TurkishDraughts
         {
             try
             {
+                
                 server = new TcpListener(IPAddress.Any, ServerPort);
                 server.Start();
-                MessageBox.Show("Server started. Waiting for connections...");
+                //MessageBox.Show("Server started. Waiting for connections...");
                 storePlayerName();
-                
+
                 // Start accepting client connections asynchronously
                 server.BeginAcceptTcpClient(handleClientConnection, null);
             }
@@ -127,7 +131,7 @@ namespace TurkishDraughts
             {
                 // Accept the client connection
                 client = server.EndAcceptTcpClient(result);
-                MessageBox.Show("Client connected.");
+                //MessageBox.Show("Client connected.");
                 storePlayerName();
                 receivePlayerName();
                 receiveGameData();
@@ -146,17 +150,19 @@ namespace TurkishDraughts
             {
                 client = new TcpClient();
                 client.Connect(clientIPTextBox.Text, ServerPort);
-                MessageBox.Show("Connected to the server.");
-                isServer = false;
-                clientIPTextBox.Text = "Client";
-                clientIPTextBox.ReadOnly = true;
-                clientButton.Enabled = false;
-                serverStartButton.Enabled = false;
+                //MessageBox.Show("Connected to the server.");
+               
                 receivePlayerName();
                 storePlayerName();
+                clientIPTextBox.Text = "Client";
+                isServer = false;
+                //clientIPTextBox.ReadOnly = true;
+                clientButton.Enabled = false;
+                serverStartButton.Enabled = false;
+                initLocalNames(playerNameGlobal);
                 blockPictureBoxes();
                 receiveGameData();
-                initLocalNames(playerNameGlobal);
+                
 
             }
             catch (Exception ex)
@@ -167,10 +173,10 @@ namespace TurkishDraughts
 
         private void serverStartButton_Click(object sender, EventArgs e)
         {
-            startServer();
-            isServer = true;
+            startServer();            
             clientIPTextBox.Text = "Server";
-            clientIPTextBox.ReadOnly = true;
+            isServer = true;
+            //clientIPTextBox.ReadOnly = true;
             clientButton.Enabled = false;
             serverStartButton.Enabled = false;
             initLocalNames(playerNameGlobal);
@@ -224,11 +230,12 @@ namespace TurkishDraughts
         private void updatePictureBoxesInNetwork(string message)
         {
             string[] parts = message.Split(',');
-            if (parts.Length == 4 &&
+            if (parts.Length == 5 &&
                 int.TryParse(parts[0], out int i_initial) &&
                 int.TryParse(parts[1], out int j_initial) &&
                 int.TryParse(parts[2], out int i_final) &&
-                int.TryParse(parts[3], out int j_final)  
+                int.TryParse(parts[3], out int j_final) &&
+                int.TryParse(parts[4], out int value) 
                 )
             {
                 movePieceInNetwork(i_initial, j_initial, i_final, j_final);
@@ -237,10 +244,11 @@ namespace TurkishDraughts
 
         private void storeMovedPieceInfo(int i_initial, int j_initial, int i_final, int j_final)
         {
+            int newValue = pictureBoxButtons[i_initial][j_initial].getValue();
             if (client != null && client.Connected)
             {
                 NetworkStream stream = client.GetStream();
-                byte[] data = Encoding.ASCII.GetBytes($"{i_initial},{j_initial},{i_final},{j_final}");
+                byte[] data = Encoding.ASCII.GetBytes($"{i_initial},{j_initial},{i_final},{j_final},{newValue}");
                 stream.Write(data, 0, data.Length);
             }
         }
@@ -307,7 +315,7 @@ namespace TurkishDraughts
             }
         }
 
-        
+
 
 
 
@@ -330,7 +338,7 @@ namespace TurkishDraughts
 
 
         }
-        
+
         private void initStartState()
         {
             specialProprieties = new SpecialProprieties(false, false, false, 0, 0, 0, 0);
@@ -517,42 +525,7 @@ namespace TurkishDraughts
                 removeBoardTraces();
             }
         }
-        public void SendPictureBoxMatrix()
-        {
-            if (client != null && client.Connected)
-            {
-                NetworkStream stream = client.GetStream();
 
-                // Serialize the matrix into a string representation
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < 7; i++)
-                {
-                    for (int j = 0; j < 7; j++)
-                    {
-                        sb.Append($"{pictureBoxButtons[i][j].getValue()},");
-                    }
-                }
-
-                // Convert the string to byte array and send it over the network
-                //byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
-                //stream.Write(data, 0, data.Length);
-
-                //textBox1.Text = "ggata";
-
-                StringBuilder sb_1 = new StringBuilder();
-
-                Random random = new Random();
-                int randomNumber = random.Next(100);
-                string stringValue = "" + randomNumber;
-                sb_1.Append(stringValue);
-                byte[] data = Encoding.ASCII.GetBytes(sb_1.ToString());
-
-                stream.Write(data, 0, data.Length);
-                //textBox1.Text = "" + sb_1.ToString();
-
-
-            }
-        }
         public void checkLegalMoves(int i, int j)
         {
             if (pictureBoxButtons[i][j].getValue() != 0)
@@ -1202,7 +1175,15 @@ namespace TurkishDraughts
 
         }
 
+        private void player2TextBox_TextChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private void player1TextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

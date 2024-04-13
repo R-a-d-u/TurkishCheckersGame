@@ -204,7 +204,7 @@ namespace TurkishDraughts
                 drawLegalMovesTraces(i, j);
             }
         }
-        public bool checkMultipleMovesBlackPiece(int i_intial, int j_initial, int i, int j)
+        public bool checkMultipleMovesBlackPiece(int i, int j)
         {
             if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
                 return true;
@@ -214,7 +214,7 @@ namespace TurkishDraughts
                 return true;
             return false;
         }
-        public bool checkMultipleMovesRedPiece(int i_intial, int j_initial, int i, int j)
+        public bool checkMultipleMovesRedPiece(int i, int j)
         {
             if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
                 return true;
@@ -396,13 +396,13 @@ namespace TurkishDraughts
             //piesa rosie
             if (pictureBoxButtons[i][j].getValue() == 2)
             {
-                if (checkMultipleMovesRedPiece(i_initial, j_initial, i, j))
+                if (checkMultipleMovesRedPiece(i, j))
                     return true;
             }
             //piesa neagra
             if (pictureBoxButtons[i][j].getValue() == 1)
             {
-                if (checkMultipleMovesBlackPiece(i_initial, j_initial, i, j))
+                if (checkMultipleMovesBlackPiece(i, j))
                     return true;
             }
             //rege rosu
@@ -478,6 +478,7 @@ namespace TurkishDraughts
         }
         public void drawRedPieceTrace(int i, int j)
         {
+
             //spatiu gol
             if (specialProprieties.getMultipleMove() == false)
             {
@@ -496,25 +497,45 @@ namespace TurkishDraughts
             if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
                 pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
         }
-        public void drawBlackPieceTrace(int i, int j)
+        public List<(int, int)> drawBlackPieceTrace(int i, int j)
         {
+            List<(int, int)> legalMoves = new List<(int, int)>();
             //spatiu gol
             if (specialProprieties.getMultipleMove() == false)
             {
                 if (i < 7 && pictureBoxButtons[i + 1][j].getValue() == 0)
+                {
                     pictureBoxButtons[i + 1][j].getPictureBox().BackColor = Color.GreenYellow;
+                    legalMoves.Add((i + 1, j));
+                }
                 if (j < 7 && pictureBoxButtons[i][j + 1].getValue() == 0)
+                {
                     pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.GreenYellow;
+                    legalMoves.Add((i, j + 1));
+                }
                 if (j > 0 && pictureBoxButtons[i][j - 1].getValue() == 0)
+                {
                     pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.GreenYellow;
+                    legalMoves.Add((i, j - 1));
+                }
             }
             //piesa langa
             if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
+            {
                 pictureBoxButtons[i + 2][j].getPictureBox().BackColor = Color.GreenYellow;
+                legalMoves.Add((i + 2, j));
+            }
             if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0)
+            {
                 pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
+                legalMoves.Add((i, j + 2));
+            }
             if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0)
+            {
                 pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
+                legalMoves.Add((i, j - 2));
+            }
+            return legalMoves;
         }
         public void drawRedKingLeftTrace(int i, int j)
         {
@@ -789,8 +810,8 @@ namespace TurkishDraughts
                 swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                 swapCurrentPlayerName();
             }
-            if(specialProprieties.getPlayerTurn())
-            robotMove();
+            if (specialProprieties.getPlayerTurn())
+                robotMove();
         }
         public bool checkIfPieceIsKing(int i, int j)
         {
@@ -857,13 +878,18 @@ namespace TurkishDraughts
             int[,] piecesArray = getPiecesArray();
             for (int i = 2; i < 8; i++)
                 for (int j = 0; j < 8; j++)
+                {
+                    piecesArray = getPiecesArray();
                     if (piecesArray[i, j] == 1)
                     {
-                        movePiece(i, j, i + 1, j);
-                        
-                        return 0;
+
+                       
+                            movePiece(i, j, i + 1, j);
+                            return 0;
+                       
                     }
-                    Thread.Sleep(100);
+                }
+            Thread.Sleep(100);
             return 0;
         }
         private int[,] getPiecesArray()
@@ -887,7 +913,7 @@ namespace TurkishDraughts
 
 
     }
-    
+
 
 }
 

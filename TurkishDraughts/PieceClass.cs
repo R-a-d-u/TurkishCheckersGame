@@ -20,6 +20,7 @@ namespace TurkishDraughts
         private PictureBox? pictureBoxButtons;
         private GameBoard? gameBoard;
         private GameBoardNetwork? gameBoardNetwork;
+        private GameBoardVsRobot? gameBoardVsRobot;
 
         private void pictureBoxClick(object sender, EventArgs e)
         {
@@ -27,16 +28,20 @@ namespace TurkishDraughts
                 gameBoard.pictureBoxClick(sender);
            if(gameBoardNetwork!=null)
                 gameBoardNetwork.pictureBoxClick(sender);
+            if (gameBoardVsRobot != null)
+                gameBoardVsRobot.pictureBoxClick(sender);
+
         }
         //value=0 spatiu gol
         //value=1 piesa neagra
         //value=2 piesa rosie
         //value=3 rege negru
         //value=4 rege rosu
-        public PieceClass(int i, int j, int value, GameBoard gameBoard, GameBoardNetwork gameBoardNetwork)
+        public PieceClass(int i, int j, int value, GameBoard gameBoard, GameBoardNetwork gameBoardNetwork,GameBoardVsRobot gameBoardVsRobot)
         {
             this.gameBoard = gameBoard;
             this.gameBoardNetwork = gameBoardNetwork;
+            this.gameBoardVsRobot = gameBoardVsRobot;
             this.i = i;
             this.j = j;
 

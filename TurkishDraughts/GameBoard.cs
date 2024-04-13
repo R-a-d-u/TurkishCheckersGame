@@ -33,7 +33,7 @@ namespace TurkishDraughts
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    pictureBoxButtons[i][j] = new PieceClass(i, j, value, this, null);
+                    pictureBoxButtons[i][j] = new PieceClass(i, j, value, this, null,null);
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }

@@ -89,6 +89,7 @@
             // playerNetworkTextBox
             // 
             playerNetworkTextBox.BackColor = Color.DimGray;
+            playerNetworkTextBox.BorderStyle = BorderStyle.FixedSingle;
             playerNetworkTextBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             playerNetworkTextBox.ForeColor = Color.White;
             playerNetworkTextBox.Location = new Point(377, 167);
@@ -100,6 +101,7 @@
             // playerVsAITextBox
             // 
             playerVsAITextBox.BackColor = Color.DimGray;
+            playerVsAITextBox.BorderStyle = BorderStyle.FixedSingle;
             playerVsAITextBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             playerVsAITextBox.ForeColor = Color.White;
             playerVsAITextBox.Location = new Point(637, 195);

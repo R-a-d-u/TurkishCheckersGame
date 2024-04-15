@@ -23,7 +23,7 @@ namespace TurkishDraughts
             MaximizeBox = false;
             playerNameGlobal = playerName;
             initStartState();
-            initBoardButtons();
+            //initBoardButtons();
             InitializeComponent();
             initPlayerNames();
 
@@ -132,7 +132,7 @@ namespace TurkishDraughts
                 // Accept the client connection
                 client = server.EndAcceptTcpClient(result);
                 //MessageBox.Show("Client connected.");
-
+                initBoardButtons();
                 receivePlayerName();
                 storePlayerName();
                 receiveGameData();
@@ -153,7 +153,7 @@ namespace TurkishDraughts
                 client = new TcpClient();
                 client.Connect(clientIPTextBox.Text, ServerPort);
                 //MessageBox.Show("Connected to the server.");
-
+                initBoardButtons();
                 storePlayerName();
                 receivePlayerName();
 
@@ -328,18 +328,26 @@ namespace TurkishDraughts
 
         private void initBoardButtons()
         {
-            int value = 0;//valoare default pentru picturebox gol
-            pictureBoxButtons = new PieceClass[8][];
-            for (int i = 0; i < 8; i++)
+            if (InvokeRequired)
             {
-                pictureBoxButtons[i] = new PieceClass[8];
+                BeginInvoke((Action)(() => initBoardButtons()));
+                return;
             }
-            for (int i = 0; i < 8; i++)
+            else
             {
-                for (int j = 0; j < 8; j++)
+                int value = 0;//valoare default pentru picturebox gol
+                pictureBoxButtons = new PieceClass[8][];
+                for (int i = 0; i < 8; i++)
                 {
-                    pictureBoxButtons[i][j] = new PieceClass(i, j, value, null, this,null);
-                    Controls.Add(pictureBoxButtons[i][j].getPictureBox());
+                    pictureBoxButtons[i] = new PieceClass[8];
+                }
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        pictureBoxButtons[i][j] = new PieceClass(i, j, value, null, this, null);
+                        Controls.Add(pictureBoxButtons[i][j].getPictureBox());
+                    }
                 }
             }
 

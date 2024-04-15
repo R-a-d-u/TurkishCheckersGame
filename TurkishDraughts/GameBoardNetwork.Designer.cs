@@ -39,7 +39,7 @@
             // serverStartButton
             // 
             serverStartButton.BackColor = Color.DarkGoldenrod;
-            serverStartButton.FlatStyle = FlatStyle.Popup;
+            serverStartButton.FlatStyle = FlatStyle.Flat;
             serverStartButton.Location = new Point(662, 80);
             serverStartButton.Name = "serverStartButton";
             serverStartButton.Size = new Size(109, 23);

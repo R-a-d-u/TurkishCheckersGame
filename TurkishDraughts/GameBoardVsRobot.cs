@@ -1,4 +1,5 @@
 ﻿using TurkishDraughts.Properties;
+using System.Threading.Tasks;
 
 namespace TurkishDraughts
 {
@@ -167,8 +168,9 @@ namespace TurkishDraughts
             specialProprieties.setPressed(true);
             checkLegalMoves(i, j);
         }
-        public void checkFinalMove(int i_initial, int j_initial, int i_final, int j_final)
+        public async Task checkFinalMove(int i_initial, int j_initial, int i_final, int j_final)
         {
+            await Task.Delay(0);
             //verificam daca locul unde vrem sa mutam e permis, da->muta, nu->reseteaza miscare
             if (specialProprieties.getPressed() == true)
             {
@@ -188,6 +190,10 @@ namespace TurkishDraughts
                 else
                 {
                     movePiece(i_initial, j_initial, i_final, j_final);
+                    await Task.Delay(300);//delay 0.3 sec intre mutare jucator si robot
+                    if (specialProprieties.getPlayerTurn())
+                        robotFunction();
+                  
                 }
                 removeBoardTraces();
             }
@@ -810,8 +816,8 @@ namespace TurkishDraughts
                 swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                 swapCurrentPlayerName();
             }
-            if (specialProprieties.getPlayerTurn())
-                robotMove();
+            removeBoardTraces();
+
         }
         public bool checkIfPieceIsKing(int i, int j)
         {
@@ -843,11 +849,11 @@ namespace TurkishDraughts
                         else
                         {
                             checkFinalMove(i_firstMove, j_firstMove, i, j);
+                            
                         }
                     }
                 }
             }
-
         }
         private void player1TextBox_TextChanged(object sender, EventArgs e)
         {
@@ -873,23 +879,93 @@ namespace TurkishDraughts
                 }
             return blackPiece + blackKing * 0.5 - redPiece - redKing * 0.5;
         }
-        private int robotMove()
+        private async Task bestMove(int i, int j)
         {
-            int[,] piecesArray = getPiecesArray();
+            
+            while (checkMultipleMoves(0, 0, i, j))
+            {
+                int[,] currentPiecesArray = getPiecesArray();
+                if (pictureBoxButtons[i + 1][j].getValue() == 2 && i < 6 )
+                {
+                    robotMove(i, j, i + 2, j);
+                    i = i + 2;
+                    await Task.Delay(300);
+                    continue;
+                }
+                if (pictureBoxButtons[i][j + 1].getValue() == 2 && j < 6 )
+                {
+                    robotMove(i, j, i, j + 2);
+                    j = j + 2;
+                    await Task.Delay(300);
+                    continue;
+                }
+                if (pictureBoxButtons[i][j - 1].getValue() == 2 & j > 1 )
+                
+                {
+                    robotMove(i, j, i, j - 2);
+                    j = j - 2;
+                    await Task.Delay(300);
+                    continue;
+                }
+                
+                
+            }
+            specialProprieties.setMultipleMoves(false);
+            swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+            swapCurrentPlayerName();
+        }
+        private void robotMove(int i_initial, int j_initial, int i_final, int j_final)
+        {
+            pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
+            //specialProprieties.setPressed(false);
+            swapImage(i_initial, j_initial, i_final, j_final);
+            swapValue(i_initial, j_initial, i_final, j_final);
+            if (removeCapturedPieces(i_initial, j_initial, i_final, j_final))
+            {
+                removeCapturedPieces(i_initial, j_initial, i_final, j_final);
+               
+                
+                    specialProprieties.setMultipleMoves(true);
+                    specialProprieties.setLastMultipleMoveI(i_initial);
+                    specialProprieties.setLastMultipleMoveJ(j_initial);
+                    specialProprieties.setCurrentMultipleMoveI(i_final);
+                    specialProprieties.setCurrentMultipleMoveJ(j_final);
+                    //daca piesa ajunge la final si inca mai poate sari peste alta piesa, sare pestea ea apoi devine rege
+                
+            
+           
+                checkIfPieceIsKing(i_final, j_final);
+              
+            }
+            removeBoardTraces();
+            
+        }
+        private int robotFunction()
+        { 
+            int[,] currentPiecesArray = getPiecesArray();
+            int[,] nextMovePiecesArray= getPiecesArray();
+
             for (int i = 2; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    piecesArray = getPiecesArray();
-                    if (piecesArray[i, j] == 1)
+                   
+                    if (pictureBoxButtons[i][j].getValue() == 1)
                     {
-
-                       
-                            movePiece(i, j, i + 1, j);
+                        if (checkMultipleMoves(0, 0, i, j))
+                        {
+                            bestMove(i, j);
                             return 0;
+                        }
+                            
+                        else
+                        
+                        movePiece(i, j, i + 1, j);
+                        
+                        return 0;
                        
                     }
                 }
-            Thread.Sleep(100);
+            
             return 0;
         }
         private int[,] getPiecesArray()

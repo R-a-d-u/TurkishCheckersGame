@@ -69,6 +69,8 @@ namespace TurkishDraughts
                 {
                     pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
                 }
+            if (specialProprieties.getMultipleMove())
+                pictureBoxButtons[specialProprieties.getCurrentMultipleMoveI()][specialProprieties.getCurrentMultipleMoveJ()].getPictureBox().BackColor = Color.GreenYellow;
         }
         private void blockPictureBox()
         {
@@ -488,7 +490,6 @@ namespace TurkishDraughts
         }
         public void drawRedPieceTrace(int i, int j)
         {
-
             //spatiu gol
             if (specialProprieties.getMultipleMove() == false)
             {
@@ -506,46 +507,36 @@ namespace TurkishDraughts
                 pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
             if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
                 pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
+
+            if ((specialProprieties.getCurrentMultipleMoveI() != i ||
+           specialProprieties.getCurrentMultipleMoveJ() != j) &&
+           specialProprieties.getMultipleMove())
+                removeBoardTraces();
         }
-        public List<(int, int)> drawBlackPieceTrace(int i, int j)
+        public void drawBlackPieceTrace(int i, int j)
         {
-            List<(int, int)> legalMoves = new List<(int, int)>();
             //spatiu gol
             if (specialProprieties.getMultipleMove() == false)
             {
                 if (i < 7 && pictureBoxButtons[i + 1][j].getValue() == 0)
-                {
                     pictureBoxButtons[i + 1][j].getPictureBox().BackColor = Color.GreenYellow;
-                    legalMoves.Add((i + 1, j));
-                }
                 if (j < 7 && pictureBoxButtons[i][j + 1].getValue() == 0)
-                {
                     pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.GreenYellow;
-                    legalMoves.Add((i, j + 1));
-                }
                 if (j > 0 && pictureBoxButtons[i][j - 1].getValue() == 0)
-                {
                     pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.GreenYellow;
-                    legalMoves.Add((i, j - 1));
-                }
             }
             //piesa langa
             if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
-            {
                 pictureBoxButtons[i + 2][j].getPictureBox().BackColor = Color.GreenYellow;
-                legalMoves.Add((i + 2, j));
-            }
             if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0)
-            {
                 pictureBoxButtons[i][j + 2].getPictureBox().BackColor = Color.GreenYellow;
-                legalMoves.Add((i, j + 2));
-            }
             if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0)
-            {
                 pictureBoxButtons[i][j - 2].getPictureBox().BackColor = Color.GreenYellow;
-                legalMoves.Add((i, j - 2));
-            }
-            return legalMoves;
+
+            if ((specialProprieties.getCurrentMultipleMoveI() != i ||
+            specialProprieties.getCurrentMultipleMoveJ() != j) &&
+            specialProprieties.getMultipleMove())
+                removeBoardTraces();
         }
         public void drawRedKingLeftTrace(int i, int j)
         {
@@ -708,6 +699,11 @@ namespace TurkishDraughts
                         if (!i_down)
                             if (checkMultipleMovesRedKingDown(i_initial, j_initial, i, j))
                                 drawRedKingDownTrace(i, j);
+
+                        if ((specialProprieties.getCurrentMultipleMoveI() != i ||
+                        specialProprieties.getCurrentMultipleMoveJ() != j) &&
+                        specialProprieties.getMultipleMove())
+                            removeBoardTraces();
                     }
                 }
             }
@@ -755,6 +751,11 @@ namespace TurkishDraughts
                         if (!i_down)
                             if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
                                 drawBlackKingDownTrace(i, j);
+
+                        if ((specialProprieties.getCurrentMultipleMoveI() != i ||
+                        specialProprieties.getCurrentMultipleMoveJ() != j) &&
+                        specialProprieties.getMultipleMove())
+                            removeBoardTraces();
                     }
             }
         }
@@ -919,6 +920,7 @@ namespace TurkishDraughts
             }
             specialProprieties.setMultipleMoves(false);
             checkIfPieceIsKing(i, j);
+            pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
 

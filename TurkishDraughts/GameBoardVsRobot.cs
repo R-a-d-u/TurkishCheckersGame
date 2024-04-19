@@ -39,8 +39,8 @@ namespace TurkishDraughts
             }
            // pictureBoxButtons[7][1].getPictureBox().BackgroundImage = Resources.RedKing;
            // pictureBoxButtons[7][1].setValue(4);
-           // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-           // pictureBoxButtons[3][2].setValue(1);
+           // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
+           // pictureBoxButtons[3][2].setValue(3);
             // pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
             //  pictureBoxButtons[3][3].setValue(2);
         }
@@ -946,33 +946,32 @@ namespace TurkishDraughts
             int[,] currentPiecesArray = getPiecesArray();
             int[,] nextMovePiecesArray = getPiecesArray();
 
-            for (int i = 2; i < 8; i++)
+            for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
 
-                    if (pictureBoxButtons[i][j].getValue() % 2 == 1)
+                    if (pictureBoxButtons[i][j].getValue()  == 1)
                     {
                         if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
                         {
                             Task task = bestMove(i, j);
                             return 0;
                         }
-                        else
-                        {
-                            if (pictureBoxButtons[i + 1][j].getValue() == 0)
-                            {
-                                movePiece(i, j, i + 1, j);
-                            }
-                            else
-                                continue;
-                        }
-
+                    }
+                }
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                {
+                    if (pictureBoxButtons[i][j].getValue()  == 1)
+                        if (pictureBoxButtons[i + 1][j].getValue() == 0)
+                    {
+                        movePiece(i, j, i + 1, j);
                         return 0;
-
                     }
                 }
 
-            return 0;
+
+                    return 0;
         }
         private int[,] getPiecesArray()
         {

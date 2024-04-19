@@ -37,12 +37,12 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-            pictureBoxButtons[7][1].getPictureBox().BackgroundImage = Resources.RedKing;
-            pictureBoxButtons[7][1].setValue(4);
-            pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[3][2].setValue(1);
-           // pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
-          //  pictureBoxButtons[3][3].setValue(2);
+           // pictureBoxButtons[7][1].getPictureBox().BackgroundImage = Resources.RedKing;
+           // pictureBoxButtons[7][1].setValue(4);
+           // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+           // pictureBoxButtons[3][2].setValue(1);
+            // pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
+            //  pictureBoxButtons[3][3].setValue(2);
         }
         private void initPlayerNames()
         {
@@ -888,30 +888,33 @@ namespace TurkishDraughts
 
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
             {
-                
+
                 //int[,] currentPiecesArray = getPiecesArray();
-                if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && i < 6)
-                {
-                    robotMove(i, j, i + 2, j);
-                    i = i + 2;
-                    await Task.Delay(300);
-                    continue;
-                }
-                if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && j < 6)
-                {
-                    robotMove(i, j, i, j + 2);
-                    j = j + 2;
-                    await Task.Delay(300);
-                    continue;
-                }
-               if (pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0 && j > 1)
-                {
-                    robotMove(i, j, i, j - 2);
-                    j = j - 2;
-                    await Task.Delay(300);
-                    continue;
-                }
-                
+                if (i < 6)
+                    if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
+                    {
+                        robotMove(i, j, i + 2, j);
+                        i = i + 2;
+                        await Task.Delay(300);
+                        continue;
+                    }
+                if (j < 6)
+                    if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
+                    {
+                        robotMove(i, j, i, j + 2);
+                        j = j + 2;
+                        await Task.Delay(300);
+                        continue;
+                    }
+                if (j > 1)
+                    if (pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
+                    {
+                        robotMove(i, j, i, j - 2);
+                        j = j - 2;
+                        await Task.Delay(300);
+                        continue;
+                    }
+
 
             }
             specialProprieties.setMultipleMoves(false);
@@ -941,21 +944,26 @@ namespace TurkishDraughts
             int[,] currentPiecesArray = getPiecesArray();
             int[,] nextMovePiecesArray = getPiecesArray();
 
-            for (int i = 3; i < 8; i++)
+            for (int i = 2; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
 
-                    if (pictureBoxButtons[i][j].getValue()%2 == 1)
+                    if (pictureBoxButtons[i][j].getValue() % 2 == 1)
                     {
                         if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
                         {
                             Task task = bestMove(i, j);
                             return 0;
                         }
-
                         else
-
-                            movePiece(i, j, i + 1, j);
+                        {
+                            if (pictureBoxButtons[i + 1][j].getValue() == 0)
+                            {
+                                movePiece(i, j, i + 1, j);
+                            }
+                            else
+                                continue;
+                        }
 
                         return 0;
 

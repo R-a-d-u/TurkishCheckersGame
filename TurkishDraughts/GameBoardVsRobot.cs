@@ -1,4 +1,5 @@
-﻿using TurkishDraughts.Properties;
+﻿using System.Drawing.Text;
+using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
 {
@@ -37,10 +38,10 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-           // pictureBoxButtons[7][1].getPictureBox().BackgroundImage = Resources.RedKing;
-           // pictureBoxButtons[7][1].setValue(4);
-           // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
-           // pictureBoxButtons[3][2].setValue(3);
+            // pictureBoxButtons[7][1].getPictureBox().BackgroundImage = Resources.RedKing;
+            // pictureBoxButtons[7][1].setValue(4);
+            // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
+            // pictureBoxButtons[3][2].setValue(3);
             // pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
             //  pictureBoxButtons[3][3].setValue(2);
         }
@@ -884,7 +885,7 @@ namespace TurkishDraughts
                 }
             return blackPiece + blackKing * 0.5 - redPiece - redKing * 0.5;
         }
-        private async Task bestMove(int i, int j)
+        private async Task AIBlackPieceSingleMove(int i, int j)
         {
 
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
@@ -925,6 +926,61 @@ namespace TurkishDraughts
             swapCurrentPlayerName();
 
         }
+
+        private async Task AIBlackPieceMultipleMove(int i, int j)
+        {
+            bool foundMultipleMoves = true;
+
+            while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j) && foundMultipleMoves)
+            {
+
+                //int[,] currentPiecesArray = getPiecesArray();
+                if (i < 6)
+                    if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
+                        if (checkMultipleMoves(i, j, i + 2, j))
+                        {
+                            robotMove(i, j, i + 2, j);
+                            i = i + 2;
+                            await Task.Delay(300);
+                            continue;
+                        }
+                if (j < 6)
+                    if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
+                        if (checkMultipleMoves(i, j, i, j + 2))
+                        {
+                            robotMove(i, j, i, j + 2);
+                            j = j + 2;
+                            await Task.Delay(300);
+                            continue;
+                        }
+                if (j > 1)
+                    if (pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
+                        if (checkMultipleMoves(i, j, i, j - 2))
+                        {
+                            robotMove(i, j, i, j - 2);
+                            j = j - 2;
+                            await Task.Delay(300);
+                            continue;
+                        }
+                foundMultipleMoves = false;
+
+            }
+            if (foundMultipleMoves)
+            {
+                specialProprieties.setMultipleMoves(false);
+                checkIfPieceIsKing(i, j);
+                pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+                swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                swapCurrentPlayerName();
+            }
+            else
+            {
+                AIBlackPieceSingleMove(i, j);
+            }
+
+        }
+
+
         private void robotMove(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
@@ -946,32 +1002,34 @@ namespace TurkishDraughts
             int[,] currentPiecesArray = getPiecesArray();
             int[,] nextMovePiecesArray = getPiecesArray();
 
+            //miscare multipla 
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
 
-                    if (pictureBoxButtons[i][j].getValue()  == 1)
+                    if (pictureBoxButtons[i][j].getValue() == 1)
                     {
                         if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
                         {
-                            Task task = bestMove(i, j);
+                            AIBlackPieceMultipleMove(i, j);
                             return 0;
                         }
                     }
                 }
+            //miscare in fata 
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (pictureBoxButtons[i][j].getValue()  == 1)
+                    if (pictureBoxButtons[i][j].getValue() == 1)
                         if (pictureBoxButtons[i + 1][j].getValue() == 0)
-                    {
-                        movePiece(i, j, i + 1, j);
-                        return 0;
-                    }
+                        {
+                            movePiece(i, j, i + 1, j);
+                            return 0;
+                        }
                 }
 
 
-                    return 0;
+            return 0;
         }
         private int[,] getPiecesArray()
         {

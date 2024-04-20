@@ -854,7 +854,6 @@ namespace TurkishDraughts
                         else
                         {
                             checkFinalMove(i_firstMove, j_firstMove, i, j);
-
                         }
                     }
                 }
@@ -864,33 +863,11 @@ namespace TurkishDraughts
         {
 
         }
-        private double evaluateScore()
-        {
-            int redPiece = 0;
-            int blackPiece = 0;
-            int redKing = 0;
-            int blackKing = 0;
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                {
-                    if (pictureBoxButtons[i][j].getValue() == 1)
-                        blackPiece++;
-                    if (pictureBoxButtons[i][j].getValue() == 2)
-                        redPiece++;
-                    if (pictureBoxButtons[i][j].getValue() == 3)
-                        blackKing++;
-                    if (pictureBoxButtons[i][j].getValue() == 4)
-                        redKing++;
-                }
-            return blackPiece + blackKing * 0.5 - redPiece - redKing * 0.5;
-        }
         private async Task AIBlackPieceSingleMove(int i, int j)
         {
 
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
             {
-
-                //int[,] currentPiecesArray = getPiecesArray();
                 if (i < 6)
                     if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
                     {
@@ -915,8 +892,6 @@ namespace TurkishDraughts
                         await Task.Delay(300);
                         continue;
                     }
-
-
             }
             specialProprieties.setMultipleMoves(false);
             checkIfPieceIsKing(i, j);
@@ -932,8 +907,6 @@ namespace TurkishDraughts
 
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j) && foundMultipleMoves)
             {
-
-                //int[,] currentPiecesArray = getPiecesArray();
                 if (i < 6)
                     if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
                         if (checkMultipleMoves(i, j, i + 2, j))
@@ -983,7 +956,6 @@ namespace TurkishDraughts
         private void robotMove(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
-            //specialProprieties.setPressed(false);
             swapImage(i_initial, j_initial, i_final, j_final);
             swapValue(i_initial, j_initial, i_final, j_final);
             removeCapturedPieces(i_initial, j_initial, i_final, j_final);
@@ -991,16 +963,14 @@ namespace TurkishDraughts
             specialProprieties.setLastMultipleMoveI(i_initial);
             specialProprieties.setLastMultipleMoveJ(j_initial);
             specialProprieties.setCurrentMultipleMoveI(i_final);
-            specialProprieties.setCurrentMultipleMoveJ(j_final);
-            //daca piesa ajunge la final si inca mai poate sari peste alta piesa, sare pestea ea apoi devine rege
+            specialProprieties.setCurrentMultipleMoveJ(j_final);   
             removeBoardTraces();
 
         }
 
         private int robotFunction()
         {
-            //int[,] currentPiecesArray = getPiecesArray();
-            // int[,] nextMovePiecesArray = getPiecesArray();
+           
 
             //miscare multipla 
             for (int i = 0; i < 8; i++)
@@ -1092,15 +1062,7 @@ namespace TurkishDraughts
                 }
             return 0;
         }
-        private int[,] getPiecesArray()
-        {
-            int[,] piecesArray = new int[8, 8];
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                    piecesArray[i, j] = pictureBoxButtons[i][j].getValue();
-            return piecesArray;
 
-        }
 
 
 

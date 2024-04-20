@@ -1029,7 +1029,7 @@ namespace TurkishDraughts
 
                     }
                 }
-            //miscare lateral
+            //miscare lateral daca e spatiu gol
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1050,17 +1050,41 @@ namespace TurkishDraughts
                             return 0;
                         }
                 }
+            //miscare in fata
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                     if (pictureBoxButtons[i][j].getValue() == 1)
                     {
                         if (pictureBoxButtons[i + 1][j].getValue() == 0)
+                        {
                             movePiece(i, j, i + 1, j);
-                        return 0;
+                            return 0;
+                        }
                     }
+            //miscare lateral 
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                {
+                    if (pictureBoxButtons[i][j].getValue() == 1)
+                    {
+                        if (pictureBoxButtons[i][j + 1].getValue() == 0)
+                        {
+                            movePiece(i, j, i, j + 1);
+                            return 0;
+                        }
 
 
-                    return 0;
+                    }
+                    if (pictureBoxButtons[i][j].getValue() == 1)
+                        if (pictureBoxButtons[i][j - 1].getValue() == 0 )
+                        {
+                            movePiece(i, j, i, j - 1);
+                            return 0;
+                        }
+                }
+
+
+            return 0;
         }
         private int[,] getPiecesArray()
         {

@@ -996,6 +996,7 @@ namespace TurkishDraughts
             removeBoardTraces();
 
         }
+
         private int robotFunction()
         {
             //int[,] currentPiecesArray = getPiecesArray();
@@ -1032,18 +1033,13 @@ namespace TurkishDraughts
                 {
                     if (pictureBoxButtons[i][j].getValue() == 1)
                     {
-
-
                         if (i < 6)
                             if (pictureBoxButtons[i + 1][j].getValue() == 0 && (pictureBoxButtons[i + 2][j].getValue() == 0))
                             {
                                 movePiece(i, j, i + 1, j);
                                 return 0;
                             }
-
-
                     }
-
                 }
             //miscare lateral daca e spatiu gol
             for (int i = 0; i < 8; i++)
@@ -1056,8 +1052,6 @@ namespace TurkishDraughts
                             movePiece(i, j, i, j + 1);
                             return 0;
                         }
-
-
                     }
                     if (pictureBoxButtons[i][j].getValue() == 1 && j > 1)
                         if (pictureBoxButtons[i][j - 1].getValue() == 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
@@ -1088,8 +1082,6 @@ namespace TurkishDraughts
                             movePiece(i, j, i, j + 1);
                             return 0;
                         }
-
-
                     }
                     if (pictureBoxButtons[i][j].getValue() == 1)
                         if (pictureBoxButtons[i][j - 1].getValue() == 0)
@@ -1098,8 +1090,6 @@ namespace TurkishDraughts
                             return 0;
                         }
                 }
-
-
             return 0;
         }
         private int[,] getPiecesArray()

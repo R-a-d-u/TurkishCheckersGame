@@ -863,19 +863,12 @@ namespace TurkishDraughts
         {
 
         }
-        private async Task AIBlackPieceSingleMove(int i, int j)
+        private async Task AIBlackPieceMove(int i, int j)
         {
 
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
             {
-                if (i < 6)
-                    if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
-                    {
-                        robotMove(i, j, i + 2, j);
-                        i = i + 2;
-                        await Task.Delay(300);
-                        continue;
-                    }
+               
                 if (j < 6)
                     if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
                     {
@@ -892,6 +885,14 @@ namespace TurkishDraughts
                         await Task.Delay(300);
                         continue;
                     }
+                if (i < 6)
+                    if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
+                    {
+                        robotMove(i, j, i + 2, j);
+                        i = i + 2;
+                        await Task.Delay(300);
+                        continue;
+                    }
             }
             specialProprieties.setMultipleMoves(false);
             checkIfPieceIsKing(i, j);
@@ -901,56 +902,7 @@ namespace TurkishDraughts
 
         }
 
-        private async Task AIBlackPieceMultipleMove(int i, int j)
-        {
-            bool foundMultipleMoves = true;
 
-            while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j) && foundMultipleMoves)
-            {
-                if (i < 6)
-                    if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
-                        if (checkMultipleMoves(i, j, i + 2, j))
-                        {
-                            robotMove(i, j, i + 2, j);
-                            i = i + 2;
-                            await Task.Delay(300);
-                            continue;
-                        }
-                if (j < 6)
-                    if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
-                        if (checkMultipleMoves(i, j, i, j + 2))
-                        {
-                            robotMove(i, j, i, j + 2);
-                            j = j + 2;
-                            await Task.Delay(300);
-                            continue;
-                        }
-                if (j > 1)
-                    if (pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
-                        if (checkMultipleMoves(i, j, i, j - 2))
-                        {
-                            robotMove(i, j, i, j - 2);
-                            j = j - 2;
-                            await Task.Delay(300);
-                            continue;
-                        }
-                foundMultipleMoves = false;
-
-            }
-            if (foundMultipleMoves)
-            {
-                specialProprieties.setMultipleMoves(false);
-                checkIfPieceIsKing(i, j);
-                pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
-                swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
-                swapCurrentPlayerName();
-            }
-            else
-            {
-                AIBlackPieceSingleMove(i, j);
-            }
-
-        }
 
 
         private void robotMove(int i_initial, int j_initial, int i_final, int j_final)
@@ -963,14 +915,14 @@ namespace TurkishDraughts
             specialProprieties.setLastMultipleMoveI(i_initial);
             specialProprieties.setLastMultipleMoveJ(j_initial);
             specialProprieties.setCurrentMultipleMoveI(i_final);
-            specialProprieties.setCurrentMultipleMoveJ(j_final);   
+            specialProprieties.setCurrentMultipleMoveJ(j_final);
             removeBoardTraces();
 
         }
 
         private int robotFunction()
         {
-           
+
 
             //miscare multipla 
             for (int i = 0; i < 8; i++)
@@ -981,7 +933,7 @@ namespace TurkishDraughts
                     {
                         if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
                         {
-                            AIBlackPieceMultipleMove(i, j);
+                            AIBlackPieceMove(i, j);
                             return 0;
                         }
                     }
@@ -1078,4 +1030,3 @@ namespace TurkishDraughts
 
 
 }
-

@@ -1116,7 +1116,7 @@ namespace TurkishDraughts
 
         private int robotFunction(bool var)
         {
-        
+            Random rnd = new Random();
 
         //rege negru captura
         Step1:
@@ -1192,7 +1192,7 @@ namespace TurkishDraughts
         Step5:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
-                {
+                {    
                     if (pictureBoxButtons[i][j].getValue() == 1)
                     {
                         if (i < 6)

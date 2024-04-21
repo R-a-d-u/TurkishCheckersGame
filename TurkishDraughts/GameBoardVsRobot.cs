@@ -931,12 +931,14 @@ namespace TurkishDraughts
                     }
                 if (!j_right)
                     if (checkMultipleMovesBlackKingRight(i_initial, j_initial, i, j))
-                       // drawBlackKingRightTrace(i, j);
-                if (!i_up)
-                    if (checkMultipleMovesBlackKingUp(i_initial, j_initial, i, j))
-                      //  drawBlackKingUpTrace(i, j);
-                if (!i_down)
-                    if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
+                        // drawBlackKingRightTrace(i, j);
+                        if (!i_up)
+                            if (checkMultipleMovesBlackKingUp(i_initial, j_initial, i, j))
+                                //  drawBlackKingUpTrace(i, j);
+                                if (!i_down)
+                                    if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
+                                    { 
+                                    }
                       //  drawBlackKingDownTrace(i, j);
             }
         }

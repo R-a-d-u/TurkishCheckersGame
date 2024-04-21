@@ -915,7 +915,7 @@ namespace TurkishDraughts
         {
 
         }
-        private async Task AIBlackPieceMove(int i, int j)
+        private async Task AIBlackPieceCapture(int i, int j)
         {
 
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
@@ -953,7 +953,7 @@ namespace TurkishDraughts
             swapCurrentPlayerName();
 
         }
-        private async Task AIBlackKingMove(int i, int j)
+        private async Task AIBlackKingCapture(int i, int j)
         {
             bool firstLoop = false;
             int i_lastPosition = i;
@@ -971,8 +971,8 @@ namespace TurkishDraughts
                 if (firstLoop)
                 {
                     i_initial = specialProprieties.getLastMultipleMoveI();
-                     j_initial = specialProprieties.getLastMultipleMoveJ();
-                    
+                    j_initial = specialProprieties.getLastMultipleMoveJ();
+
                     if (i != i_initial)
                         if (i - i_initial > 0)
                             i_up = true;
@@ -1049,6 +1049,35 @@ namespace TurkishDraughts
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
         }
+        private async Task AIBlackKingChangePosition(int i, int j)
+        {
+            bool findFutureCapture = false;
+            if (i == 7 || i == 0)
+            {
+
+
+                for (int j_temp = 0; j_temp < 8 && !findFutureCapture; j_temp++)
+                {
+                    pictureBoxButtons[i][j_temp].setValue(3);
+                    if (checkMultipleMoves(i, j_temp, i, j_temp))
+                    {
+                        pictureBoxButtons[i][j_temp].setValue(0);
+                        robotMove(i, j, i, j_temp);
+                        j = j_temp;
+                        findFutureCapture = true;
+                        await Task.Delay(300);
+                    }
+                    else
+                    {
+                        pictureBoxButtons[i][j_temp].setValue(0);
+                    }
+                }
+                specialProprieties.setMultipleMoves(false);
+                pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+                swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                swapCurrentPlayerName();
+            }
+        }
 
 
 
@@ -1069,6 +1098,7 @@ namespace TurkishDraughts
 
         private int robotFunction()
         {
+            //rege negru captura
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1077,13 +1107,13 @@ namespace TurkishDraughts
                     {
                         if (checkMultipleMoves(i, j, i, j))
                         {
-                            AIBlackKingMove(i, j);
+                            AIBlackKingCapture(i, j);
                             return 0;
                         }
                     }
                 }
 
-            //miscare multipla 
+            //piesa neagra captura
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1092,11 +1122,13 @@ namespace TurkishDraughts
                     {
                         if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
                         {
-                            AIBlackPieceMove(i, j);
+                            AIBlackPieceCapture(i, j);
                             return 0;
                         }
                     }
                 }
+
+
 
 
             //mergi in fata daca e ultimul rand pt rege
@@ -1108,6 +1140,17 @@ namespace TurkishDraughts
                             movePiece(i, j, i + 1, j);
                             return 0;
                         }
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                {
+
+                    if (pictureBoxButtons[i][j].getValue() == 3)
+                    {
+                        AIBlackKingChangePosition(i, j);
+                        return 0;
+                    }
+                }
+
             //miscare in fata daca e spatiu liber
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)

@@ -115,7 +115,12 @@ namespace TurkishDraughts
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     MessageBox.Show(player2.getName() + " a castigat");
                 }
+               
+                player1TextBox.Enabled = false;
+                player2TextBox.Enabled = false;
+                currentPlayerTextBox.Enabled = false;
                 return true;
+
             }
             return false;
         }
@@ -1111,6 +1116,8 @@ namespace TurkishDraughts
 
         private int robotFunction(bool var)
         {
+        
+
         //rege negru captura
         Step1:
             for (int i = 0; i < 8; i++)

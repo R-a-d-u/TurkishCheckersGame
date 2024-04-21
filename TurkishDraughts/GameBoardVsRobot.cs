@@ -37,12 +37,23 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-            // pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.RedKing;
-            // pictureBoxButtons[7][5].setValue(4);
+          //  for (int i = 0; i < 8; i++)
+          //  {
+          //      for (int j = 0; j < 8; j++)
+          //      {
+          //          pictureBoxButtons[i][j].setValue(0);
+          //          pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+          //          
+          //      }
+          //  }
+            // pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.BlackKing;
+           //  pictureBoxButtons[7][5].setValue(3);
             // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
             // pictureBoxButtons[3][2].setValue(3);
-            // pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
-            //  pictureBoxButtons[3][3].setValue(2);
+         //   pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
+         //    pictureBoxButtons[3][3].setValue(2);
+         //  pictureBoxButtons[4][3].getPictureBox().BackgroundImage = Resources.RedPiece;
+         //  pictureBoxButtons[4][3].setValue(2);
         }
         private void initPlayerNames()
         {
@@ -83,7 +94,7 @@ namespace TurkishDraughts
             }
             removeBoardTraces();
         }
-        private bool checkGameOver(PlayerClass player1, PlayerClass player2)
+        private void checkGameOver(PlayerClass player1, PlayerClass player2)
         {
             //verifica daca nu exista nici o piesa neagra sau rosie pe tabla
             int counterRed = 0, counterBlack = 0;
@@ -116,13 +127,12 @@ namespace TurkishDraughts
                     MessageBox.Show(player2.getName() + " a castigat");
                 }
                
-                player1TextBox.Enabled = false;
-                player2TextBox.Enabled = false;
-                currentPlayerTextBox.Enabled = false;
-                return true;
+                
+                blockPictureBox();
+                removeBoardTraces();
+               
 
             }
-            return false;
         }
         public void swapCurrentPlayerName()
         {
@@ -202,17 +212,16 @@ namespace TurkishDraughts
                 {
                     movePiece(i_initial, j_initial, i_final, j_final);
                     await Task.Delay(300);//delay 0.3 sec intre mutare jucator si robot
+                    
                     if (specialProprieties.getPlayerTurn())
                         robotFunction(true);
 
                 }
                 removeBoardTraces();
             }
-            if (checkGameOver(player1, player2))
-            {
-                blockPictureBox();
-                removeBoardTraces();
-            }
+            checkGameOver(player1, player2);
+            
+
         }
         public void checkLegalMoves(int i, int j)
         {
@@ -1099,6 +1108,7 @@ namespace TurkishDraughts
 
 
 
+
         private void robotMove(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
@@ -1116,7 +1126,11 @@ namespace TurkishDraughts
 
         private int robotFunction(bool var)
         {
+
+            
+
             Random rnd = new Random();
+
 
         //rege negru captura
         Step1:
@@ -1129,6 +1143,7 @@ namespace TurkishDraughts
                         if (checkMultipleMoves(i, j, i, j))
                         {
                             AIBlackKingCapture(i, j);
+                            checkGameOver(player1, player2);
                             return 0;
                         }
                     }
@@ -1146,6 +1161,7 @@ namespace TurkishDraughts
                         {
 
                             AIBlackPieceCapture(i, j);
+                            checkGameOver(player1, player2);
                             return 0;
                         }
                     }
@@ -1249,6 +1265,21 @@ namespace TurkishDraughts
                         }
                     }
                     if (pictureBoxButtons[i][j].getValue() == 1)
+                        if (pictureBoxButtons[i][j - 1].getValue() == 0)
+                        {
+                            movePiece(i, j, i, j - 1);
+                            return 0;
+                        }
+
+                    if (pictureBoxButtons[i][j].getValue() == 3)
+                    {
+                        if (pictureBoxButtons[i][j + 1].getValue() == 0)
+                        {
+                            movePiece(i, j, i, j + 1);
+                            return 0;
+                        }
+                    }
+                    if (pictureBoxButtons[i][j].getValue() == 3)
                         if (pictureBoxButtons[i][j - 1].getValue() == 0)
                         {
                             movePiece(i, j, i, j - 1);

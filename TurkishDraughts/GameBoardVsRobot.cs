@@ -37,8 +37,8 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-            // pictureBoxButtons[7][1].getPictureBox().BackgroundImage = Resources.RedKing;
-            // pictureBoxButtons[7][1].setValue(4);
+            // pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.RedKing;
+            // pictureBoxButtons[7][5].setValue(4);
             // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
             // pictureBoxButtons[3][2].setValue(3);
             // pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
@@ -956,7 +956,9 @@ namespace TurkishDraughts
         private async Task AIBlackKingMove(int i, int j)
         {
             bool firstLoop = false;
-            while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
+            int i_lastPosition = i;
+            int j_lastPosition = j;
+            while (checkMultipleMoves(i_lastPosition, j_lastPosition, i, j))
             {
                 List<Tuple<int, int>> captureMoves = new List<Tuple<int, int>>();
                 bool i_up = false;
@@ -1073,7 +1075,7 @@ namespace TurkishDraughts
 
                     if (pictureBoxButtons[i][j].getValue() == 3)
                     {
-                        if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
+                        if (checkMultipleMoves(i, j, i, j))
                         {
                             AIBlackKingMove(i, j);
                             return 0;

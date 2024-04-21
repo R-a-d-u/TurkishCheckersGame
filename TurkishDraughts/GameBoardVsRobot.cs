@@ -538,8 +538,9 @@ namespace TurkishDraughts
             specialProprieties.getMultipleMove())
                 removeBoardTraces();
         }
-        public void drawRedKingLeftTrace(int i, int j)
+        public List<Tuple<int, int>> drawRedKingLeftTrace(int i, int j)
         {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
             int i_search = i, j_search = j, contor = 0;
             while (j_search > 0 && contor < 2)
             {
@@ -549,11 +550,17 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
                     contor = 2;
                 if (pictureBoxButtons[i][j_search].getValue() == 0)
+                {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (contor == 1)
+                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                }
             }
+            return greenYellowPositions;
         }
-        public void drawRedKingRightTrace(int i, int j)
+        public List<Tuple<int, int>> drawRedKingRightTrace(int i, int j)
         {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
             int i_search = i, j_search = j, contor = 0;
             while (j_search < 7 && contor < 2)
             {
@@ -563,82 +570,122 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
                     contor = 2;
                 if (pictureBoxButtons[i][j_search].getValue() == 0)
+                {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (contor == 1)
+                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                }
             }
+            return greenYellowPositions;
         }
-        public void drawRedKingUpTrace(int i, int j)
-        {
-            int i_search = i, j_search = j, contor = 0;
-            while (i_search > 0 && contor < 2)
-            {
-                i_search--;
-                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                    contor++;
-                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                    contor = 2;
-                if (pictureBoxButtons[i_search][j].getValue() == 0)
-                    pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
-            }
-        }
-        public void drawRedKingDownTrace(int i, int j)
-        {
-            int i_search = i, j_search = j, contor = 0;
-            while (i_search < 7 && contor < 2)
-            {
-                i_search++;
-                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                    contor++;
-                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                    contor = 2;
-                if (pictureBoxButtons[i_search][j].getValue() == 0)
-                    pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
-            }
-        }
-        public void drawBlackKingLeftTrace(int i, int j)
-        {
-            int i_search = i, j_search = j, contor = 0;
-            while (j_search > 0 && contor < 2)
-            {
-                j_search--;
-                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                    contor++;
-                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                    contor = 2;
-                if (pictureBoxButtons[i][j_search].getValue() == 0)
-                    pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
-            }
-        }
-        public void drawBlackKingRightTrace(int i, int j)
-        {
-            int i_search = i, j_search = j, contor = 0;
-            while (j_search < 7 && contor < 2)
-            {
-                j_search++;
-                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                    contor++;
-                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
-                    contor = 2;
-                if (pictureBoxButtons[i][j_search].getValue() == 0)
-                    pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
-            }
-        }
-        public void drawBlackKingUpTrace(int i, int j)
-        {
-            int i_search = i, j_search = j, contor = 0;
-            while (i_search > 0 && contor < 2)
-            {
-                i_search--;
-                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                    contor++;
-                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
-                    contor = 2;
-                if (pictureBoxButtons[i_search][j].getValue() == 0)
-                    pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
 
-            }
-        }
-        public void drawBlackKingDownTrace(int i, int j)
+        public List<Tuple<int, int>> drawRedKingUpTrace(int i, int j)
         {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search > 0 && contor < 2)
+            {
+                i_search--;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i_search][j].getValue() == 0)
+                {
+                    pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (contor == 1)
+                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+        public List<Tuple<int, int>> drawRedKingDownTrace(int i, int j)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search < 7 && contor < 2)
+            {
+                i_search++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i_search][j].getValue() == 0)
+                {
+                    pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (contor == 1)
+                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                }
+            }
+            return greenYellowPositions;
+        }
+        public List<Tuple<int, int>> drawBlackKingLeftTrace(int i, int j)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (j_search > 0 && contor < 2)
+            {
+                j_search--;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i][j_search].getValue() == 0)
+                {
+                    pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (contor == 1)
+                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+        public List<Tuple<int, int>> drawBlackKingRightTrace(int i, int j)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (j_search < 7 && contor < 2)
+            {
+                j_search++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i][j_search].getValue() == 0)
+                {
+                    pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (contor == 1)
+                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+        public List<Tuple<int, int>> drawBlackKingUpTrace(int i, int j)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search > 0 && contor < 2)
+            {
+                i_search--;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor++;
+                if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
+                    contor = 2;
+                if (pictureBoxButtons[i_search][j].getValue() == 0)
+                {
+                    pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (contor == 1)
+                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+        public List<Tuple<int, int>> drawBlackKingDownTrace(int i, int j)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
             int i_search = i, j_search = j, contor = 0;
             while (i_search < 7 && contor < 2)
             {
@@ -648,8 +695,13 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
                     contor = 2;
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
+                {
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (contor == 1)
+                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                }
             }
+            return greenYellowPositions;
         }
         public void drawLegalMovesTraces(int i, int j)
         {
@@ -868,7 +920,7 @@ namespace TurkishDraughts
 
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
             {
-               
+
                 if (j < 6)
                     if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
                     {
@@ -901,46 +953,99 @@ namespace TurkishDraughts
             swapCurrentPlayerName();
 
         }
-        private async Task AIMoveBlackKing(int i, int j)
+        private async Task AIBlackKingMove(int i, int j)
         {
-
+            bool firstLoop = false;
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
             {
-                int i_initial = specialProprieties.getLastMultipleMoveI();
-                int j_initial = specialProprieties.getLastMultipleMoveJ();
+                List<Tuple<int, int>> captureMoves = new List<Tuple<int, int>>();
                 bool i_up = false;
                 bool i_down = false;
                 bool j_right = false;
                 bool j_left = false;
-                if (i != i_initial)
-                    if (i - i_initial > 0)
-                        i_up = true;
-                    else
-                        i_down = true;
+                int i_initial = specialProprieties.getLastMultipleMoveI();
+                int j_initial = specialProprieties.getLastMultipleMoveJ();
 
-                if (j != j_initial)
-                    if (j - j_initial > 0)
-                        j_left = true;
-                    else
-                        j_right = true;
+                if (firstLoop)
+                {
+                    i_initial = specialProprieties.getLastMultipleMoveI();
+                     j_initial = specialProprieties.getLastMultipleMoveJ();
+                    
+                    if (i != i_initial)
+                        if (i - i_initial > 0)
+                            i_up = true;
+                        else
+                            i_down = true;
+
+                    if (j != j_initial)
+                        if (j - j_initial > 0)
+                            j_left = true;
+                        else
+                            j_right = true;
+                }
 
                 if (!j_left)
                     if (checkMultipleMovesBlackKingLeft(i_initial, j_initial, i, j))
                     {
-                        
+                        captureMoves = drawBlackKingLeftTrace(i, j);
+                        var firstMove = captureMoves.LastOrDefault();
+                        int i_capture = firstMove.Item1; ;
+                        int j_capture = firstMove.Item2;
+                        robotMove(i, j, i_capture, j_capture);
+                        i = i_capture;
+                        j = j_capture;
+                        await Task.Delay(300);
+                        goto continueWhile;
                     }
                 if (!j_right)
                     if (checkMultipleMovesBlackKingRight(i_initial, j_initial, i, j))
-                        // drawBlackKingRightTrace(i, j);
-                        if (!i_up)
-                            if (checkMultipleMovesBlackKingUp(i_initial, j_initial, i, j))
-                                //  drawBlackKingUpTrace(i, j);
-                                if (!i_down)
-                                    if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
-                                    { 
-                                    }
-                      //  drawBlackKingDownTrace(i, j);
+                    {
+                        captureMoves = drawBlackKingRightTrace(i, j);
+                        var firstMove = captureMoves.LastOrDefault();
+                        int i_capture = firstMove.Item1; ;
+                        int j_capture = firstMove.Item2;
+                        robotMove(i, j, i_capture, j_capture);
+                        i = i_capture;
+                        j = j_capture;
+                        await Task.Delay(300);
+                        goto continueWhile;
+                    }
+                if (!i_up)
+                    if (checkMultipleMovesBlackKingUp(i_initial, j_initial, i, j))
+                    {
+                        captureMoves = drawBlackKingUpTrace(i, j);
+                        var firstMove = captureMoves.LastOrDefault();
+                        int i_capture = firstMove.Item1; ;
+                        int j_capture = firstMove.Item2;
+                        robotMove(i, j, i_capture, j_capture);
+                        i = i_capture;
+                        j = j_capture;
+                        await Task.Delay(300);
+                        goto continueWhile;
+
+                    }
+                if (!i_down)
+                    if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
+                    {
+                        captureMoves = drawBlackKingDownTrace(i, j);
+                        var firstMove = captureMoves.LastOrDefault();
+                        int i_capture = firstMove.Item1; ;
+                        int j_capture = firstMove.Item2;
+                        robotMove(i, j, i_capture, j_capture);
+                        i = i_capture;
+                        j = j_capture;
+                        await Task.Delay(300);
+                        goto continueWhile;
+                    }
+                //  drawBlackKingDownTrace(i, j);
+
+                continueWhile: continue;
             }
+            specialProprieties.setMultipleMoves(false);
+            checkIfPieceIsKing(i, j);
+            pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+            swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+            swapCurrentPlayerName();
         }
 
 
@@ -962,7 +1067,19 @@ namespace TurkishDraughts
 
         private int robotFunction()
         {
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                {
 
+                    if (pictureBoxButtons[i][j].getValue() == 3)
+                    {
+                        if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
+                        {
+                            AIBlackKingMove(i, j);
+                            return 0;
+                        }
+                    }
+                }
 
             //miscare multipla 
             for (int i = 0; i < 8; i++)

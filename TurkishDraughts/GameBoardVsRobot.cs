@@ -901,7 +901,45 @@ namespace TurkishDraughts
             swapCurrentPlayerName();
 
         }
+        private async Task AIMoveBlackKing(int i, int j)
+        {
 
+            while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
+            {
+                int i_initial = specialProprieties.getLastMultipleMoveI();
+                int j_initial = specialProprieties.getLastMultipleMoveJ();
+                bool i_up = false;
+                bool i_down = false;
+                bool j_right = false;
+                bool j_left = false;
+                if (i != i_initial)
+                    if (i - i_initial > 0)
+                        i_up = true;
+                    else
+                        i_down = true;
+
+                if (j != j_initial)
+                    if (j - j_initial > 0)
+                        j_left = true;
+                    else
+                        j_right = true;
+
+                if (!j_left)
+                    if (checkMultipleMovesBlackKingLeft(i_initial, j_initial, i, j))
+                    {
+                        
+                    }
+                if (!j_right)
+                    if (checkMultipleMovesBlackKingRight(i_initial, j_initial, i, j))
+                       // drawBlackKingRightTrace(i, j);
+                if (!i_up)
+                    if (checkMultipleMovesBlackKingUp(i_initial, j_initial, i, j))
+                      //  drawBlackKingUpTrace(i, j);
+                if (!i_down)
+                    if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
+                      //  drawBlackKingDownTrace(i, j);
+            }
+        }
 
 
 

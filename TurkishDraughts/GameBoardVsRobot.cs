@@ -198,7 +198,7 @@ namespace TurkishDraughts
                     movePiece(i_initial, j_initial, i_final, j_final);
                     await Task.Delay(300);//delay 0.3 sec intre mutare jucator si robot
                     if (specialProprieties.getPlayerTurn())
-                        robotFunction();
+                        robotFunction(true);
 
                 }
                 removeBoardTraces();
@@ -1051,6 +1051,7 @@ namespace TurkishDraughts
         }
         private async Task AIBlackKingChangePosition(int i, int j)
         {
+            await Task.Delay(0);
             bool findFutureCapture = false;
             if (i == 7 || i == 0)
             {
@@ -1058,6 +1059,8 @@ namespace TurkishDraughts
 
                 for (int j_temp = 0; j_temp < 8 && !findFutureCapture; j_temp++)
                 {
+                    if (j_temp == j)
+                        continue;
                     pictureBoxButtons[i][j_temp].setValue(3);
                     if (checkMultipleMoves(i, j_temp, i, j_temp))
                     {
@@ -1072,10 +1075,20 @@ namespace TurkishDraughts
                         pictureBoxButtons[i][j_temp].setValue(0);
                     }
                 }
+
+            }
+            if (findFutureCapture)
+            {
                 specialProprieties.setMultipleMoves(false);
                 pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
                 swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
                 swapCurrentPlayerName();
+                //return true;
+
+            }
+            else
+            {
+                robotFunction(false);
             }
         }
 
@@ -1096,9 +1109,10 @@ namespace TurkishDraughts
 
         }
 
-        private int robotFunction()
+        private int robotFunction(bool var)
         {
-            //rege negru captura
+        //rege negru captura
+        Step1:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1114,6 +1128,7 @@ namespace TurkishDraughts
                 }
 
             //piesa neagra captura
+            Step2:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1122,6 +1137,7 @@ namespace TurkishDraughts
                     {
                         if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
                         {
+
                             AIBlackPieceCapture(i, j);
                             return 0;
                         }
@@ -1132,26 +1148,41 @@ namespace TurkishDraughts
 
 
             //mergi in fata daca e ultimul rand pt rege
+            Step3:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
+                {
                     if (pictureBoxButtons[i][j].getValue() == 1)
+                    {
                         if (pictureBoxButtons[i + 1][j].getValue() == 0 && i == 6)
                         {
                             movePiece(i, j, i + 1, j);
                             return 0;
                         }
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                {
-
-                    if (pictureBoxButtons[i][j].getValue() == 3)
-                    {
-                        AIBlackKingChangePosition(i, j);
-                        return 0;
                     }
                 }
 
-            //miscare in fata daca e spatiu liber
+            //regele isi schimba pozitia pt captura daca e ultimul rand
+            Step4:
+            if (var)
+            {
+                for (int i = 0; i < 8; i++)
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if (pictureBoxButtons[i][j].getValue() == 3)
+                        {
+                            if (i == 0 || i == 7)
+                            {
+                                AIBlackKingChangePosition(i, j);
+                                return 0;
+                            }
+                        }
+                    }
+            }
+            var = true;
+
+        //miscare in fata daca e spatiu liber
+        Step5:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1166,6 +1197,7 @@ namespace TurkishDraughts
                     }
                 }
             //miscare lateral daca e spatiu gol
+            Step6:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1185,6 +1217,7 @@ namespace TurkishDraughts
                         }
                 }
             //miscare in fata
+            Step7:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                     if (pictureBoxButtons[i][j].getValue() == 1)
@@ -1195,7 +1228,8 @@ namespace TurkishDraughts
                             return 0;
                         }
                     }
-            //miscare lateral 
+                //miscare lateral 
+                Step8:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {

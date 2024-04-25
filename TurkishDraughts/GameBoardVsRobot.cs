@@ -804,6 +804,42 @@ namespace TurkishDraughts
            specialProprieties.getMultipleMove())
                 removeBoardTraces();
         }
+        public List<Tuple<int, int>> AIGetAllRedPiecesPossibleMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> tupleList = new List<Tuple<int, int>>();
+            // Empty space
+            if (!specialProprieties.getMultipleMove())
+            {
+                if (i > 0 && valuesMatrix[i - 1, j] == 0)
+                {
+                    tupleList.Add(Tuple.Create(i - 1, j));
+                }
+                if (j > 0 && valuesMatrix[i, j - 1] == 0)
+                {
+                    tupleList.Add(Tuple.Create(i, j - 1));
+                }
+                if (j < 7 && valuesMatrix[i, j + 1] == 0)
+                {
+                    tupleList.Add(Tuple.Create(i, j + 1));
+                }
+            }
+            // Piece nearby
+            if (i > 1 && valuesMatrix[i - 2, j] == 0 && valuesMatrix[i - 1, j] % 2 != 0)
+            {
+                tupleList.Add(Tuple.Create(i - 2, j));
+            }
+            if (j > 1 && valuesMatrix[i, j - 2] == 0 && valuesMatrix[i, j - 1] % 2 != 0)
+            {
+                tupleList.Add(Tuple.Create(i, j - 2));
+            }
+            if (j < 6 && valuesMatrix[i, j + 2] == 0 && valuesMatrix[i, j + 1] % 2 != 0)
+            {
+                tupleList.Add(Tuple.Create(i, j + 2));
+            }
+            return tupleList;
+
+
+        }
         public void drawBlackPieceTrace(int i, int j)
         {
             //spatiu gol
@@ -829,6 +865,44 @@ namespace TurkishDraughts
             specialProprieties.getMultipleMove())
                 removeBoardTraces();
         }
+
+
+        public List<Tuple<int, int>> AIGetAllBlackPiecesPossibleMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> tupleList = new List<Tuple<int, int>>();
+            // Empty space
+            if (!specialProprieties.getMultipleMove())
+            {
+                if (i < 7 && valuesMatrix[i + 1, j] == 0)
+                {
+                    tupleList.Add(Tuple.Create(i + 1, j));
+                }
+                if (j < 7 && valuesMatrix[i, j + 1] == 0)
+                {
+                    tupleList.Add(Tuple.Create(i, j + 1));
+                }
+                if (j > 0 && valuesMatrix[i, j - 1] == 0)
+                {
+                    tupleList.Add(Tuple.Create(i, j - 1));
+                }
+            }
+            // Piece nearby
+            if (i < 6 && valuesMatrix[i + 2, j] == 0 && valuesMatrix[i + 1, j] % 2 == 0 && valuesMatrix[i + 1, j] != 0)
+            {
+                tupleList.Add(Tuple.Create(i + 2, j));
+            }
+            if (j < 6 && valuesMatrix[i, j + 2] == 0 && valuesMatrix[i, j + 1] % 2 == 0 && valuesMatrix[i, j + 1] != 0)
+            {
+                tupleList.Add(Tuple.Create(i, j + 2));
+            }
+            if (j > 1 && valuesMatrix[i, j - 2] == 0 && valuesMatrix[i, j - 1] % 2 == 0 && valuesMatrix[i, j - 1] != 0)
+            {
+                tupleList.Add(Tuple.Create(i, j - 2));
+            }
+
+            return tupleList;
+        }
+
         public List<Tuple<int, int>> drawRedKingLeftTrace(int i, int j)
         {
             List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
@@ -1315,7 +1389,7 @@ namespace TurkishDraughts
         private int robotFunction(bool var)
         {
 
-            CurrentBoardValues(pictureBoxButtons);
+            AICurrentBoardValues(pictureBoxButtons);
             return 0;
         }
         // private async Task AIBlackPieceCapture(int i, int j)

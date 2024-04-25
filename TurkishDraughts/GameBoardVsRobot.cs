@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using TurkishDraughts.Properties;
+﻿using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
 {
@@ -1645,7 +1643,7 @@ namespace TurkishDraughts
         }
         private static int[,] AICurrentBoardValues(PieceClass[][] pictureBoxButtons)
         {
-            int[,] valuesMatrix = new int[8,8];
+            int[,] valuesMatrix = new int[8, 8];
 
             for (int i = 0; i < 8; i++)
             {
@@ -1664,7 +1662,7 @@ namespace TurkishDraughts
             int blackPieces = 0;
             int blackKings = 0;
 
-            
+
 
             for (int i = 0; i < 8; i++)
             {
@@ -1708,47 +1706,58 @@ namespace TurkishDraughts
             int maxScore = -1;
             int bestInitialI = -1, bestInitialJ = -1;
             int bestFinalI = -1, bestFinalJ = -1;
-            List<Tuple<int, int>> bestMovePath=new List<Tuple<int, int>>();
+            List<Tuple<int, int>> bestMovePath = new List<Tuple<int, int>>();
             List<Tuple<int, int>> tempMovePath = new List<Tuple<int, int>>();
-            List<Tuple<int, int>> allMoves= new List<Tuple<int, int>>();
+            List<Tuple<int, int>> allMoves = new List<Tuple<int, int>>();
+            List<Tuple<int, int>> allMultipleMoves = new List<Tuple<int, int>>();
             int[,] currentBoard = AICurrentBoardValues(pictureBoxButtons);
-            int[,] futureOwnerMoveBoard = new int[8,8];
-            int[,] futureOpponentMoveBoard = new int[8,8];
+            int[,] futureOwnerMoveBoard = new int[8, 8];
+            int[,] futureOpponentMoveBoard = new int[8, 8];
             for (int i = 1; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
 
                     if (currentBoard[i, j] % 2 == 1 && currentBoard[i, j] != 0)
                     {
-                        //tempMovePath.Add(Tuple.Create(i, j));
 
-                       allMoves = AIGetAllPiecesPossibleMoves(i, j, currentBoard);
-                        
+
+                        allMoves = AIGetAllPiecesPossibleMoves(i, j, currentBoard);
+
                         foreach (var move in allMoves)
                         {
                             copyArray(currentBoard, futureOwnerMoveBoard);
-                            //futureOwnerMoveBoard = currentBoard;
+
                             int futureMoveI = move.Item1;
                             int futureMoveJ = move.Item2;
+                            
+
                             tempMovePath.Add(Tuple.Create(futureMoveI, futureMoveJ));
                             AImovePiece(i, j, futureMoveI, futureMoveJ, futureOwnerMoveBoard);
-                            if (specialProprieties.getMultipleMove())
-                            {
-                             //  List<Tuple<int, int>> allFutureMoves = AIGetAllPiecesPossibleMoves(futureMoveI, futureMoveJ, futureOwnerMoveBoard);
-                             //  while (AIcheckMultipleMoves(specialProprieties.getLastMultipleMoveI(), (specialProprieties.getLastMultipleMoveJ()), futureMoveI, futureMoveJ, futureOwnerMoveBoard))
-                             // {
-                             //    
-                             //     foreach (var allFutureMove in allFutureMoves)
-                             //     {
-                             //         int futureMoveI2 = allFutureMove.Item1;
-                             //         int futureMoveJ2 = allFutureMove.Item2;
-                             //          tempMovePath.Add(Tuple.Create(futureMoveI, futureMoveJ));
-                             //      }
-                             // }
-                            }
-                            else
-                            {
-                                
+                          // while (AIcheckMultipleMoves(i, j, futureMoveI, futureMoveJ, futureOwnerMoveBoard))
+                          // {
+                          //     
+                          // }
+
+                            //i = futureMoveI;
+                            //j = futureMoveJ;
+                            //while (specialProprieties.getMultipleMove())
+                                // {
+                                //     allMultipleMoves= AIGetAllPiecesPossibleMoves(i, j, futureOwnerMoveBoard);
+                                //     foreach (var Multiplemove in allMultipleMoves)                                   
+                                //     {
+                                //        futureMoveI = Multiplemove.Item1;
+                                //         futureMoveJ = Multiplemove.Item2;
+                                //         tempMovePath.Add(Tuple.Create(futureMoveI, futureMoveJ));
+                                //         AImovePiece(i, j, futureMoveI, futureMoveJ, futureOwnerMoveBoard);
+                                //         i=futureMoveI;
+                                //         j=futureMoveJ;
+                                //     }
+                                //         
+                                // }
+
+
+
+
                                 if (AICalculateScore(futureOwnerMoveBoard) > maxScore)
                                 {
                                     maxScore = AICalculateScore(futureOwnerMoveBoard);
@@ -1756,28 +1765,27 @@ namespace TurkishDraughts
                                     bestInitialJ = j;
                                     bestMovePath.Clear();
                                     bestMovePath.AddRange(tempMovePath);
-                                    // bestFinalI = futureMoveI;
-                                    // bestFinalJ = futureMoveJ;
 
-                                } 
-                               
 
-                            }
-                            //futureOwnerMoveBoard=currentBoard;
+                                }
+
+
+
+
                             tempMovePath.Clear();
-                            
+
                         }
-                        //allMoves.Clear();
+
                     }
 
 
 
-                    
+
                 }
             AIFinalMovePiece(bestMovePath, bestInitialI, bestInitialJ);
             return 0;
         }
-        private async Task AIFinalMovePiece(List<Tuple<int, int>> path,int i,int j)
+        private async Task AIFinalMovePiece(List<Tuple<int, int>> path, int i, int j)
         {
             foreach (var move in path)
             {
@@ -1788,7 +1796,7 @@ namespace TurkishDraughts
                 i = MoveI;
                 j = MoveJ;
             }
-           
+
         }
         // private async Task AIBlackPieceCapture(int i, int j)
         // {

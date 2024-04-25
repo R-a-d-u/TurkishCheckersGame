@@ -230,6 +230,13 @@ namespace TurkishDraughts
                 drawLegalMovesTraces(i, j);
             }
         }
+        private void AIcheckLegalMoves(int i, int j)
+        {
+            if (pictureBoxButtons[i][j].getValue() != 0)
+            {
+               // drawLegalMovesTraces(i, j);
+            }
+        }
         public bool checkMultipleMovesBlackPiece(int i, int j)
         {
             if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
@@ -240,6 +247,16 @@ namespace TurkishDraughts
                 return true;
             return false;
         }
+        public bool AIcheckMultipleMovesBlackPiece(int i, int j, int[,] valuesMatrix)
+        {
+            if (i < 6 && valuesMatrix[i + 2, j] == 0 && valuesMatrix[i + 1, j] % 2 == 0 && valuesMatrix[i + 1, j] != 0)
+                return true;
+            if (j < 6 && valuesMatrix[i, j + 2] == 0 && valuesMatrix[i, j + 1] % 2 == 0 && valuesMatrix[i, j + 1] != 0)
+                return true;
+            if (j > 1 && valuesMatrix[i, j - 2] == 0 && valuesMatrix[i, j - 1] % 2 == 0 && valuesMatrix[i, j - 1] != 0)
+                return true;
+            return false;
+        }
         public bool checkMultipleMovesRedPiece(int i, int j)
         {
             if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
@@ -247,6 +264,16 @@ namespace TurkishDraughts
             if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 != 0)
                 return true;
             if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 != 0)
+                return true;
+            return false;
+        }
+        public bool AIcheckMultipleMovesRedPiece(int i, int j, int[,] valuesMatrix)
+        {
+            if (i > 1 && valuesMatrix[i - 2, j] == 0 && valuesMatrix[i - 1, j] % 2 != 0)
+                return true;
+            if (j > 1 && valuesMatrix[i, j - 2] == 0 && valuesMatrix[i, j - 1] % 2 != 0)
+                return true;
+            if (j < 6 && valuesMatrix[i, j + 2] == 0 && valuesMatrix[i, j + 1] % 2 != 0)
                 return true;
             return false;
         }
@@ -327,6 +354,92 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
                     redPieceInBetween = true;
                 if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0 && pictureBoxButtons[i_search + 1][j].getValue() == 0)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool AIcheckMultipleMovesRedKingLeft(int i_initial, int j_initial, int i, int j, int[,] valuesMatrix)
+        {
+            int j_search = j;
+            bool redPieceInBetween = false;
+            bool doubleBlackPiece = false;
+            while (j_search > 1 && !redPieceInBetween && !doubleBlackPiece)
+            {
+                j_search--;
+                if (valuesMatrix[i, j_search] % 2 != 0 &&
+                    valuesMatrix[i, j_search] != 0 &&
+                    valuesMatrix[i, j_search - 1] % 2 != 0 &&
+                    valuesMatrix[i, j_search - 1] != 0)
+                    doubleBlackPiece = true;
+                if (valuesMatrix[i, j_search] % 2 == 0 && valuesMatrix[i, j_search] != 0)
+                    redPieceInBetween = true;
+                if (valuesMatrix[i, j_search] % 2 != 0 && valuesMatrix[i, j_search] != 0 && valuesMatrix[i, j_search - 1] == 0)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool AIcheckMultipleMovesRedKingRight(int i_initial, int j_initial, int i, int j, int[,] valuesMatrix)
+        {
+            int j_search = j;
+            bool redPieceInBetween = false;
+            bool doubleBlackPiece = false;
+            while (j_search < 6 && !redPieceInBetween && !doubleBlackPiece)
+            {
+                j_search++;
+                if (valuesMatrix[i, j_search] % 2 != 0 &&
+                    valuesMatrix[i, j_search] != 0 &&
+                    valuesMatrix[i, j_search + 1] % 2 != 0 &&
+                    valuesMatrix[i, j_search + 1] != 0)
+                    doubleBlackPiece = true;
+                if (valuesMatrix[i, j_search] % 2 == 0 && valuesMatrix[i, j_search] != 0)
+                    redPieceInBetween = true;
+                if (valuesMatrix[i, j_search] % 2 != 0 && valuesMatrix[i, j_search] != 0 && valuesMatrix[i, j_search + 1] == 0)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool AIcheckMultipleMovesRedKingUp(int i_initial, int j_initial, int i, int j, int[,] valuesMatrix)
+        {
+            int i_search = i, j_search = j;
+            bool redPieceInBetween = false;
+            bool doubleBlackPiece = false;
+            while (i_search > 1 && !redPieceInBetween && !doubleBlackPiece)
+            {
+                i_search--;
+                if (valuesMatrix[i_search, j] % 2 != 0 &&
+                    valuesMatrix[i_search, j] != 0 &&
+                    valuesMatrix[i_search - 1, j] % 2 != 0 &&
+                    valuesMatrix[i_search - 1, j] != 0)
+                    doubleBlackPiece = true;
+                if (valuesMatrix[i_search, j] % 2 == 0 && valuesMatrix[i_search, j] != 0)
+                    redPieceInBetween = true;
+                if (valuesMatrix[i_search, j] % 2 != 0 && valuesMatrix[i_search, j] != 0 && valuesMatrix[i_search - 1, j] == 0)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool AIcheckMultipleMovesRedKingDown(int i_initial, int j_initial, int i, int j, int[,] valuesMatrix)
+        {
+            int i_search = i, j_search = j;
+            bool redPieceInBetween = false;
+            bool doubleBlackPiece = false;
+            while (i_search < 6 && !redPieceInBetween && !doubleBlackPiece)
+            {
+                i_search++;
+                if (valuesMatrix[i_search, j] % 2 != 0 &&
+                    valuesMatrix[i_search, j] != 0 &&
+                    valuesMatrix[i_search + 1, j] % 2 != 0 &&
+                    valuesMatrix[i_search + 1, j] != 0)
+                    doubleBlackPiece = true;
+                if (valuesMatrix[i_search, j] % 2 == 0 && valuesMatrix[i_search, j] != 0)
+                    redPieceInBetween = true;
+                if (valuesMatrix[i_search, j] % 2 != 0 && valuesMatrix[i_search, j] != 0 && valuesMatrix[i_search + 1, j] == 0)
                     return true;
             }
 
@@ -417,6 +530,89 @@ namespace TurkishDraughts
             return false;
         }
 
+        public bool AIcheckMultipleMovesBlackKingLeft(int i_initial, int j_initial, int i, int j, int[,] valuesMatrix)
+        {
+            int j_search = j;
+            bool blackPieceInBetween = false;
+            bool doubleRedPiece = false;
+            while (j_search > 1 && !blackPieceInBetween && !doubleRedPiece)
+            {
+                j_search--;
+                if (valuesMatrix[i, j_search] % 2 == 0 &&
+                    valuesMatrix[i, j_search] != 0 &&
+                    valuesMatrix[i, j_search - 1] % 2 == 0 &&
+                    valuesMatrix[i, j_search - 1] != 0)
+                    doubleRedPiece = true;
+                if (valuesMatrix[i, j_search] % 2 != 0 && valuesMatrix[i, j_search] != 0)
+                    blackPieceInBetween = true;
+                if (valuesMatrix[i, j_search] % 2 == 0 && valuesMatrix[i, j_search] != 0 && valuesMatrix[i, j_search - 1] == 0)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool AIcheckMultipleMovesBlackKingRight(int i_initial, int j_initial, int i, int j, int[,] valuesMatrix)
+        {
+            int j_search = j;
+            bool blackPieceInBetween = false;
+            bool doubleRedPiece = false;
+            while (j_search < 6 && !blackPieceInBetween && !doubleRedPiece)
+            {
+                j_search++;
+                if (valuesMatrix[i, j_search] % 2 == 0 &&
+                    valuesMatrix[i, j_search] != 0 &&
+                    valuesMatrix[i, j_search + 1] % 2 == 0 &&
+                    valuesMatrix[i, j_search + 1] != 0)
+                    doubleRedPiece = true;
+                if (valuesMatrix[i, j_search] % 2 != 0 && valuesMatrix[i, j_search] != 0)
+                    blackPieceInBetween = true;
+                if (valuesMatrix[i, j_search] % 2 == 0 && valuesMatrix[i, j_search] != 0 && valuesMatrix[i, j_search + 1] == 0)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool AIcheckMultipleMovesBlackKingUp(int i_initial, int j_initial, int i, int j, int[,] valuesMatrix)
+        {
+            int i_search = i, j_search = j;
+            bool blackPieceInBetween = false;
+            bool doubleRedPiece = false;
+            while (i_search > 1 && !blackPieceInBetween && !doubleRedPiece)
+            {
+                i_search--;
+                if (valuesMatrix[i_search, j] % 2 == 0 &&
+                    valuesMatrix[i_search, j] != 0 &&
+                    valuesMatrix[i_search - 1, j] % 2 == 0 &&
+                    valuesMatrix[i_search - 1, j] != 0)
+                    doubleRedPiece = true;
+                if (valuesMatrix[i_search, j] % 2 != 0 && valuesMatrix[i_search, j] != 0)
+                    blackPieceInBetween = true;
+                if (valuesMatrix[i_search, j] % 2 == 0 && valuesMatrix[i_search, j] != 0 && valuesMatrix[i_search - 1, j] == 0)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool AIcheckMultipleMovesBlackKingDown(int i_initial, int j_initial, int i, int j, int[,] valuesMatrix)
+        {
+            int i_search = i, j_search = j;
+            bool blackPieceInBetween = false;
+            bool doubleRedPiece = false;
+            while (i_search < 6 && !blackPieceInBetween && !doubleRedPiece)
+            {
+                i_search++;
+                if (valuesMatrix[i_search, j] % 2 == 0 &&
+                    valuesMatrix[i_search, j] != 0 &&
+                    valuesMatrix[i_search + 1, j] % 2 == 0 &&
+                    valuesMatrix[i_search + 1, j] != 0)
+                    doubleRedPiece = true;
+                if (valuesMatrix[i_search, j] % 2 != 0 && valuesMatrix[i_search, j] != 0)
+                    blackPieceInBetween = true;
+                if (valuesMatrix[i_search, j] % 2 == 0 && valuesMatrix[i_search, j] != 0 && valuesMatrix[i_search + 1, j] == 0)
+                    return true;
+            }
+            return false;
+        }
         public bool checkMultipleMoves(int i_initial, int j_initial, int i, int j)
         {
             //piesa rosie
@@ -498,6 +694,87 @@ namespace TurkishDraughts
                         return true;
                 if (!i_down)
                     if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
+                        return true;
+            }
+            return false;
+        }
+
+        public bool AIcheckMultipleMoves(int i_initial, int j_initial, int i, int j, int[,] valuesMatrix)
+        {
+            // Red piece
+            if (valuesMatrix[i, j] == 2)
+            {
+                if (AIcheckMultipleMovesRedPiece(i, j, valuesMatrix))
+                    return true;
+            }
+            // Black piece
+            if (valuesMatrix[i, j] == 1)
+            {
+                if (AIcheckMultipleMovesBlackPiece(i, j, valuesMatrix))
+                    return true;
+            }
+            // Red king
+            if (valuesMatrix[i, j] == 4)
+            {
+                bool i_up = false;
+                bool i_down = false;
+                bool j_right = false;
+                bool j_left = false;
+                if (i != i_initial)
+                    if (i - i_initial > 0)
+                        i_up = true;
+                    else
+                        i_down = true;
+
+                if (j != j_initial)
+                    if (j - j_initial > 0)
+                        j_left = true;
+                    else
+                        j_right = true;
+
+                if (!j_left)
+                    if (AIcheckMultipleMovesRedKingLeft(i_initial, j_initial, i, j, valuesMatrix))
+                        return true;
+                if (!j_right)
+                    if (AIcheckMultipleMovesRedKingRight(i_initial, j_initial, i, j, valuesMatrix))
+                        return true;
+                if (!i_up)
+                    if (AIcheckMultipleMovesRedKingUp(i_initial, j_initial, i, j, valuesMatrix))
+                        return true;
+                if (!i_down)
+                    if (AIcheckMultipleMovesRedKingDown(i_initial, j_initial, i, j, valuesMatrix))
+                        return true;
+            }
+            // Black king
+            if (valuesMatrix[i, j] == 3)
+            {
+                bool i_up = false;
+                bool i_down = false;
+                bool j_right = false;
+                bool j_left = false;
+                if (i != i_initial)
+                    if (i - i_initial > 0)
+                        i_up = true;
+                    else
+                        i_down = true;
+
+                if (j != j_initial)
+                    if (j - j_initial > 0)
+                        j_left = true;
+                    else
+                        j_right = true;
+
+                if (!j_left)
+                    if (AIcheckMultipleMovesBlackKingLeft(i_initial, j_initial, i, j, valuesMatrix))
+                        return true;
+                if (!j_right)
+                    if (AIcheckMultipleMovesBlackKingRight(i_initial, j_initial, i, j, valuesMatrix))
+                        return true;
+                if (!i_up)
+                    if (AIcheckMultipleMovesBlackKingUp(i_initial, j_initial, i, j, valuesMatrix))
+                        return true;
+                if (!i_down)
+                    if (AIcheckMultipleMovesBlackKingDown(i_initial, j_initial, i, j, valuesMatrix))
                         return true;
             }
             return false;
@@ -929,364 +1206,378 @@ namespace TurkishDraughts
         {
 
         }
-        private async Task AIBlackPieceCapture(int i, int j)
+        // private async Task AIBlackPieceCapture(int i, int j)
+        // {
+        //
+        //     while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
+        //     {
+        //
+        //         if (j < 6)
+        //             if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
+        //             {
+        //                 robotMove(i, j, i, j + 2);
+        //                 j = j + 2;
+        //                 await Task.Delay(300);
+        //                 continue;
+        //             }
+        //         if (j > 1)
+        //             if (pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
+        //             {
+        //                 robotMove(i, j, i, j - 2);
+        //                 j = j - 2;
+        //                 await Task.Delay(300);
+        //                 continue;
+        //             }
+        //         if (i < 6)
+        //             if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
+        //             {
+        //                 robotMove(i, j, i + 2, j);
+        //                 i = i + 2;
+        //                 await Task.Delay(300);
+        //                 continue;
+        //             }
+        //     }
+        //     specialProprieties.setMultipleMoves(false);
+        //     checkIfPieceIsKing(i, j);
+        //     pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+        //     swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+        //     swapCurrentPlayerName();
+        //
+        // }
+        // private async Task AIBlackKingCapture(int i, int j)
+        // {
+        //     bool firstLoop = false;
+        //     int i_lastPosition = i;
+        //     int j_lastPosition = j;
+        //     while (checkMultipleMoves(i_lastPosition, j_lastPosition, i, j))
+        //     {
+        //         List<Tuple<int, int>> captureMoves = new List<Tuple<int, int>>();
+        //         bool i_up = false;
+        //         bool i_down = false;
+        //         bool j_right = false;
+        //         bool j_left = false;
+        //         int i_initial = specialProprieties.getLastMultipleMoveI();
+        //         int j_initial = specialProprieties.getLastMultipleMoveJ();
+        //
+        //         if (firstLoop)
+        //         {
+        //             i_initial = specialProprieties.getLastMultipleMoveI();
+        //             j_initial = specialProprieties.getLastMultipleMoveJ();
+        //
+        //             if (i != i_initial)
+        //                 if (i - i_initial > 0)
+        //                     i_up = true;
+        //                 else
+        //                     i_down = true;
+        //
+        //             if (j != j_initial)
+        //                 if (j - j_initial > 0)
+        //                     j_left = true;
+        //                 else
+        //                     j_right = true;
+        //         }
+        //
+        //         if (!j_left)
+        //             if (checkMultipleMovesBlackKingLeft(i_initial, j_initial, i, j))
+        //             {
+        //                 captureMoves = drawBlackKingLeftTrace(i, j);
+        //                 var firstMove = captureMoves.LastOrDefault();
+        //                 int i_capture = firstMove.Item1; ;
+        //                 int j_capture = firstMove.Item2;
+        //                 robotMove(i, j, i_capture, j_capture);
+        //                 i = i_capture;
+        //                 j = j_capture;
+        //                 await Task.Delay(300);
+        //                 goto continueWhile;
+        //             }
+        //         if (!j_right)
+        //             if (checkMultipleMovesBlackKingRight(i_initial, j_initial, i, j))
+        //             {
+        //                 captureMoves = drawBlackKingRightTrace(i, j);
+        //                 var firstMove = captureMoves.LastOrDefault();
+        //                 int i_capture = firstMove.Item1; ;
+        //                 int j_capture = firstMove.Item2;
+        //                 robotMove(i, j, i_capture, j_capture);
+        //                 i = i_capture;
+        //                 j = j_capture;
+        //                 await Task.Delay(300);
+        //                 goto continueWhile;
+        //             }
+        //         if (!i_up)
+        //             if (checkMultipleMovesBlackKingUp(i_initial, j_initial, i, j))
+        //             {
+        //                 captureMoves = drawBlackKingUpTrace(i, j);
+        //                 var firstMove = captureMoves.LastOrDefault();
+        //                 int i_capture = firstMove.Item1; ;
+        //                 int j_capture = firstMove.Item2;
+        //                 robotMove(i, j, i_capture, j_capture);
+        //                 i = i_capture;
+        //                 j = j_capture;
+        //                 await Task.Delay(300);
+        //                 goto continueWhile;
+        //
+        //             }
+        //         if (!i_down)
+        //             if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
+        //             {
+        //                 captureMoves = drawBlackKingDownTrace(i, j);
+        //                 var firstMove = captureMoves.LastOrDefault();
+        //                 int i_capture = firstMove.Item1; ;
+        //                 int j_capture = firstMove.Item2;
+        //                 robotMove(i, j, i_capture, j_capture);
+        //                 i = i_capture;
+        //                 j = j_capture;
+        //                 await Task.Delay(300);
+        //                 goto continueWhile;
+        //             }
+        //         //  drawBlackKingDownTrace(i, j);
+        //
+        //         continueWhile: continue;
+        //     }
+        //     specialProprieties.setMultipleMoves(false);
+        //     checkIfPieceIsKing(i, j);
+        //     pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+        //     swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+        //     swapCurrentPlayerName();
+        // }
+        // private async Task AIBlackKingChangePosition(int i, int j)
+        // {
+        //     await Task.Delay(0);
+        //     bool findFutureCapture = false;
+        //     if (i == 7 || i == 0)
+        //     {
+        //
+        //
+        //         for (int j_temp = 0; j_temp < 8 && !findFutureCapture; j_temp++)
+        //         {
+        //             if (j_temp == j)
+        //                 continue;
+        //             pictureBoxButtons[i][j_temp].setValue(3);
+        //             if (checkMultipleMoves(i, j_temp, i, j_temp))
+        //             {
+        //                 pictureBoxButtons[i][j_temp].setValue(0);
+        //                 robotMove(i, j, i, j_temp);
+        //                 j = j_temp;
+        //                 findFutureCapture = true;
+        //                 await Task.Delay(300);
+        //             }
+        //             else
+        //             {
+        //                 pictureBoxButtons[i][j_temp].setValue(0);
+        //             }
+        //         }
+        //
+        //     }
+        //     if (findFutureCapture)
+        //     {
+        //         specialProprieties.setMultipleMoves(false);
+        //         pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+        //         swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+        //         swapCurrentPlayerName();
+        //         //return true;
+        //
+        //     }
+        //     else
+        //     {
+        //         robotFunction(false);
+        //     }
+        // }
+        //
+        //
+        //
+        //
+        // private void robotMove(int i_initial, int j_initial, int i_final, int j_final)
+        // {
+        //     pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
+        //     swapImage(i_initial, j_initial, i_final, j_final);
+        //     swapValue(i_initial, j_initial, i_final, j_final);
+        //     removeCapturedPieces(i_initial, j_initial, i_final, j_final);
+        //     specialProprieties.setMultipleMoves(true);
+        //     specialProprieties.setLastMultipleMoveI(i_initial);
+        //     specialProprieties.setLastMultipleMoveJ(j_initial);
+        //     specialProprieties.setCurrentMultipleMoveI(i_final);
+        //     specialProprieties.setCurrentMultipleMoveJ(j_final);
+        //     removeBoardTraces();
+        //
+        // }
+        //
+        private static int[,] CurrentBoardValues(PieceClass[][] pictureBoxButtons)
         {
+            int[,] valuesMatrix = new int[pictureBoxButtons.Length, pictureBoxButtons[0].Length];
 
-            while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
+            for (int i = 0; i < pictureBoxButtons.Length; i++)
             {
-
-                if (j < 6)
-                    if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
-                    {
-                        robotMove(i, j, i, j + 2);
-                        j = j + 2;
-                        await Task.Delay(300);
-                        continue;
-                    }
-                if (j > 1)
-                    if (pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
-                    {
-                        robotMove(i, j, i, j - 2);
-                        j = j - 2;
-                        await Task.Delay(300);
-                        continue;
-                    }
-                if (i < 6)
-                    if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
-                    {
-                        robotMove(i, j, i + 2, j);
-                        i = i + 2;
-                        await Task.Delay(300);
-                        continue;
-                    }
-            }
-            specialProprieties.setMultipleMoves(false);
-            checkIfPieceIsKing(i, j);
-            pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
-            swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
-            swapCurrentPlayerName();
-
-        }
-        private async Task AIBlackKingCapture(int i, int j)
-        {
-            bool firstLoop = false;
-            int i_lastPosition = i;
-            int j_lastPosition = j;
-            while (checkMultipleMoves(i_lastPosition, j_lastPosition, i, j))
-            {
-                List<Tuple<int, int>> captureMoves = new List<Tuple<int, int>>();
-                bool i_up = false;
-                bool i_down = false;
-                bool j_right = false;
-                bool j_left = false;
-                int i_initial = specialProprieties.getLastMultipleMoveI();
-                int j_initial = specialProprieties.getLastMultipleMoveJ();
-
-                if (firstLoop)
+                for (int j = 0; j < pictureBoxButtons[i].Length; j++)
                 {
-                    i_initial = specialProprieties.getLastMultipleMoveI();
-                    j_initial = specialProprieties.getLastMultipleMoveJ();
-
-                    if (i != i_initial)
-                        if (i - i_initial > 0)
-                            i_up = true;
-                        else
-                            i_down = true;
-
-                    if (j != j_initial)
-                        if (j - j_initial > 0)
-                            j_left = true;
-                        else
-                            j_right = true;
+                    valuesMatrix[i, j] = pictureBoxButtons[i][j].getValue();
                 }
-
-                if (!j_left)
-                    if (checkMultipleMovesBlackKingLeft(i_initial, j_initial, i, j))
-                    {
-                        captureMoves = drawBlackKingLeftTrace(i, j);
-                        var firstMove = captureMoves.LastOrDefault();
-                        int i_capture = firstMove.Item1; ;
-                        int j_capture = firstMove.Item2;
-                        robotMove(i, j, i_capture, j_capture);
-                        i = i_capture;
-                        j = j_capture;
-                        await Task.Delay(300);
-                        goto continueWhile;
-                    }
-                if (!j_right)
-                    if (checkMultipleMovesBlackKingRight(i_initial, j_initial, i, j))
-                    {
-                        captureMoves = drawBlackKingRightTrace(i, j);
-                        var firstMove = captureMoves.LastOrDefault();
-                        int i_capture = firstMove.Item1; ;
-                        int j_capture = firstMove.Item2;
-                        robotMove(i, j, i_capture, j_capture);
-                        i = i_capture;
-                        j = j_capture;
-                        await Task.Delay(300);
-                        goto continueWhile;
-                    }
-                if (!i_up)
-                    if (checkMultipleMovesBlackKingUp(i_initial, j_initial, i, j))
-                    {
-                        captureMoves = drawBlackKingUpTrace(i, j);
-                        var firstMove = captureMoves.LastOrDefault();
-                        int i_capture = firstMove.Item1; ;
-                        int j_capture = firstMove.Item2;
-                        robotMove(i, j, i_capture, j_capture);
-                        i = i_capture;
-                        j = j_capture;
-                        await Task.Delay(300);
-                        goto continueWhile;
-
-                    }
-                if (!i_down)
-                    if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
-                    {
-                        captureMoves = drawBlackKingDownTrace(i, j);
-                        var firstMove = captureMoves.LastOrDefault();
-                        int i_capture = firstMove.Item1; ;
-                        int j_capture = firstMove.Item2;
-                        robotMove(i, j, i_capture, j_capture);
-                        i = i_capture;
-                        j = j_capture;
-                        await Task.Delay(300);
-                        goto continueWhile;
-                    }
-                //  drawBlackKingDownTrace(i, j);
-
-                continueWhile: continue;
             }
-            specialProprieties.setMultipleMoves(false);
-            checkIfPieceIsKing(i, j);
-            pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
-            swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
-            swapCurrentPlayerName();
+
+            return valuesMatrix;
         }
-        private async Task AIBlackKingChangePosition(int i, int j)
-        {
-            await Task.Delay(0);
-            bool findFutureCapture = false;
-            if (i == 7 || i == 0)
-            {
-
-
-                for (int j_temp = 0; j_temp < 8 && !findFutureCapture; j_temp++)
-                {
-                    if (j_temp == j)
-                        continue;
-                    pictureBoxButtons[i][j_temp].setValue(3);
-                    if (checkMultipleMoves(i, j_temp, i, j_temp))
-                    {
-                        pictureBoxButtons[i][j_temp].setValue(0);
-                        robotMove(i, j, i, j_temp);
-                        j = j_temp;
-                        findFutureCapture = true;
-                        await Task.Delay(300);
-                    }
-                    else
-                    {
-                        pictureBoxButtons[i][j_temp].setValue(0);
-                    }
-                }
-
-            }
-            if (findFutureCapture)
-            {
-                specialProprieties.setMultipleMoves(false);
-                pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
-                swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
-                swapCurrentPlayerName();
-                //return true;
-
-            }
-            else
-            {
-                robotFunction(false);
-            }
-        }
-
-
-
-
-        private void robotMove(int i_initial, int j_initial, int i_final, int j_final)
-        {
-            pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
-            swapImage(i_initial, j_initial, i_final, j_final);
-            swapValue(i_initial, j_initial, i_final, j_final);
-            removeCapturedPieces(i_initial, j_initial, i_final, j_final);
-            specialProprieties.setMultipleMoves(true);
-            specialProprieties.setLastMultipleMoveI(i_initial);
-            specialProprieties.setLastMultipleMoveJ(j_initial);
-            specialProprieties.setCurrentMultipleMoveI(i_final);
-            specialProprieties.setCurrentMultipleMoveJ(j_final);
-            removeBoardTraces();
-
-        }
-
         private int robotFunction(bool var)
         {
 
-            
-
-            Random rnd = new Random();
-
-
-        //rege negru captura
-        Step1:
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                {
-
-                    if (pictureBoxButtons[i][j].getValue() == 3)
-                    {
-                        if (checkMultipleMoves(i, j, i, j))
-                        {
-                            AIBlackKingCapture(i, j);
-                            checkGameOver(player1, player2);
-                            return 0;
-                        }
-                    }
-                }
-
-            //piesa neagra captura
-            Step2:
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                {
-
-                    if (pictureBoxButtons[i][j].getValue() == 1)
-                    {
-                        if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
-                        {
-
-                            AIBlackPieceCapture(i, j);
-                            checkGameOver(player1, player2);
-                            return 0;
-                        }
-                    }
-                }
-
-
-
-
-            //mergi in fata daca e ultimul rand pt rege
-            Step3:
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                {
-                    if (pictureBoxButtons[i][j].getValue() == 1)
-                    {
-                        if (pictureBoxButtons[i + 1][j].getValue() == 0 && i == 6)
-                        {
-                            movePiece(i, j, i + 1, j);
-                            return 0;
-                        }
-                    }
-                }
-
-            //regele isi schimba pozitia pt captura daca e ultimul rand
-            Step4:
-            if (var)
-            {
-                for (int i = 0; i < 8; i++)
-                    for (int j = 0; j < 8; j++)
-                    {
-                        if (pictureBoxButtons[i][j].getValue() == 3)
-                        {
-                            if (i == 0 || i == 7)
-                            {
-                                AIBlackKingChangePosition(i, j);
-                                return 0;
-                            }
-                        }
-                    }
-            }
-            var = true;
-
-        //miscare in fata daca e spatiu liber
-        Step5:
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                {    
-                    if (pictureBoxButtons[i][j].getValue() == 1)
-                    {
-                        if (i < 6)
-                            if (pictureBoxButtons[i + 1][j].getValue() == 0 && (pictureBoxButtons[i + 2][j].getValue() == 0))
-                            {
-                                movePiece(i, j, i + 1, j);
-                                return 0;
-                            }
-                    }
-                }
-            //miscare lateral daca e spatiu gol
-            Step6:
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                {
-                    if (pictureBoxButtons[i][j].getValue() == 1 && j < 6)
-                    {
-                        if (pictureBoxButtons[i][j + 1].getValue() == 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
-                        {
-                            movePiece(i, j, i, j + 1);
-                            return 0;
-                        }
-                    }
-                    if (pictureBoxButtons[i][j].getValue() == 1 && j > 1)
-                        if (pictureBoxButtons[i][j - 1].getValue() == 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
-                        {
-                            movePiece(i, j, i, j - 1);
-                            return 0;
-                        }
-                }
-            //miscare in fata
-            Step7:
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                    if (pictureBoxButtons[i][j].getValue() == 1)
-                    {
-                        if (pictureBoxButtons[i + 1][j].getValue() == 0)
-                        {
-                            movePiece(i, j, i + 1, j);
-                            return 0;
-                        }
-                    }
-                //miscare lateral 
-                Step8:
-            for (int i = 0; i < 8; i++)
-                for (int j = 0; j < 8; j++)
-                {
-                    if (pictureBoxButtons[i][j].getValue() == 1)
-                    {
-                        if (pictureBoxButtons[i][j + 1].getValue() == 0)
-                        {
-                            movePiece(i, j, i, j + 1);
-                            return 0;
-                        }
-                    }
-                    if (pictureBoxButtons[i][j].getValue() == 1)
-                        if (pictureBoxButtons[i][j - 1].getValue() == 0)
-                        {
-                            movePiece(i, j, i, j - 1);
-                            return 0;
-                        }
-
-                    if (pictureBoxButtons[i][j].getValue() == 3)
-                    {
-                        if (pictureBoxButtons[i][j + 1].getValue() == 0)
-                        {
-                            movePiece(i, j, i, j + 1);
-                            return 0;
-                        }
-                    }
-                    if (pictureBoxButtons[i][j].getValue() == 3)
-                        if (pictureBoxButtons[i][j - 1].getValue() == 0)
-                        {
-                            movePiece(i, j, i, j - 1);
-                            return 0;
-                        }
-                }
+            CurrentBoardValues(pictureBoxButtons);
             return 0;
+     //     Random rnd = new Random();
+     //
+     //
+     // //rege negru captura
+     // Step1:
+     //     for (int i = 0; i < 8; i++)
+     //         for (int j = 0; j < 8; j++)
+     //         {
+     //
+     //             if (pictureBoxButtons[i][j].getValue() == 3)
+     //             {
+     //                 if (checkMultipleMoves(i, j, i, j))
+     //                 {
+     //                     AIBlackKingCapture(i, j);
+     //                     checkGameOver(player1, player2);
+     //                     return 0;
+     //                 }
+     //             }
+     //         }
+     //
+     //     //piesa neagra captura
+     //     Step2:
+     //     for (int i = 0; i < 8; i++)
+     //         for (int j = 0; j < 8; j++)
+     //         {
+     //
+     //             if (pictureBoxButtons[i][j].getValue() == 1)
+     //             {
+     //                 if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
+     //                 {
+     //
+     //                     AIBlackPieceCapture(i, j);
+     //                     checkGameOver(player1, player2);
+     //                     return 0;
+     //                 }
+     //             }
+     //         }
+     //
+     //
+     //
+     //
+     //     //mergi in fata daca e ultimul rand pt rege
+     //     Step3:
+     //     for (int i = 0; i < 8; i++)
+     //         for (int j = 0; j < 8; j++)
+     //         {
+     //             if (pictureBoxButtons[i][j].getValue() == 1)
+     //             {
+     //                 if (pictureBoxButtons[i + 1][j].getValue() == 0 && i == 6)
+     //                 {
+     //                     movePiece(i, j, i + 1, j);
+     //                     return 0;
+     //                 }
+     //             }
+     //         }
+     //
+     //     //regele isi schimba pozitia pt captura daca e ultimul rand
+     //     Step4:
+     //     if (var)
+     //     {
+     //         for (int i = 0; i < 8; i++)
+     //             for (int j = 0; j < 8; j++)
+     //             {
+     //                 if (pictureBoxButtons[i][j].getValue() == 3)
+     //                 {
+     //                     if (i == 0 || i == 7)
+     //                     {
+     //                         AIBlackKingChangePosition(i, j);
+     //                         return 0;
+     //                     }
+     //                 }
+     //             }
+     //     }
+     //     var = true;
+     //
+     // //miscare in fata daca e spatiu liber
+     // Step5:
+     //     for (int i = 0; i < 8; i++)
+     //         for (int j = 0; j < 8; j++)
+     //         {    
+     //             if (pictureBoxButtons[i][j].getValue() == 1)
+     //             {
+     //                 if (i < 6)
+     //                     if (pictureBoxButtons[i + 1][j].getValue() == 0 && (pictureBoxButtons[i + 2][j].getValue() == 0))
+     //                     {
+     //                         movePiece(i, j, i + 1, j);
+     //                         return 0;
+     //                     }
+     //             }
+     //         }
+     //     //miscare lateral daca e spatiu gol
+     //     Step6:
+     //     for (int i = 0; i < 8; i++)
+     //         for (int j = 0; j < 8; j++)
+     //         {
+     //             if (pictureBoxButtons[i][j].getValue() == 1 && j < 6)
+     //             {
+     //                 if (pictureBoxButtons[i][j + 1].getValue() == 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
+     //                 {
+     //                     movePiece(i, j, i, j + 1);
+     //                     return 0;
+     //                 }
+     //             }
+     //             if (pictureBoxButtons[i][j].getValue() == 1 && j > 1)
+     //                 if (pictureBoxButtons[i][j - 1].getValue() == 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
+     //                 {
+     //                     movePiece(i, j, i, j - 1);
+     //                     return 0;
+     //                 }
+     //         }
+     //     //miscare in fata
+     //     Step7:
+     //     for (int i = 0; i < 8; i++)
+     //         for (int j = 0; j < 8; j++)
+     //             if (pictureBoxButtons[i][j].getValue() == 1)
+     //             {
+     //                 if (pictureBoxButtons[i + 1][j].getValue() == 0)
+     //                 {
+     //                     movePiece(i, j, i + 1, j);
+     //                     return 0;
+     //                 }
+     //             }
+     //         //miscare lateral 
+     //         Step8:
+     //     for (int i = 0; i < 8; i++)
+     //         for (int j = 0; j < 8; j++)
+     //         {
+     //             if (pictureBoxButtons[i][j].getValue() == 1)
+     //             {
+     //                 if (pictureBoxButtons[i][j + 1].getValue() == 0)
+     //                 {
+     //                     movePiece(i, j, i, j + 1);
+     //                     return 0;
+     //                 }
+     //             }
+     //             if (pictureBoxButtons[i][j].getValue() == 1)
+     //                 if (pictureBoxButtons[i][j - 1].getValue() == 0)
+     //                 {
+     //                     movePiece(i, j, i, j - 1);
+     //                     return 0;
+     //                 }
+     //
+     //             if (pictureBoxButtons[i][j].getValue() == 3)
+     //             {
+     //                 if (pictureBoxButtons[i][j + 1].getValue() == 0)
+     //                 {
+     //                     movePiece(i, j, i, j + 1);
+     //                     return 0;
+     //                 }
+     //             }
+     //             if (pictureBoxButtons[i][j].getValue() == 3)
+     //                 if (pictureBoxButtons[i][j - 1].getValue() == 0)
+     //                 {
+     //                     movePiece(i, j, i, j - 1);
+     //                     return 0;
+     //                 }
+     //         }
+     //     return 0;
         }
 
 

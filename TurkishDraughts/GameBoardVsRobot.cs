@@ -1,4 +1,6 @@
-﻿using TurkishDraughts.Properties;
+﻿using System.Collections.Generic;
+using System.IO;
+using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
 {
@@ -37,19 +39,19 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-            //  for (int i = 0; i < 8; i++)
-            //  {
-            //      for (int j = 0; j < 8; j++)
-            //      {
-            //          pictureBoxButtons[i][j].setValue(0);
-            //          pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-            //          
-            //      }
-            //  }
+            //   for (int i = 0; i < 8; i++)
+            //   {
+            //       for (int j = 0; j < 8; j++)
+            //       {
+            //           pictureBoxButtons[i][j].setValue(0);
+            //           pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+            //           
+            //       }
+            //   }
             // pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.BlackKing;
             //  pictureBoxButtons[7][5].setValue(3);
-            // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
-            // pictureBoxButtons[3][2].setValue(3);
+            //pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.RedKing;
+            //pictureBoxButtons[3][2].setValue(4);
             //   pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
             //    pictureBoxButtons[3][3].setValue(2);
             //  pictureBoxButtons[4][3].getPictureBox().BackgroundImage = Resources.RedPiece;
@@ -173,6 +175,11 @@ namespace TurkishDraughts
         {
             pictureBoxButtons[i_final][j_final].setValue(pictureBoxButtons[i_initial][j_initial].getValue());
             pictureBoxButtons[i_initial][j_initial].setValue(0);
+        }
+        public void AIswapValue(int i_initial, int j_initial, int i_final, int j_final, int[,] valuesMatrix)
+        {
+            valuesMatrix[i_final, j_final] = valuesMatrix[i_initial, j_initial];
+            valuesMatrix[i_initial, j_initial] = 0;
         }
         public void resetPictureboxPressed(int i_initial, int j_initial, int i_final, int j_final)
         {
@@ -1000,7 +1007,7 @@ namespace TurkishDraughts
                     contor = 2;
                 if (valuesMatrix[i, j_search] == 0)
                 {
-                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                    greenYellowPositions.Add(Tuple.Create(i, j_search));
                 }
             }
             return greenYellowPositions;
@@ -1019,7 +1026,7 @@ namespace TurkishDraughts
                     contor = 2;
                 if (valuesMatrix[i, j_search] == 0)
                 {
-                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                    greenYellowPositions.Add(Tuple.Create(i, j_search));
                 }
             }
             return greenYellowPositions;
@@ -1038,7 +1045,7 @@ namespace TurkishDraughts
                     contor = 2;
                 if (valuesMatrix[i_search, j] == 0)
                 {
-                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                    greenYellowPositions.Add(Tuple.Create(i_search, j));
                 }
             }
             return greenYellowPositions;
@@ -1057,7 +1064,7 @@ namespace TurkishDraughts
                     contor = 2;
                 if (valuesMatrix[i_search, j] == 0)
                 {
-                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                    greenYellowPositions.Add(Tuple.Create(i_search, j));
                 }
             }
             return greenYellowPositions;
@@ -1162,7 +1169,7 @@ namespace TurkishDraughts
                     contor = 2;
                 if (valuesMatrix[i, j_search] == 0)
                 {
-                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                    greenYellowPositions.Add(Tuple.Create(i, j_search));
                 }
             }
             return greenYellowPositions;
@@ -1181,7 +1188,7 @@ namespace TurkishDraughts
                     contor = 2;
                 if (valuesMatrix[i, j_search] == 0)
                 {
-                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                    greenYellowPositions.Add(Tuple.Create(i, j_search));
                 }
             }
             return greenYellowPositions;
@@ -1200,7 +1207,7 @@ namespace TurkishDraughts
                     contor = 2;
                 if (valuesMatrix[i_search, j] == 0)
                 {
-                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                    greenYellowPositions.Add(Tuple.Create(i_search, j));
                 }
             }
             return greenYellowPositions;
@@ -1219,7 +1226,7 @@ namespace TurkishDraughts
                     contor = 2;
                 if (valuesMatrix[i_search, j] == 0)
                 {
-                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                    greenYellowPositions.Add(Tuple.Create(i_search, j));
                 }
             }
             return greenYellowPositions;
@@ -1341,7 +1348,8 @@ namespace TurkishDraughts
             {
                 if (valuesMatrix[i, j] % 2 == 0)
                 {
-                    allMoves.AddRange(AIGetAllRedPiecesPossibleMoves(i, j, valuesMatrix));
+                    if (valuesMatrix[i, j] == 2)
+                        allMoves.AddRange(AIGetAllRedPiecesPossibleMoves(i, j, valuesMatrix));
 
                     if (valuesMatrix[i, j] == 4)
                     {
@@ -1433,7 +1441,7 @@ namespace TurkishDraughts
                                 allMoves.AddRange(AIGetAllBlackKingUpMoves(i, j, valuesMatrix));
                             if (!i_down && checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
                                 allMoves.AddRange(AIGetAllBlackKingDownMoves(i, j, valuesMatrix));
-              
+
                         }
                     }
                 }
@@ -1548,6 +1556,41 @@ namespace TurkishDraughts
             removeBoardTraces();
 
         }
+        public void AImovePiece(int i_initial, int j_initial, int i_final, int j_final, int[,] valuesMatrix)
+        {
+
+
+            specialProprieties.setPressed(false);
+            AIswapValue(i_initial, j_initial, i_final, j_final, valuesMatrix);
+            if (AIremoveCapturedPieces(i_initial, j_initial, i_final, j_final, valuesMatrix))
+            {
+                AIremoveCapturedPieces(i_initial, j_initial, i_final, j_final, valuesMatrix);
+                if (!AIcheckMultipleMoves(i_initial, j_initial, i_final, j_final, valuesMatrix))
+                {
+                    AIcheckIfPieceIsKing(i_final, j_final, valuesMatrix);
+                    //swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                    //swapCurrentPlayerName();
+                    specialProprieties.setMultipleMoves(false);
+                }
+                else
+                {
+                    specialProprieties.setMultipleMoves(true);
+                    specialProprieties.setLastMultipleMoveI(i_initial);
+                    specialProprieties.setLastMultipleMoveJ(j_initial);
+                    specialProprieties.setCurrentMultipleMoveI(i_final);
+                    specialProprieties.setCurrentMultipleMoveJ(j_final);
+                    //daca piesa ajunge la final si inca mai poate sari peste alta piesa, sare pestea ea apoi devine rege
+                }
+            }
+            else
+            {
+                AIcheckIfPieceIsKing(i_final, j_final, valuesMatrix);
+                //swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                //swapCurrentPlayerName();
+            }
+            //removeBoardTraces();
+
+        }
         public bool checkIfPieceIsKing(int i, int j)
         {
             if (pictureBoxButtons[i][j].getValue() == 1 && i == 7)
@@ -1602,11 +1645,11 @@ namespace TurkishDraughts
         }
         private static int[,] AICurrentBoardValues(PieceClass[][] pictureBoxButtons)
         {
-            int[,] valuesMatrix = new int[pictureBoxButtons.Length, pictureBoxButtons[0].Length];
+            int[,] valuesMatrix = new int[8,8];
 
-            for (int i = 0; i < pictureBoxButtons.Length; i++)
+            for (int i = 0; i < 8; i++)
             {
-                for (int j = 0; j < pictureBoxButtons[i].Length; j++)
+                for (int j = 0; j < 8; j++)
                 {
                     valuesMatrix[i, j] = pictureBoxButtons[i][j].getValue();
                 }
@@ -1621,12 +1664,11 @@ namespace TurkishDraughts
             int blackPieces = 0;
             int blackKings = 0;
 
-            int rows = valuesMatrix.GetLength(0);
-            int cols = valuesMatrix.GetLength(1);
+            
 
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < 8; i++)
             {
-                for (int j = 0; j < cols; j++)
+                for (int j = 0; j < 8; j++)
                 {
                     int value = valuesMatrix[i, j];
                     if (value == 1)
@@ -1649,12 +1691,100 @@ namespace TurkishDraughts
             }
             return blackPieces + 2 * blackKings - redPieces - 2 * redKings;
         }
-
-        private int robotFunction(bool var)
+        private void copyArray(int[,] a, int[,] b)
         {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    b[i, j] = a[i, j];
+                }
+            }
+        }
 
-            AICurrentBoardValues(pictureBoxButtons);
+        private int robotFunction(bool value)
+        {
+            //value=1 negru value=2 rosu
+            int maxScore = -1;
+            int bestInitialI = -1, bestInitialJ = -1;
+            int bestFinalI = -1, bestFinalJ = -1;
+            List<Tuple<int, int>> bestMovePath=new List<Tuple<int, int>>();
+            List<Tuple<int, int>> tempMovePath = new List<Tuple<int, int>>();
+            List<Tuple<int, int>> allMoves= new List<Tuple<int, int>>();
+            int[,] currentBoard = AICurrentBoardValues(pictureBoxButtons);
+            int[,] futureOwnerMoveBoard = new int[8,8];
+            int[,] futureOpponentMoveBoard = new int[8,8];
+            for (int i = 1; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                {
+
+                    if (currentBoard[i, j] % 2 == 1 && currentBoard[i, j] != 0)
+                    {
+                        //tempMovePath.Add(Tuple.Create(i, j));
+
+                       allMoves = AIGetAllPiecesPossibleMoves(i, j, currentBoard);
+                        
+                        foreach (var move in allMoves)
+                        {
+                            copyArray(currentBoard, futureOwnerMoveBoard);
+                            //futureOwnerMoveBoard = currentBoard;
+                            int futureMoveI = move.Item1;
+                            int futureMoveJ = move.Item2;
+                            tempMovePath.Add(Tuple.Create(futureMoveI, futureMoveJ));
+                            AImovePiece(i, j, futureMoveI, futureMoveJ, futureOwnerMoveBoard);
+                            if (specialProprieties.getMultipleMove())
+                            {
+                             //  while (AIcheckMultipleMoves(specialProprieties.getLastMultipleMoveI(), (specialProprieties.getLastMultipleMoveJ()), futureMoveI, futureMoveJ, futureOwnerMoveBoard))
+                             //  {
+                             //      List<Tuple<int, int>> allFutureMoves = AIGetAllPiecesPossibleMoves(futureMoveI, futureMoveJ, futureOwnerMoveBoard);
+                             //      foreach (var allFutureMove in allFutureMoves)
+                             //      {
+                             //          int futureMoveI2 = allFutureMove.Item1;
+                             //          int futureMoveJ2 = allFutureMove.Item2;
+                             //      }
+                             //  }
+                            }
+                            else
+                            {
+                                
+                                if (AICalculateScore(futureOwnerMoveBoard) > maxScore)
+                                {
+                                    maxScore = AICalculateScore(futureOwnerMoveBoard);
+                                    bestInitialI = i;
+                                    bestInitialJ = j;
+                                    bestMovePath.AddRange(tempMovePath);
+                                    // bestFinalI = futureMoveI;
+                                    // bestFinalJ = futureMoveJ;
+
+                                } 
+                               
+
+                            }
+                            //futureOwnerMoveBoard=currentBoard;
+                            tempMovePath.Clear();
+                            
+                        }
+                        //allMoves.Clear();
+                    }
+
+
+
+                    
+                }
+            AIFinalMovePiece(bestMovePath, bestInitialI, bestInitialJ);
             return 0;
+        }
+        private async Task AIFinalMovePiece(List<Tuple<int, int>> path,int i,int j)
+        {
+            foreach (var move in path)
+            {
+                int MoveI = move.Item1;
+                int MoveJ = move.Item2;
+                await Task.Delay(100);
+                movePiece(i, j, MoveI, MoveJ);
+                i = MoveI;
+                j = MoveJ;
+            }
         }
         // private async Task AIBlackPieceCapture(int i, int j)
         // {

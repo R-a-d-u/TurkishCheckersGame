@@ -1734,15 +1734,17 @@ namespace TurkishDraughts
                             AImovePiece(i, j, futureMoveI, futureMoveJ, futureOwnerMoveBoard);
                             if (specialProprieties.getMultipleMove())
                             {
+                             //  List<Tuple<int, int>> allFutureMoves = AIGetAllPiecesPossibleMoves(futureMoveI, futureMoveJ, futureOwnerMoveBoard);
                              //  while (AIcheckMultipleMoves(specialProprieties.getLastMultipleMoveI(), (specialProprieties.getLastMultipleMoveJ()), futureMoveI, futureMoveJ, futureOwnerMoveBoard))
-                             //  {
-                             //      List<Tuple<int, int>> allFutureMoves = AIGetAllPiecesPossibleMoves(futureMoveI, futureMoveJ, futureOwnerMoveBoard);
-                             //      foreach (var allFutureMove in allFutureMoves)
-                             //      {
-                             //          int futureMoveI2 = allFutureMove.Item1;
-                             //          int futureMoveJ2 = allFutureMove.Item2;
+                             // {
+                             //    
+                             //     foreach (var allFutureMove in allFutureMoves)
+                             //     {
+                             //         int futureMoveI2 = allFutureMove.Item1;
+                             //         int futureMoveJ2 = allFutureMove.Item2;
+                             //          tempMovePath.Add(Tuple.Create(futureMoveI, futureMoveJ));
                              //      }
-                             //  }
+                             // }
                             }
                             else
                             {
@@ -1752,6 +1754,7 @@ namespace TurkishDraughts
                                     maxScore = AICalculateScore(futureOwnerMoveBoard);
                                     bestInitialI = i;
                                     bestInitialJ = j;
+                                    bestMovePath.Clear();
                                     bestMovePath.AddRange(tempMovePath);
                                     // bestFinalI = futureMoveI;
                                     // bestFinalJ = futureMoveJ;
@@ -1785,6 +1788,7 @@ namespace TurkishDraughts
                 i = MoveI;
                 j = MoveJ;
             }
+           
         }
         // private async Task AIBlackPieceCapture(int i, int j)
         // {

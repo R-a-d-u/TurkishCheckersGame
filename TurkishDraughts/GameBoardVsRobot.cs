@@ -37,23 +37,23 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-          //  for (int i = 0; i < 8; i++)
-          //  {
-          //      for (int j = 0; j < 8; j++)
-          //      {
-          //          pictureBoxButtons[i][j].setValue(0);
-          //          pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-          //          
-          //      }
-          //  }
+            //  for (int i = 0; i < 8; i++)
+            //  {
+            //      for (int j = 0; j < 8; j++)
+            //      {
+            //          pictureBoxButtons[i][j].setValue(0);
+            //          pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+            //          
+            //      }
+            //  }
             // pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.BlackKing;
-           //  pictureBoxButtons[7][5].setValue(3);
+            //  pictureBoxButtons[7][5].setValue(3);
             // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
             // pictureBoxButtons[3][2].setValue(3);
-         //   pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
-         //    pictureBoxButtons[3][3].setValue(2);
-         //  pictureBoxButtons[4][3].getPictureBox().BackgroundImage = Resources.RedPiece;
-         //  pictureBoxButtons[4][3].setValue(2);
+            //   pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
+            //    pictureBoxButtons[3][3].setValue(2);
+            //  pictureBoxButtons[4][3].getPictureBox().BackgroundImage = Resources.RedPiece;
+            //  pictureBoxButtons[4][3].setValue(2);
         }
         private void initPlayerNames()
         {
@@ -126,11 +126,11 @@ namespace TurkishDraughts
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     MessageBox.Show(player2.getName() + " a castigat");
                 }
-               
-                
+
+
                 blockPictureBox();
                 removeBoardTraces();
-               
+
 
             }
         }
@@ -212,7 +212,7 @@ namespace TurkishDraughts
                 {
                     movePiece(i_initial, j_initial, i_final, j_final);
                     await Task.Delay(300);//delay 0.3 sec intre mutare jucator si robot
-                    
+
                     if (specialProprieties.getPlayerTurn())
                         robotFunction(true);
 
@@ -220,7 +220,7 @@ namespace TurkishDraughts
                 removeBoardTraces();
             }
             checkGameOver(player1, player2);
-            
+
 
         }
         public void checkLegalMoves(int i, int j)
@@ -234,7 +234,7 @@ namespace TurkishDraughts
         {
             if (pictureBoxButtons[i][j].getValue() != 0)
             {
-               // drawLegalMovesTraces(i, j);
+                // drawLegalMovesTraces(i, j);
             }
         }
         public bool checkMultipleMovesBlackPiece(int i, int j)
@@ -1132,6 +1132,49 @@ namespace TurkishDraughts
                     }
             return false;
         }
+
+        public bool AIremoveCapturedPieces(int i_initial, int j_initial, int i_final, int j_final, int[,] valuesMatrix)
+        {
+            // Swapping the initial and final indices if necessary
+            if (j_initial > j_final)
+            {
+                int j_temp = j_final;
+                j_final = j_initial;
+                j_initial = j_temp;
+            }
+            if (i_initial > i_final)
+            {
+                int i_temp = i_final;
+                i_final = i_initial;
+                i_initial = i_temp;
+            }
+
+            // Removing captured pieces along a column
+            if (j_initial == j_final && i_initial != i_final + 1)
+            {
+                for (int i = i_initial + 1; i < i_final; i++)
+                {
+                    if (valuesMatrix[i, j_final] != 0)
+                    {
+                        valuesMatrix[i, j_final] = 0;
+                        return true;
+                    }
+                }
+            }
+            // Removing captured pieces along a row
+            if (i_initial == i_final && j_initial != j_final + 1)
+            {
+                for (int j = j_initial + 1; j < j_final; j++)
+                {
+                    if (valuesMatrix[i_initial, j] != 0)
+                    {
+                        valuesMatrix[i_initial, j] = 0;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public void movePiece(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
@@ -1183,7 +1226,20 @@ namespace TurkishDraughts
             }
             return false;
         }
-
+        public bool AIcheckIfPieceIsKing(int i, int j, int[,] valuesMatrix)
+        {
+            if (valuesMatrix[i, j] == 1 && i == 7)
+            {
+                valuesMatrix[i, j] = 3;
+                return true;
+            }
+            if (valuesMatrix[i, j] == 2 && i == 0)
+            {
+                valuesMatrix[i, j] = 4;
+                return true;
+            }
+            return false;
+        }
         public void pictureBoxClick(object sender)
         {
             for (int i = 0; i < 8; i++)
@@ -1205,6 +1261,62 @@ namespace TurkishDraughts
         private void player1TextBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        private static int[,] AICurrentBoardValues(PieceClass[][] pictureBoxButtons)
+        {
+            int[,] valuesMatrix = new int[pictureBoxButtons.Length, pictureBoxButtons[0].Length];
+
+            for (int i = 0; i < pictureBoxButtons.Length; i++)
+            {
+                for (int j = 0; j < pictureBoxButtons[i].Length; j++)
+                {
+                    valuesMatrix[i, j] = pictureBoxButtons[i][j].getValue();
+                }
+            }
+
+            return valuesMatrix;
+        }
+        private static int AICalculateScore(int[,] valuesMatrix)
+        {
+            int redPieces = 0;
+            int redKings = 0;
+            int blackPieces = 0;
+            int blackKings = 0;
+
+            int rows = valuesMatrix.GetLength(0);
+            int cols = valuesMatrix.GetLength(1);
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    int value = valuesMatrix[i, j];
+                    if (value == 1)
+                    {
+                        blackPieces++;
+                    }
+                    else if (value == 2)
+                    {
+                        redPieces++;
+                    }
+                    else if (value == 3)
+                    {
+                        blackKings++;
+                    }
+                    else if (value == 4)
+                    {
+                        redKings++;
+                    }
+                }
+            }
+            return blackPieces + 2 * blackKings - redPieces - 2 * redKings;
+        }
+
+        private int robotFunction(bool var)
+        {
+
+            CurrentBoardValues(pictureBoxButtons);
+            return 0;
         }
         // private async Task AIBlackPieceCapture(int i, int j)
         // {
@@ -1401,184 +1513,171 @@ namespace TurkishDraughts
         //
         // }
         //
-        private static int[,] CurrentBoardValues(PieceClass[][] pictureBoxButtons)
-        {
-            int[,] valuesMatrix = new int[pictureBoxButtons.Length, pictureBoxButtons[0].Length];
 
-            for (int i = 0; i < pictureBoxButtons.Length; i++)
-            {
-                for (int j = 0; j < pictureBoxButtons[i].Length; j++)
-                {
-                    valuesMatrix[i, j] = pictureBoxButtons[i][j].getValue();
-                }
-            }
-
-            return valuesMatrix;
-        }
-        private int robotFunction(bool var)
-        {
-
-            CurrentBoardValues(pictureBoxButtons);
-            return 0;
-     //     Random rnd = new Random();
-     //
-     //
-     // //rege negru captura
-     // Step1:
-     //     for (int i = 0; i < 8; i++)
-     //         for (int j = 0; j < 8; j++)
-     //         {
-     //
-     //             if (pictureBoxButtons[i][j].getValue() == 3)
-     //             {
-     //                 if (checkMultipleMoves(i, j, i, j))
-     //                 {
-     //                     AIBlackKingCapture(i, j);
-     //                     checkGameOver(player1, player2);
-     //                     return 0;
-     //                 }
-     //             }
-     //         }
-     //
-     //     //piesa neagra captura
-     //     Step2:
-     //     for (int i = 0; i < 8; i++)
-     //         for (int j = 0; j < 8; j++)
-     //         {
-     //
-     //             if (pictureBoxButtons[i][j].getValue() == 1)
-     //             {
-     //                 if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
-     //                 {
-     //
-     //                     AIBlackPieceCapture(i, j);
-     //                     checkGameOver(player1, player2);
-     //                     return 0;
-     //                 }
-     //             }
-     //         }
-     //
-     //
-     //
-     //
-     //     //mergi in fata daca e ultimul rand pt rege
-     //     Step3:
-     //     for (int i = 0; i < 8; i++)
-     //         for (int j = 0; j < 8; j++)
-     //         {
-     //             if (pictureBoxButtons[i][j].getValue() == 1)
-     //             {
-     //                 if (pictureBoxButtons[i + 1][j].getValue() == 0 && i == 6)
-     //                 {
-     //                     movePiece(i, j, i + 1, j);
-     //                     return 0;
-     //                 }
-     //             }
-     //         }
-     //
-     //     //regele isi schimba pozitia pt captura daca e ultimul rand
-     //     Step4:
-     //     if (var)
-     //     {
-     //         for (int i = 0; i < 8; i++)
-     //             for (int j = 0; j < 8; j++)
-     //             {
-     //                 if (pictureBoxButtons[i][j].getValue() == 3)
-     //                 {
-     //                     if (i == 0 || i == 7)
-     //                     {
-     //                         AIBlackKingChangePosition(i, j);
-     //                         return 0;
-     //                     }
-     //                 }
-     //             }
-     //     }
-     //     var = true;
-     //
-     // //miscare in fata daca e spatiu liber
-     // Step5:
-     //     for (int i = 0; i < 8; i++)
-     //         for (int j = 0; j < 8; j++)
-     //         {    
-     //             if (pictureBoxButtons[i][j].getValue() == 1)
-     //             {
-     //                 if (i < 6)
-     //                     if (pictureBoxButtons[i + 1][j].getValue() == 0 && (pictureBoxButtons[i + 2][j].getValue() == 0))
-     //                     {
-     //                         movePiece(i, j, i + 1, j);
-     //                         return 0;
-     //                     }
-     //             }
-     //         }
-     //     //miscare lateral daca e spatiu gol
-     //     Step6:
-     //     for (int i = 0; i < 8; i++)
-     //         for (int j = 0; j < 8; j++)
-     //         {
-     //             if (pictureBoxButtons[i][j].getValue() == 1 && j < 6)
-     //             {
-     //                 if (pictureBoxButtons[i][j + 1].getValue() == 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
-     //                 {
-     //                     movePiece(i, j, i, j + 1);
-     //                     return 0;
-     //                 }
-     //             }
-     //             if (pictureBoxButtons[i][j].getValue() == 1 && j > 1)
-     //                 if (pictureBoxButtons[i][j - 1].getValue() == 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
-     //                 {
-     //                     movePiece(i, j, i, j - 1);
-     //                     return 0;
-     //                 }
-     //         }
-     //     //miscare in fata
-     //     Step7:
-     //     for (int i = 0; i < 8; i++)
-     //         for (int j = 0; j < 8; j++)
-     //             if (pictureBoxButtons[i][j].getValue() == 1)
-     //             {
-     //                 if (pictureBoxButtons[i + 1][j].getValue() == 0)
-     //                 {
-     //                     movePiece(i, j, i + 1, j);
-     //                     return 0;
-     //                 }
-     //             }
-     //         //miscare lateral 
-     //         Step8:
-     //     for (int i = 0; i < 8; i++)
-     //         for (int j = 0; j < 8; j++)
-     //         {
-     //             if (pictureBoxButtons[i][j].getValue() == 1)
-     //             {
-     //                 if (pictureBoxButtons[i][j + 1].getValue() == 0)
-     //                 {
-     //                     movePiece(i, j, i, j + 1);
-     //                     return 0;
-     //                 }
-     //             }
-     //             if (pictureBoxButtons[i][j].getValue() == 1)
-     //                 if (pictureBoxButtons[i][j - 1].getValue() == 0)
-     //                 {
-     //                     movePiece(i, j, i, j - 1);
-     //                     return 0;
-     //                 }
-     //
-     //             if (pictureBoxButtons[i][j].getValue() == 3)
-     //             {
-     //                 if (pictureBoxButtons[i][j + 1].getValue() == 0)
-     //                 {
-     //                     movePiece(i, j, i, j + 1);
-     //                     return 0;
-     //                 }
-     //             }
-     //             if (pictureBoxButtons[i][j].getValue() == 3)
-     //                 if (pictureBoxButtons[i][j - 1].getValue() == 0)
-     //                 {
-     //                     movePiece(i, j, i, j - 1);
-     //                     return 0;
-     //                 }
-     //         }
-     //     return 0;
-        }
+        //  private int robotFunction(bool var)
+        //  {
+        //
+        //       CurrentBoardValues(pictureBoxButtons);
+        //      return 0;
+        //     Random rnd = new Random();
+        //
+        //
+        // //rege negru captura
+        // Step1:
+        //     for (int i = 0; i < 8; i++)
+        //         for (int j = 0; j < 8; j++)
+        //         {
+        //
+        //             if (pictureBoxButtons[i][j].getValue() == 3)
+        //             {
+        //                 if (checkMultipleMoves(i, j, i, j))
+        //                 {
+        //                     AIBlackKingCapture(i, j);
+        //                     checkGameOver(player1, player2);
+        //                     return 0;
+        //                 }
+        //             }
+        //         }
+        //
+        //     //piesa neagra captura
+        //     Step2:
+        //     for (int i = 0; i < 8; i++)
+        //         for (int j = 0; j < 8; j++)
+        //         {
+        //
+        //             if (pictureBoxButtons[i][j].getValue() == 1)
+        //             {
+        //                 if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
+        //                 {
+        //
+        //                     AIBlackPieceCapture(i, j);
+        //                     checkGameOver(player1, player2);
+        //                     return 0;
+        //                 }
+        //             }
+        //         }
+        //
+        //
+        //
+        //
+        //     //mergi in fata daca e ultimul rand pt rege
+        //     Step3:
+        //     for (int i = 0; i < 8; i++)
+        //         for (int j = 0; j < 8; j++)
+        //         {
+        //             if (pictureBoxButtons[i][j].getValue() == 1)
+        //             {
+        //                 if (pictureBoxButtons[i + 1][j].getValue() == 0 && i == 6)
+        //                 {
+        //                     movePiece(i, j, i + 1, j);
+        //                     return 0;
+        //                 }
+        //             }
+        //         }
+        //
+        //     //regele isi schimba pozitia pt captura daca e ultimul rand
+        //     Step4:
+        //     if (var)
+        //     {
+        //         for (int i = 0; i < 8; i++)
+        //             for (int j = 0; j < 8; j++)
+        //             {
+        //                 if (pictureBoxButtons[i][j].getValue() == 3)
+        //                 {
+        //                     if (i == 0 || i == 7)
+        //                     {
+        //                         AIBlackKingChangePosition(i, j);
+        //                         return 0;
+        //                     }
+        //                 }
+        //             }
+        //     }
+        //     var = true;
+        //
+        // //miscare in fata daca e spatiu liber
+        // Step5:
+        //     for (int i = 0; i < 8; i++)
+        //         for (int j = 0; j < 8; j++)
+        //         {    
+        //             if (pictureBoxButtons[i][j].getValue() == 1)
+        //             {
+        //                 if (i < 6)
+        //                     if (pictureBoxButtons[i + 1][j].getValue() == 0 && (pictureBoxButtons[i + 2][j].getValue() == 0))
+        //                     {
+        //                         movePiece(i, j, i + 1, j);
+        //                         return 0;
+        //                     }
+        //             }
+        //         }
+        //     //miscare lateral daca e spatiu gol
+        //     Step6:
+        //     for (int i = 0; i < 8; i++)
+        //         for (int j = 0; j < 8; j++)
+        //         {
+        //             if (pictureBoxButtons[i][j].getValue() == 1 && j < 6)
+        //             {
+        //                 if (pictureBoxButtons[i][j + 1].getValue() == 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
+        //                 {
+        //                     movePiece(i, j, i, j + 1);
+        //                     return 0;
+        //                 }
+        //             }
+        //             if (pictureBoxButtons[i][j].getValue() == 1 && j > 1)
+        //                 if (pictureBoxButtons[i][j - 1].getValue() == 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
+        //                 {
+        //                     movePiece(i, j, i, j - 1);
+        //                     return 0;
+        //                 }
+        //         }
+        //     //miscare in fata
+        //     Step7:
+        //     for (int i = 0; i < 8; i++)
+        //         for (int j = 0; j < 8; j++)
+        //             if (pictureBoxButtons[i][j].getValue() == 1)
+        //             {
+        //                 if (pictureBoxButtons[i + 1][j].getValue() == 0)
+        //                 {
+        //                     movePiece(i, j, i + 1, j);
+        //                     return 0;
+        //                 }
+        //             }
+        //         //miscare lateral 
+        //         Step8:
+        //     for (int i = 0; i < 8; i++)
+        //         for (int j = 0; j < 8; j++)
+        //         {
+        //             if (pictureBoxButtons[i][j].getValue() == 1)
+        //             {
+        //                 if (pictureBoxButtons[i][j + 1].getValue() == 0)
+        //                 {
+        //                     movePiece(i, j, i, j + 1);
+        //                     return 0;
+        //                 }
+        //             }
+        //             if (pictureBoxButtons[i][j].getValue() == 1)
+        //                 if (pictureBoxButtons[i][j - 1].getValue() == 0)
+        //                 {
+        //                     movePiece(i, j, i, j - 1);
+        //                     return 0;
+        //                 }
+        //
+        //             if (pictureBoxButtons[i][j].getValue() == 3)
+        //             {
+        //                 if (pictureBoxButtons[i][j + 1].getValue() == 0)
+        //                 {
+        //                     movePiece(i, j, i, j + 1);
+        //                     return 0;
+        //                 }
+        //             }
+        //             if (pictureBoxButtons[i][j].getValue() == 3)
+        //                 if (pictureBoxButtons[i][j - 1].getValue() == 0)
+        //                 {
+        //                     movePiece(i, j, i, j - 1);
+        //                     return 0;
+        //                 }
+        //         }
+        //     return 0;
+        //  }
 
 
 

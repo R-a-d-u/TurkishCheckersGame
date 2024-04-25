@@ -923,6 +923,7 @@ namespace TurkishDraughts
             }
             return greenYellowPositions;
         }
+
         public List<Tuple<int, int>> drawRedKingRightTrace(int i, int j)
         {
             List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
@@ -985,6 +986,84 @@ namespace TurkishDraughts
             }
             return greenYellowPositions;
         }
+
+        public List<Tuple<int, int>> AIGetAllRedKingLeftMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (j_search > 0 && contor < 2)
+            {
+                j_search--;
+                if (valuesMatrix[i, j_search] % 2 != 0 && valuesMatrix[i, j_search] != 0)
+                    contor++;
+                if (valuesMatrix[i, j_search] % 2 == 0 && valuesMatrix[i, j_search] != 0)
+                    contor = 2;
+                if (valuesMatrix[i, j_search] == 0)
+                {
+                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+        public List<Tuple<int, int>> AIGetAllRedKingRightMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (j_search < 7 && contor < 2)
+            {
+                j_search++;
+                if (valuesMatrix[i, j_search] % 2 != 0 && valuesMatrix[i, j_search] != 0)
+                    contor++;
+                if (valuesMatrix[i, j_search] % 2 == 0 && valuesMatrix[i, j_search] != 0)
+                    contor = 2;
+                if (valuesMatrix[i, j_search] == 0)
+                {
+                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+        public List<Tuple<int, int>> AIGetAllRedKingUpMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search > 0 && contor < 2)
+            {
+                i_search--;
+                if (valuesMatrix[i_search, j] % 2 != 0 && valuesMatrix[i_search, j] != 0)
+                    contor++;
+                if (valuesMatrix[i_search, j] % 2 == 0 && valuesMatrix[i_search, j] != 0)
+                    contor = 2;
+                if (valuesMatrix[i_search, j] == 0)
+                {
+                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+        public List<Tuple<int, int>> AIGetAllRedKingDownMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search < 7 && contor < 2)
+            {
+                i_search++;
+                if (valuesMatrix[i_search, j] % 2 != 0 && valuesMatrix[i_search, j] != 0)
+                    contor++;
+                if (valuesMatrix[i_search, j] % 2 == 0 && valuesMatrix[i_search, j] != 0)
+                    contor = 2;
+                if (valuesMatrix[i_search, j] == 0)
+                {
+                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+
         public List<Tuple<int, int>> drawBlackKingLeftTrace(int i, int j)
         {
             List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
@@ -1063,6 +1142,83 @@ namespace TurkishDraughts
                 {
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
                     if (contor == 1)
+                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+
+        public List<Tuple<int, int>> AIGetAllBlackKingLeftMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (j_search > 0 && contor < 2)
+            {
+                j_search--;
+                if (valuesMatrix[i, j_search] % 2 == 0 && valuesMatrix[i, j_search] != 0)
+                    contor++;
+                if (valuesMatrix[i, j_search] % 2 != 0 && valuesMatrix[i, j_search] != 0)
+                    contor = 2;
+                if (valuesMatrix[i, j_search] == 0)
+                {
+                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+        public List<Tuple<int, int>> AIGetAllBlackKingRightMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (j_search < 7 && contor < 2)
+            {
+                j_search++;
+                if (valuesMatrix[i, j_search] % 2 == 0 && valuesMatrix[i, j_search] != 0)
+                    contor++;
+                if (valuesMatrix[i, j_search] % 2 != 0 && valuesMatrix[i, j_search] != 0)
+                    contor = 2;
+                if (valuesMatrix[i, j_search] == 0)
+                {
+                        greenYellowPositions.Add(Tuple.Create(i, j_search));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+        public List<Tuple<int, int>> AIGetAllBlackKingUpMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search > 0 && contor < 2)
+            {
+                i_search--;
+                if (valuesMatrix[i_search, j] % 2 == 0 && valuesMatrix[i_search, j] != 0)
+                    contor++;
+                if (valuesMatrix[i_search, j] % 2 != 0 && valuesMatrix[i_search, j] != 0)
+                    contor = 2;
+                if (valuesMatrix[i_search, j] == 0)
+                {
+                        greenYellowPositions.Add(Tuple.Create(i_search, j));
+                }
+            }
+            return greenYellowPositions;
+        }
+
+        public List<Tuple<int, int>> AIGetAllBlackKingDownMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> greenYellowPositions = new List<Tuple<int, int>>();
+            int i_search = i, j_search = j, contor = 0;
+            while (i_search < 7 && contor < 2)
+            {
+                i_search++;
+                if (valuesMatrix[i_search, j] % 2 == 0 && valuesMatrix[i_search, j] != 0)
+                    contor++;
+                if (valuesMatrix[i_search, j] % 2 != 0 && valuesMatrix[i_search, j] != 0)
+                    contor = 2;
+                if (valuesMatrix[i_search, j] == 0)
+                {
                         greenYellowPositions.Add(Tuple.Create(i_search, j));
                 }
             }
@@ -1175,6 +1331,114 @@ namespace TurkishDraughts
                             removeBoardTraces();
                     }
             }
+        }
+
+        public List<Tuple<int, int>> AIGetAllPiecesPossibleMoves(int i, int j, int[,] valuesMatrix)
+        {
+            List<Tuple<int, int>> allMoves = new List<Tuple<int, int>>();
+            // Piese rosii
+            if (valuesMatrix[i, j] != 0)
+            {
+                if (valuesMatrix[i, j] % 2 == 0)
+                {
+                    allMoves.AddRange(AIGetAllRedPiecesPossibleMoves(i, j, valuesMatrix));
+
+                    if (valuesMatrix[i, j] == 4)
+                    {
+                        if (!specialProprieties.getMultipleMove())
+                        {
+                            allMoves.AddRange(AIGetAllRedKingLeftMoves(i, j, valuesMatrix));
+                            allMoves.AddRange(AIGetAllRedKingRightMoves(i, j, valuesMatrix));
+                            allMoves.AddRange(AIGetAllRedKingUpMoves(i, j, valuesMatrix));
+                            allMoves.AddRange(AIGetAllRedKingDownMoves(i, j, valuesMatrix));
+                        }
+                        else
+                        {
+                            int i_initial = specialProprieties.getLastMultipleMoveI();
+                            int j_initial = specialProprieties.getLastMultipleMoveJ();
+                            bool i_up = false;
+                            bool i_down = false;
+                            bool j_right = false;
+                            bool j_left = false;
+                            if (i != i_initial)
+                            {
+                                if (i - i_initial > 0)
+                                    i_up = true;
+                                else
+                                    i_down = true;
+                            }
+
+                            if (j != j_initial)
+                            {
+                                if (j - j_initial > 0)
+                                    j_left = true;
+                                else
+                                    j_right = true;
+                            }
+
+                            if (!j_left && checkMultipleMovesRedKingLeft(i_initial, j_initial, i, j))
+                                allMoves.AddRange(AIGetAllRedKingLeftMoves(i, j, valuesMatrix));
+                            if (!j_right && checkMultipleMovesRedKingRight(i_initial, j_initial, i, j))
+                                allMoves.AddRange(AIGetAllRedKingRightMoves(i, j, valuesMatrix));
+                            if (!i_up && checkMultipleMovesRedKingUp(i_initial, j_initial, i, j))
+                                allMoves.AddRange(AIGetAllRedKingUpMoves(i, j, valuesMatrix));
+                            if (!i_down && checkMultipleMovesRedKingDown(i_initial, j_initial, i, j))
+                                allMoves.AddRange(AIGetAllRedKingDownMoves(i, j, valuesMatrix));
+                        }
+                    }
+                }
+                // Piese negre
+                else
+                {
+                    if (valuesMatrix[i, j] == 1)
+                        allMoves.AddRange(AIGetAllBlackPiecesPossibleMoves(i, j, valuesMatrix));
+                    if (valuesMatrix[i, j] == 3)
+                    {
+                        if (!specialProprieties.getMultipleMove())
+                        {
+                            allMoves.AddRange(AIGetAllBlackKingLeftMoves(i, j, valuesMatrix));
+                            allMoves.AddRange(AIGetAllBlackKingRightMoves(i, j, valuesMatrix));
+                            allMoves.AddRange(AIGetAllBlackKingUpMoves(i, j, valuesMatrix));
+                            allMoves.AddRange(AIGetAllBlackKingDownMoves(i, j, valuesMatrix));
+                        }
+                        else
+                        {
+                            int i_initial = specialProprieties.getLastMultipleMoveI();
+                            int j_initial = specialProprieties.getLastMultipleMoveJ();
+                            bool i_up = false;
+                            bool i_down = false;
+                            bool j_right = false;
+                            bool j_left = false;
+                            if (i != i_initial)
+                            {
+                                if (i - i_initial > 0)
+                                    i_up = true;
+                                else
+                                    i_down = true;
+                            }
+
+                            if (j != j_initial)
+                            {
+                                if (j - j_initial > 0)
+                                    j_left = true;
+                                else
+                                    j_right = true;
+                            }
+
+                            if (!j_left && checkMultipleMovesBlackKingLeft(i_initial, j_initial, i, j))
+                                allMoves.AddRange(AIGetAllBlackKingLeftMoves(i, j, valuesMatrix));
+                            if (!j_right && checkMultipleMovesBlackKingRight(i_initial, j_initial, i, j))
+                                allMoves.AddRange(AIGetAllBlackKingRightMoves(i, j, valuesMatrix));
+                            if (!i_up && checkMultipleMovesBlackKingUp(i_initial, j_initial, i, j))
+                                allMoves.AddRange(AIGetAllBlackKingUpMoves(i, j, valuesMatrix));
+                            if (!i_down && checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
+                                allMoves.AddRange(AIGetAllBlackKingDownMoves(i, j, valuesMatrix));
+              
+                        }
+                    }
+                }
+            }
+            return allMoves;
         }
         public bool removeCapturedPieces(int i_initial, int j_initial, int i_final, int j_final)
         {

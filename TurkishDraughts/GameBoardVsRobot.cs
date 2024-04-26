@@ -1063,6 +1063,7 @@ namespace TurkishDraughts
             int j_lastPosition = j;
             int i_initial = i;
             int j_initial = j;
+            //
             while (checkMultipleMoves(i_initial, j_initial, i, j))
             {
                 List<Tuple<int, int,int>> captureMoves = new List<Tuple<int, int,int>>();

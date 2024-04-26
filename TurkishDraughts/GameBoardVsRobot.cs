@@ -1330,7 +1330,7 @@ namespace TurkishDraughts
 
 
 
-            Random rnd = new Random();
+            //Random rnd = new Random();
 
 
         //rege negru captura
@@ -1344,7 +1344,7 @@ namespace TurkishDraughts
                         if (checkMultipleMoves(i, j, i, j))
                         {
                             AIBlackKingCapture(i, j);
-                            checkGameOver(player1, player2);
+                            //checkGameOver(player1, player2);
                             return 0;
                         }
                     }
@@ -1362,7 +1362,7 @@ namespace TurkishDraughts
                         {
 
                             AIBlackPieceCapture(i, j);
-                            checkGameOver(player1, player2);
+                            //checkGameOver(player1, player2);
                             return 0;
                         }
                     }

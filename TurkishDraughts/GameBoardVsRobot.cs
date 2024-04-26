@@ -819,6 +819,7 @@ namespace TurkishDraughts
                 {
                     tupleList.Add(Tuple.Create(i - 1, j));
                 }
+
                 if (j > 0 && valuesMatrix[i, j - 1] == 0)
                 {
                     tupleList.Add(Tuple.Create(i, j - 1));
@@ -827,12 +828,10 @@ namespace TurkishDraughts
                 {
                     tupleList.Add(Tuple.Create(i, j + 1));
                 }
+                
             }
             // Piece nearby
-            if (i > 1 && valuesMatrix[i - 2, j] == 0 && valuesMatrix[i - 1, j] % 2 != 0)
-            {
-                tupleList.Add(Tuple.Create(i - 2, j));
-            }
+            
             if (j > 1 && valuesMatrix[i, j - 2] == 0 && valuesMatrix[i, j - 1] % 2 != 0)
             {
                 tupleList.Add(Tuple.Create(i, j - 2));
@@ -840,6 +839,10 @@ namespace TurkishDraughts
             if (j < 6 && valuesMatrix[i, j + 2] == 0 && valuesMatrix[i, j + 1] % 2 != 0)
             {
                 tupleList.Add(Tuple.Create(i, j + 2));
+            }
+            if (i > 1 && valuesMatrix[i - 2, j] == 0 && valuesMatrix[i - 1, j] % 2 != 0)
+            {
+                tupleList.Add(Tuple.Create(i - 2, j));
             }
             return tupleList;
 
@@ -892,10 +895,7 @@ namespace TurkishDraughts
                 }
             }
             // Piece nearby
-            if (i < 6 && valuesMatrix[i + 2, j] == 0 && valuesMatrix[i + 1, j] % 2 == 0 && valuesMatrix[i + 1, j] != 0)
-            {
-                tupleList.Add(Tuple.Create(i + 2, j));
-            }
+           
             if (j < 6 && valuesMatrix[i, j + 2] == 0 && valuesMatrix[i, j + 1] % 2 == 0 && valuesMatrix[i, j + 1] != 0)
             {
                 tupleList.Add(Tuple.Create(i, j + 2));
@@ -903,6 +903,10 @@ namespace TurkishDraughts
             if (j > 1 && valuesMatrix[i, j - 2] == 0 && valuesMatrix[i, j - 1] % 2 == 0 && valuesMatrix[i, j - 1] != 0)
             {
                 tupleList.Add(Tuple.Create(i, j - 2));
+            }
+            if (i < 6 && valuesMatrix[i + 2, j] == 0 && valuesMatrix[i + 1, j] % 2 == 0 && valuesMatrix[i + 1, j] != 0)
+            {
+                tupleList.Add(Tuple.Create(i + 2, j));
             }
 
             return tupleList;
@@ -1713,8 +1717,8 @@ namespace TurkishDraughts
             int[,] currentBoard = AICurrentBoardValues(pictureBoxButtons);
             int[,] futureOwnerMoveBoard = new int[8, 8];
             int[,] futureOpponentMoveBoard = new int[8, 8];
-            for (int i = 1; i < 8; i++)
-                for (int j = 0; j < 8; j++)
+            for (int i = 7; i >-1; i--)
+                for (int j = 0; j <8; j++)
                 {
 
                     if (currentBoard[i, j] % 2 == 1 && currentBoard[i, j] != 0)

@@ -114,7 +114,7 @@
             // choseColorButton
             // 
             choseColorButton.BackColor = Color.DarkGoldenrod;
-            choseColorButton.FlatStyle = FlatStyle.Flat;
+            choseColorButton.FlatStyle = FlatStyle.Popup;
             choseColorButton.Location = new Point(663, 77);
             choseColorButton.Name = "choseColorButton";
             choseColorButton.Size = new Size(110, 23);

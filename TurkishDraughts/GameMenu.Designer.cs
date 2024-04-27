@@ -326,6 +326,8 @@
             Controls.Add(player2LocalTextBox);
             Controls.Add(player1LocalTextBox);
             DoubleBuffered = true;
+            MaximumSize = new Size(816, 489);
+            MinimumSize = new Size(816, 489);
             Name = "GameMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";

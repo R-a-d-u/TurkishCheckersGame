@@ -46,6 +46,8 @@
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
+            textBox1 = new TextBox();
+            textBox4 = new TextBox();
             SuspendLayout();
             // 
             // player1LocalTextBox
@@ -92,7 +94,7 @@
             playerNetworkTextBox.BorderStyle = BorderStyle.FixedSingle;
             playerNetworkTextBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             playerNetworkTextBox.ForeColor = Color.White;
-            playerNetworkTextBox.Location = new Point(377, 167);
+            playerNetworkTextBox.Location = new Point(377, 166);
             playerNetworkTextBox.Name = "playerNetworkTextBox";
             playerNetworkTextBox.Size = new Size(114, 23);
             playerNetworkTextBox.TabIndex = 18;
@@ -104,9 +106,9 @@
             playerVsAITextBox.BorderStyle = BorderStyle.FixedSingle;
             playerVsAITextBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             playerVsAITextBox.ForeColor = Color.White;
-            playerVsAITextBox.Location = new Point(637, 195);
+            playerVsAITextBox.Location = new Point(637, 165);
             playerVsAITextBox.Name = "playerVsAITextBox";
-            playerVsAITextBox.Size = new Size(100, 23);
+            playerVsAITextBox.Size = new Size(107, 23);
             playerVsAITextBox.TabIndex = 19;
             playerVsAITextBox.TabStop = false;
             // 
@@ -213,7 +215,7 @@
             label3.Name = "label3";
             label3.Size = new Size(166, 21);
             label3.TabIndex = 30;
-            label3.Text = "Player vs Robot";
+            label3.Text = "Player vs Computer";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5
@@ -248,7 +250,7 @@
             label7.BackColor = Color.Transparent;
             label7.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(325, 167);
+            label7.Location = new Point(325, 165);
             label7.Name = "label7";
             label7.Size = new Size(53, 19);
             label7.TabIndex = 33;
@@ -261,12 +263,40 @@
             label8.BackColor = Color.Transparent;
             label8.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label8.ForeColor = Color.White;
-            label8.Location = new Point(578, 196);
+            label8.Location = new Point(578, 167);
             label8.Name = "label8";
             label8.Size = new Size(53, 19);
             label8.TabIndex = 34;
             label8.Text = "Player: ";
             label8.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox1
+            // 
+            textBox1.BackColor = Color.Red;
+            textBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox1.ForeColor = Color.White;
+            textBox1.Location = new Point(578, 215);
+            textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
+            textBox1.Size = new Size(83, 23);
+            textBox1.TabIndex = 35;
+            textBox1.TabStop = false;
+            textBox1.Text = "?";
+            textBox1.TextAlign = HorizontalAlignment.Center;
+            // 
+            // textBox4
+            // 
+            textBox4.BackColor = Color.Black;
+            textBox4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox4.ForeColor = Color.White;
+            textBox4.Location = new Point(659, 215);
+            textBox4.Name = "textBox4";
+            textBox4.ReadOnly = true;
+            textBox4.Size = new Size(85, 23);
+            textBox4.TabIndex = 36;
+            textBox4.TabStop = false;
+            textBox4.Text = "?";
+            textBox4.TextAlign = HorizontalAlignment.Center;
             // 
             // GameMenu
             // 
@@ -276,6 +306,8 @@
             BackgroundImage = Properties.Resources.MenuBackground;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(textBox4);
+            Controls.Add(textBox1);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -320,5 +352,7 @@
         private Label label6;
         private Label label7;
         private Label label8;
+        private TextBox textBox1;
+        private TextBox textBox4;
     }
 }

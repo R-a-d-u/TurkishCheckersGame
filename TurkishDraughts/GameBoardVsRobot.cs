@@ -40,23 +40,23 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-             for (int i = 0; i < 8; i++)
-             {
-                 for (int j = 0; j < 8; j++)
-                 {
-                     pictureBoxButtons[i][j].setValue(0);
-                     pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-                     
-                 }
-             }
+           // for (int i = 0; i < 8; i++)
+           // {
+           //     for (int j = 0; j < 8; j++)
+           //     {
+           //         pictureBoxButtons[i][j].setValue(0);
+           //         pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+           //         
+           //     }
+           // }
             // pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.BlackKing;
             //  pictureBoxButtons[7][5].setValue(3);
-             pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
-             pictureBoxButtons[3][2].setValue(3);
+            // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
+           //  pictureBoxButtons[3][2].setValue(3);
             //   pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
             //    pictureBoxButtons[3][3].setValue(2);
-              pictureBoxButtons[4][7].getPictureBox().BackgroundImage = Resources.RedKing;
-               pictureBoxButtons[4][7].setValue(4);
+            //  pictureBoxButtons[4][7].getPictureBox().BackgroundImage = Resources.RedKing;
+            //   pictureBoxButtons[4][7].setValue(4);
             // pictureBoxButtons[5][3].setValue(0);
 
         }

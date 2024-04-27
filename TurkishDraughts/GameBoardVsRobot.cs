@@ -40,23 +40,23 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-            // for (int i = 0; i < 8; i++)
-            // {
-            //     for (int j = 0; j < 8; j++)
-            //     {
-            //         pictureBoxButtons[i][j].setValue(0);
-            //         pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-            //         
-            //     }
-            // }
+             for (int i = 0; i < 8; i++)
+             {
+                 for (int j = 0; j < 8; j++)
+                 {
+                     pictureBoxButtons[i][j].setValue(0);
+                     pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+                     
+                 }
+             }
             // pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.BlackKing;
             //  pictureBoxButtons[7][5].setValue(3);
-            // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
-            // pictureBoxButtons[3][2].setValue(4);
+             pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
+             pictureBoxButtons[3][2].setValue(3);
             //   pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
             //    pictureBoxButtons[3][3].setValue(2);
-            //   pictureBoxButtons[4][7].getPictureBox().BackgroundImage = Resources.RedKing;
-            //   pictureBoxButtons[4][7].setValue(3);
+              pictureBoxButtons[4][7].getPictureBox().BackgroundImage = Resources.RedKing;
+               pictureBoxButtons[4][7].setValue(4);
             // pictureBoxButtons[5][3].setValue(0);
 
         }
@@ -110,9 +110,10 @@ namespace TurkishDraughts
             }
             removeBoardTraces();
         }
-        private void checkGameOver(PlayerClass player1, PlayerClass player2)
+        private async Task checkGameOver(PlayerClass player1, PlayerClass player2)
         {
             //verifica daca nu exista nici o piesa neagra sau rosie pe tabla
+            await Task.Delay(500);
             int counterRed = 0, counterBlack = 0;
             for (int i = 0; i < 8; i++)
             {
@@ -132,6 +133,7 @@ namespace TurkishDraughts
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     currentPlayerTextBox.Text = "Jocul s-a incheiat";
                     currentPlayerTextBox.ForeColor = Color.Blue;
+                    currentPlayer.setName(player1.getName());
                     MessageBox.Show(player1.getName() + " a castigat");
                 }
                 if (counterRed == 0)
@@ -140,15 +142,17 @@ namespace TurkishDraughts
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     currentPlayerTextBox.Text = "Jocul s-a incheiat";
                     currentPlayerTextBox.ForeColor = Color.Blue;
+                    currentPlayer.setName(player2.getName());
                     MessageBox.Show(player2.getName() + " a castigat");
                 }
 
 
                 blockPictureBox();
                 removeBoardTraces();
-
+               
 
             }
+           
         }
         public void swapCurrentPlayerName()
         {
@@ -237,6 +241,7 @@ namespace TurkishDraughts
                 removeBoardTraces();
             }
             checkGameOver(player1, player2);
+              
 
 
         }
@@ -1621,11 +1626,18 @@ namespace TurkishDraughts
                         if (checkMultipleMoves(i, j, i, j))
                         {
                             if (robotIndex == 1)
+                            {
                                 AIBlackKingCapture(i, j);
+                               
+                            }
                             if (robotIndex == 2)
+                            {
                                 AIRedKingCapture(i, j);
+                               
+                            }
+                                
 
-                            checkGameOver(player1, player2);
+                            
 
                             return 0;
                         }
@@ -1643,10 +1655,14 @@ namespace TurkishDraughts
                         if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
                         {
                             if (robotIndex == 1)
+                            {
                                 AIBlackPieceCapture(i, j);
+                            }
                             if (robotIndex == 2)
+                            {
                                 AIRedPieceCapture(i, j);
-                            checkGameOver(player1, player2);
+                            }
+                           
 
                             return 0;
                         }

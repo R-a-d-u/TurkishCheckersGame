@@ -32,14 +32,16 @@ namespace TurkishDraughts
         }
         private async Task choseColorButtonBlink()
         {
-            while (serverStartButton.Enabled && clientButton.Enabled)
+            int timesToBlink = 3;
+            while (timesToBlink>0)
             {
                 serverStartButton.BackColor = Color.PeachPuff;
                 clientButton.BackColor = Color.PeachPuff;
-                await Task.Delay(250);
+                await Task.Delay(300);
                 serverStartButton.BackColor = Color.DarkGoldenrod;
                 clientButton.BackColor = Color.DarkGoldenrod;
-                await Task.Delay(250);
+                await Task.Delay(300);
+                timesToBlink--;
             }
         }
         private void initPlayerNames()

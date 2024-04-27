@@ -46,7 +46,7 @@ namespace TurkishDraughts
             player2 = new PlayerClass(name2);
             player2TextBox.Text = player2.getName();
             currentPlayer = player1;
-            currentPlayerTextBox.Text = "Rosu muta";
+            currentPlayerTextBox.Text = "Red moves";
             currentPlayerTextBox.ForeColor = Color.Red;
             player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
             player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
@@ -98,17 +98,17 @@ namespace TurkishDraughts
                 {
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
-                    currentPlayerTextBox.Text = "Jocul s-a incheiat";
+                    currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
-                    MessageBox.Show(player1.getName() + " a castigat");
+                    MessageBox.Show(player1.getName() + " wins!");
                 }
                 if (counterRed == 0)
                 {
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
-                    currentPlayerTextBox.Text = "Jocul s-a incheiat";
+                    currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
-                    MessageBox.Show(player2.getName() + " a castigat");
+                    MessageBox.Show(player2.getName() + " wins!");
                 }
                 return true;
             }
@@ -118,7 +118,7 @@ namespace TurkishDraughts
         {
             if (specialProprieties.getPlayerTurn() == false)
             {
-                currentPlayerTextBox.Text = "Rosu muta";
+                currentPlayerTextBox.Text = "Red moves";
                 currentPlayerTextBox.ForeColor = Color.Red;
                 player1TextBox.BackColor = Color.DarkGoldenrod;
 
@@ -128,7 +128,7 @@ namespace TurkishDraughts
             }
             else
             {
-                currentPlayerTextBox.Text = "Negru muta";
+                currentPlayerTextBox.Text = "Black moves";
                 currentPlayerTextBox.ForeColor = Color.Black;
                 player2TextBox.BackColor = Color.DarkGoldenrod;
                 player1TextBox.BackColor = Color.FromArgb(49, 46, 43);

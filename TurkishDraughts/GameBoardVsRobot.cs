@@ -19,8 +19,19 @@ namespace TurkishDraughts
             initBoardButtons();//pune pictureboxurile pe tabla
             blockPictureBox();
             InitializeComponent();
-            initPlayerNames();  
+            initPlayerNames();
+            choseColorButtonBlink();
             //stare initiala jucator actual
+        }
+        private async Task choseColorButtonBlink()
+        {
+            while (choseColorButton.Enabled == true)
+            {
+                choseColorButton.BackColor = Color.PeachPuff;
+                await Task.Delay(250);
+                choseColorButton.BackColor = Color.DarkGoldenrod;
+                await Task.Delay(250);
+            }
         }
 
         private void initBoardButtons()
@@ -62,12 +73,12 @@ namespace TurkishDraughts
         }
         private void initPlayerNames()
         {
-            player1 = new PlayerClass("Rosu");
+            player1 = new PlayerClass("Red");
             player1TextBox.Text = player1.getName();
-            player2 = new PlayerClass("Negru");
+            player2 = new PlayerClass("Black");
             player2TextBox.Text = player2.getName();
             currentPlayer = player1;
-            currentPlayerTextBox.Text = "Rosu muta";
+            currentPlayerTextBox.Text = "Red moves";
             currentPlayerTextBox.ForeColor = Color.Red;
             player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
             player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
@@ -131,19 +142,19 @@ namespace TurkishDraughts
                 {
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
-                    currentPlayerTextBox.Text = "Jocul s-a incheiat";
+                    currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player1.getName());
-                    MessageBox.Show(player1.getName() + " a castigat");
+                    MessageBox.Show(player1.getName() + " wins");
                 }
                 if (counterRed == 0)
                 {
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
-                    currentPlayerTextBox.Text = "Jocul s-a incheiat";
+                    currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player2.getName());
-                    MessageBox.Show(player2.getName() + " a castigat");
+                    MessageBox.Show(player2.getName() + " wins");
                 }
 
 
@@ -158,7 +169,7 @@ namespace TurkishDraughts
         {
             if (specialProprieties.getPlayerTurn() == false)
             {
-                currentPlayerTextBox.Text = "Rosu muta";
+                currentPlayerTextBox.Text = "Red moves";
                 currentPlayerTextBox.ForeColor = Color.Red;
                 player1TextBox.BackColor = Color.DarkGoldenrod;
 
@@ -168,7 +179,7 @@ namespace TurkishDraughts
             }
             else
             {
-                currentPlayerTextBox.Text = "Negru muta";
+                currentPlayerTextBox.Text = "Black moves";
                 currentPlayerTextBox.ForeColor = Color.Black;
                 player2TextBox.BackColor = Color.DarkGoldenrod;
                 player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
@@ -1807,6 +1818,7 @@ namespace TurkishDraughts
         {
             playerRobot = true;
             blackColorButton.Enabled = false;
+            choseColorButton.Enabled = false;
 
             Controls.Remove(redColorButton);
             redColorButton.Dispose();
@@ -1815,7 +1827,9 @@ namespace TurkishDraughts
 
             unblockPictureBox();
             robotFunction(playerRobot, true);
+            player1.setName("Computer");
             player2.setName(playerName);
+            player1TextBox.Text = player1.getName();
             player2TextBox.Text = player2.getName();
         }
 
@@ -1823,7 +1837,8 @@ namespace TurkishDraughts
         {
             playerRobot = false;
             redColorButton.Enabled = false;
-            
+            choseColorButton.Enabled = false;
+
             Controls.Remove(blackColorButton);
             blackColorButton.Dispose();
             redColorButton.Location= new Point(663, 106);
@@ -1832,7 +1847,10 @@ namespace TurkishDraughts
             
             unblockPictureBox();
             player1.setName(playerName);
+            player2.setName("Computer");
             player1TextBox.Text = player1.getName();
+            player2TextBox.Text = player2.getName();
+
         }
     }
 

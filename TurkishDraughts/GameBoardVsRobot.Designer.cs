@@ -69,12 +69,13 @@
             // currentPlayerTextBox
             // 
             currentPlayerTextBox.BackColor = Color.PeachPuff;
-            currentPlayerTextBox.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            currentPlayerTextBox.Location = new Point(667, 344);
+            currentPlayerTextBox.BorderStyle = BorderStyle.None;
+            currentPlayerTextBox.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            currentPlayerTextBox.Location = new Point(669, 346);
             currentPlayerTextBox.Multiline = true;
             currentPlayerTextBox.Name = "currentPlayerTextBox";
             currentPlayerTextBox.ReadOnly = true;
-            currentPlayerTextBox.Size = new Size(103, 87);
+            currentPlayerTextBox.Size = new Size(100, 75);
             currentPlayerTextBox.TabIndex = 3;
             currentPlayerTextBox.TabStop = false;
             currentPlayerTextBox.Text = "Text";
@@ -92,7 +93,7 @@
             blackColorButton.Size = new Size(55, 23);
             blackColorButton.TabIndex = 4;
             blackColorButton.TabStop = false;
-            blackColorButton.Text = "Negru";
+            blackColorButton.Text = "Black";
             blackColorButton.UseVisualStyleBackColor = false;
             blackColorButton.Click += blackColorButton_Click;
             // 
@@ -107,7 +108,7 @@
             redColorButton.Size = new Size(55, 23);
             redColorButton.TabIndex = 5;
             redColorButton.TabStop = false;
-            redColorButton.Text = "Rosu";
+            redColorButton.Text = "Red";
             redColorButton.UseVisualStyleBackColor = false;
             redColorButton.Click += redColorButton_Click;
             // 
@@ -115,12 +116,13 @@
             // 
             choseColorButton.BackColor = Color.DarkGoldenrod;
             choseColorButton.FlatStyle = FlatStyle.Popup;
+            choseColorButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             choseColorButton.Location = new Point(663, 77);
             choseColorButton.Name = "choseColorButton";
             choseColorButton.Size = new Size(110, 23);
             choseColorButton.TabIndex = 6;
             choseColorButton.TabStop = false;
-            choseColorButton.Text = "Alege Culoarea";
+            choseColorButton.Text = "Chose color";
             choseColorButton.UseVisualStyleBackColor = false;
             // 
             // GameBoardVsRobot

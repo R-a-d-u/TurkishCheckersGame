@@ -36,12 +36,13 @@
             // currentPlayerTextBox
             // 
             currentPlayerTextBox.BackColor = Color.PeachPuff;
-            currentPlayerTextBox.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            currentPlayerTextBox.Location = new Point(666, 341);
+            currentPlayerTextBox.BorderStyle = BorderStyle.None;
+            currentPlayerTextBox.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
+            currentPlayerTextBox.Location = new Point(668, 349);
             currentPlayerTextBox.Multiline = true;
             currentPlayerTextBox.Name = "currentPlayerTextBox";
             currentPlayerTextBox.ReadOnly = true;
-            currentPlayerTextBox.Size = new Size(105, 87);
+            currentPlayerTextBox.Size = new Size(100, 75);
             currentPlayerTextBox.TabIndex = 0;
             currentPlayerTextBox.TabStop = false;
             currentPlayerTextBox.Text = "Text";

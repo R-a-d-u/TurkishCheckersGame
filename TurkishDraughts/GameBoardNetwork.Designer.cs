@@ -133,6 +133,7 @@
             MaximumSize = new Size(796, 832);
             MinimumSize = new Size(796, 832);
             Name = "GameBoardNetwork";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "GameBoardNetwork";
             ResumeLayout(false);
             PerformLayout();

@@ -293,6 +293,7 @@
             Controls.Add(startGame1Button);
             Controls.Add(player2LocalTextBox);
             Controls.Add(player1LocalTextBox);
+            DoubleBuffered = true;
             Name = "GameMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";

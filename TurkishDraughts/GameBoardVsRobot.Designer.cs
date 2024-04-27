@@ -137,7 +137,10 @@
             Controls.Add(player2TextBox);
             Controls.Add(player1TextBox);
             DoubleBuffered = true;
+            Location = new Point(796, 832);
+            MaximumSize = new Size(796, 832);
             Name = "GameBoardVsRobot";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "GameBoardVsRobot";
             ResumeLayout(false);
             PerformLayout();

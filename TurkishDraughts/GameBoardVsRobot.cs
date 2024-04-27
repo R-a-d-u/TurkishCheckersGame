@@ -1819,6 +1819,7 @@ namespace TurkishDraughts
             playerRobot = true;
             blackColorButton.Enabled = false;
             choseColorButton.Enabled = false;
+            choseColorButton.Text = "Your color is";
 
             Controls.Remove(redColorButton);
             redColorButton.Dispose();
@@ -1838,6 +1839,7 @@ namespace TurkishDraughts
             playerRobot = false;
             redColorButton.Enabled = false;
             choseColorButton.Enabled = false;
+            choseColorButton.Text = "Your color is";
 
             Controls.Remove(blackColorButton);
             blackColorButton.Dispose();

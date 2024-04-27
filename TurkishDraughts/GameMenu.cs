@@ -72,11 +72,15 @@ namespace TurkishDraughts
             }
             if (isopen == false)
             {
-                //String name1;
-                //name1 = playerNetworkTextBox.Text;
+                String name1;
+                name1 = playerVsAITextBox.Text;
+                if (name1 != "")
+                {
+                    GameBoardVsRobot gameBoardVsRobot = new GameBoardVsRobot(name1);
+                    gameBoardVsRobot.Show();
+                }
 
-                GameBoardVsRobot gameBoardVsRobot = new GameBoardVsRobot();
-                gameBoardVsRobot.Show();
+                
 
 
             }

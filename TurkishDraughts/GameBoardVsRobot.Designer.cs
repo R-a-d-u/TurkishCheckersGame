@@ -31,6 +31,9 @@
             player1TextBox = new TextBox();
             player2TextBox = new TextBox();
             currentPlayerTextBox = new TextBox();
+            blackColorButton = new Button();
+            redColorButton = new Button();
+            choseColorButton = new Button();
             SuspendLayout();
             // 
             // player1TextBox
@@ -67,15 +70,58 @@
             // 
             currentPlayerTextBox.BackColor = Color.PeachPuff;
             currentPlayerTextBox.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            currentPlayerTextBox.Location = new Point(663, 344);
+            currentPlayerTextBox.Location = new Point(667, 344);
             currentPlayerTextBox.Multiline = true;
             currentPlayerTextBox.Name = "currentPlayerTextBox";
             currentPlayerTextBox.ReadOnly = true;
-            currentPlayerTextBox.Size = new Size(105, 87);
+            currentPlayerTextBox.Size = new Size(103, 87);
             currentPlayerTextBox.TabIndex = 3;
             currentPlayerTextBox.TabStop = false;
             currentPlayerTextBox.Text = "Text";
             currentPlayerTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // blackColorButton
+            // 
+            blackColorButton.BackColor = Color.PeachPuff;
+            blackColorButton.BackgroundImageLayout = ImageLayout.None;
+            blackColorButton.FlatStyle = FlatStyle.Popup;
+            blackColorButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            blackColorButton.ForeColor = Color.Black;
+            blackColorButton.Location = new Point(663, 106);
+            blackColorButton.Name = "blackColorButton";
+            blackColorButton.Size = new Size(55, 23);
+            blackColorButton.TabIndex = 4;
+            blackColorButton.TabStop = false;
+            blackColorButton.Text = "Negru";
+            blackColorButton.UseVisualStyleBackColor = false;
+            blackColorButton.Click += blackColorButton_Click;
+            // 
+            // redColorButton
+            // 
+            redColorButton.BackColor = Color.PeachPuff;
+            redColorButton.FlatStyle = FlatStyle.Popup;
+            redColorButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            redColorButton.ForeColor = Color.Black;
+            redColorButton.Location = new Point(718, 106);
+            redColorButton.Name = "redColorButton";
+            redColorButton.Size = new Size(55, 23);
+            redColorButton.TabIndex = 5;
+            redColorButton.TabStop = false;
+            redColorButton.Text = "Rosu";
+            redColorButton.UseVisualStyleBackColor = false;
+            redColorButton.Click += redColorButton_Click;
+            // 
+            // choseColorButton
+            // 
+            choseColorButton.BackColor = Color.DarkGoldenrod;
+            choseColorButton.FlatStyle = FlatStyle.Flat;
+            choseColorButton.Location = new Point(663, 77);
+            choseColorButton.Name = "choseColorButton";
+            choseColorButton.Size = new Size(110, 23);
+            choseColorButton.TabIndex = 6;
+            choseColorButton.TabStop = false;
+            choseColorButton.Text = "Alege Culoarea";
+            choseColorButton.UseVisualStyleBackColor = false;
             // 
             // GameBoardVsRobot
             // 
@@ -84,6 +130,9 @@
             BackgroundImage = Properties.Resources.Board;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(780, 793);
+            Controls.Add(choseColorButton);
+            Controls.Add(redColorButton);
+            Controls.Add(blackColorButton);
             Controls.Add(currentPlayerTextBox);
             Controls.Add(player2TextBox);
             Controls.Add(player1TextBox);
@@ -99,5 +148,8 @@
         private TextBox player1TextBox;
         private TextBox player2TextBox;
         private TextBox currentPlayerTextBox;
+        private Button blackColorButton;
+        private Button redColorButton;
+        private Button choseColorButton;
     }
 }

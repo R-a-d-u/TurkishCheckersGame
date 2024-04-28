@@ -1708,9 +1708,16 @@ namespace TurkishDraughts
 
                     }
                 }
+            Step4:
+            if(var)
+            for (int i = 1; i < 7; i++)
+                for (int j = 0; j < 8; j++)
+                {
+                    //if(pictureBoxButtons[i][j].getValue())
+                }
 
             //regele isi schimba pozitia pt captura daca e ultimul rand
-            Step4:
+            Step5:
             if (var)
             {
                 if (robotIndex == 1)
@@ -1724,7 +1731,7 @@ namespace TurkishDraughts
             var = true;
 
         //miscare in fata daca e spatiu liber
-        Step5:
+        Step6:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1745,7 +1752,7 @@ namespace TurkishDraughts
                     }
                 }
             //miscare lateral daca e spatiu gol
-            Step6:
+            Step7:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1765,7 +1772,7 @@ namespace TurkishDraughts
                         }
                 }
             //miscare in fata
-            Step7:
+            Step8:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                     if (pictureBoxButtons[i][j].getValue() == robotIndex)
@@ -1782,7 +1789,7 @@ namespace TurkishDraughts
                         }
                     }
                 //miscare lateral 
-                Step8:
+                Step9:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {

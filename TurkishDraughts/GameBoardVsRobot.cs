@@ -1,4 +1,5 @@
-﻿using TurkishDraughts.Properties;
+﻿using Microsoft.VisualBasic.Devices;
+using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
 {
@@ -11,6 +12,9 @@ namespace TurkishDraughts
         private int i_firstMove, j_firstMove;
         private bool playerRobot = false;
         String playerName;
+        List<Task> tasks = new List<Task>();
+
+        
         public GameBoardVsRobot(String playerNameForm)
         {
             MaximizeBox = false;
@@ -22,6 +26,7 @@ namespace TurkishDraughts
             initPlayerNames();
             choseColorButtonBlink();
             //stare initiala jucator actual
+            
         }
         private async Task choseColorButtonBlink()
         {
@@ -51,25 +56,31 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-        // for (int i = 0; i < 8; i++)
-        // {
-        //     for (int j = 0; j < 8; j++)
-        //     {
-        //         pictureBoxButtons[i][j].setValue(0);
-        //         pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-        //         
-        //     }
-        // }
+         for (int i = 0; i < 8; i++)
+         {
+             for (int j = 0; j < 8; j++)
+             {
+                 pictureBoxButtons[i][j].setValue(0);
+                 pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+                 
+             }
+         }
          //   pictureBoxButtons[6][5].getPictureBox().BackgroundImage = Resources.BlackKing;
          //     pictureBoxButtons[6][5].setValue(3);
-            // pictureBoxButtons[4][7].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            //  pictureBoxButtons[4][7].setValue(1);
-            //    pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
-           //     pictureBoxButtons[3][5].setValue(1);
-           //  pictureBoxButtons[1][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
-           //  pictureBoxButtons[1][3].setValue(1);
-          //  pictureBoxButtons[7][6].getPictureBox().BackgroundImage = Resources.RedKing;
-          //  pictureBoxButtons[7][6].setValue(4);
+             pictureBoxButtons[4][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
+             pictureBoxButtons[4][6].setValue(1);
+               pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
+              pictureBoxButtons[3][5].setValue(1);
+
+            pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            pictureBoxButtons[3][3].setValue(1);
+
+           // pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
+           // pictureBoxButtons[3][5].setValue(1);
+            //  pictureBoxButtons[1][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //  pictureBoxButtons[1][3].setValue(1);
+            pictureBoxButtons[7][7].getPictureBox().BackgroundImage = Resources.RedKing;
+            pictureBoxButtons[7][7].setValue(4);
             // pictureBoxButtons[5][3].setValue(0);
 
         }
@@ -138,26 +149,31 @@ namespace TurkishDraughts
                         counterBlack++;
                 }
             }
+            
+
             if (counterBlack == 0 || counterRed == 0)
             {              
                 if (counterBlack == 0)
                 {
+                    MessageBox.Show(player1.getName() + " wins");
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player1.getName());
-
-                    MessageBox.Show(player1.getName() + " wins");
+                   
+                    
                 }
                 if (counterRed == 0)
                 {
+                    MessageBox.Show(player2.getName() + " wins");
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player2.getName());
-                    MessageBox.Show(player2.getName() + " wins");
+                    
+                   
                 }
 
 
@@ -226,7 +242,7 @@ namespace TurkishDraughts
         }
         public async Task checkFinalMove(int i_initial, int j_initial, int i_final, int j_final)
         {
-            await Task.Delay(0);
+            //await Task.Delay(0);
             //verificam daca locul unde vrem sa mutam e permis, da->muta, nu->reseteaza miscare
             if (specialProprieties.getPressed() == true)
             {
@@ -254,8 +270,9 @@ namespace TurkishDraughts
                 }
                 removeBoardTraces();
             }
+            
             checkGameOver(player1, player2);
-
+            
 
 
         }
@@ -1725,7 +1742,7 @@ namespace TurkishDraughts
                             }
                             if (robotIndex == 2)
                             {
-                                computerRedPieceCapture(i, j);
+                               computerRedPieceCapture(i, j);
                             }
                             return 0;
                         }

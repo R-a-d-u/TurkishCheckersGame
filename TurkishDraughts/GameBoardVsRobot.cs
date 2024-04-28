@@ -51,25 +51,25 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-          // for (int i = 0; i < 8; i++)
-          // {
-          //     for (int j = 0; j < 8; j++)
-          //     {
-          //         pictureBoxButtons[i][j].setValue(0);
-          //         pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-          //         
-          //     }
-          // }
-            //pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.BlackKing;
-            //  pictureBoxButtons[7][5].setValue(3);
-           //  pictureBoxButtons[5][3].getPictureBox().BackgroundImage = Resources.BlackKing;
-          //    pictureBoxButtons[5][3].setValue(3);
-              //  pictureBoxButtons[3][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            //    pictureBoxButtons[3][6].setValue(1);
-          //   pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.RedPiece;
-         //    pictureBoxButtons[3][5].setValue(2);
-         //    pictureBoxButtons[3][4].getPictureBox().BackgroundImage = Resources.RedKing;
-        //        pictureBoxButtons[3][4].setValue(4);
+        // for (int i = 0; i < 8; i++)
+        // {
+        //     for (int j = 0; j < 8; j++)
+        //     {
+        //         pictureBoxButtons[i][j].setValue(0);
+        //         pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+        //         
+        //     }
+        // }
+         //   pictureBoxButtons[6][5].getPictureBox().BackgroundImage = Resources.BlackKing;
+         //     pictureBoxButtons[6][5].setValue(3);
+            // pictureBoxButtons[4][7].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //  pictureBoxButtons[4][7].setValue(1);
+            //    pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
+           //     pictureBoxButtons[3][5].setValue(1);
+           //  pictureBoxButtons[1][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
+           //  pictureBoxButtons[1][3].setValue(1);
+          //  pictureBoxButtons[7][6].getPictureBox().BackgroundImage = Resources.RedKing;
+          //  pictureBoxButtons[7][6].setValue(4);
             // pictureBoxButtons[5][3].setValue(0);
 
         }
@@ -139,7 +139,7 @@ namespace TurkishDraughts
                 }
             }
             if (counterBlack == 0 || counterRed == 0)
-            {
+            {              
                 if (counterBlack == 0)
                 {
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
@@ -147,6 +147,7 @@ namespace TurkishDraughts
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player1.getName());
+
                     MessageBox.Show(player1.getName() + " wins");
                 }
                 if (counterRed == 0)
@@ -248,7 +249,7 @@ namespace TurkishDraughts
                     await Task.Delay(300);//delay 0.3 sec intre mutare jucator si robot
 
                     if (specialProprieties.getPlayerTurn() == !playerRobot)
-                        robotFunction(playerRobot, true);
+                        computerAISteps(playerRobot, true);
 
                 }
                 removeBoardTraces();
@@ -1025,13 +1026,8 @@ namespace TurkishDraughts
                 }
             }
         }
-        private void player1TextBox_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-
-        private async Task AIBlackPieceCapture(int i, int j)
+        private async Task computerBlackPieceCapture(int i, int j)
         {
 
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
@@ -1040,7 +1036,7 @@ namespace TurkishDraughts
                 if (j < 6)
                     if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
                     {
-                        robotMove(i, j, i, j + 2);
+                        computerMove(i, j, i, j + 2);
                         j = j + 2;
                         await Task.Delay(300);
                         continue;
@@ -1048,7 +1044,7 @@ namespace TurkishDraughts
                 if (j > 1)
                     if (pictureBoxButtons[i][j - 1].getValue() % 2 == 0 && pictureBoxButtons[i][j - 1].getValue() != 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
                     {
-                        robotMove(i, j, i, j - 2);
+                        computerMove(i, j, i, j - 2);
                         j = j - 2;
                         await Task.Delay(300);
                         continue;
@@ -1056,7 +1052,7 @@ namespace TurkishDraughts
                 if (i > 1)
                     if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
                     {
-                        robotMove(i, j, i + 2, j);
+                        computerMove(i, j, i + 2, j);
                         i = i + 2;
                         await Task.Delay(300);
                         continue;
@@ -1069,7 +1065,7 @@ namespace TurkishDraughts
             swapCurrentPlayerName();
 
         }
-        private async Task AIRedPieceCapture(int i, int j)
+        private async Task computerRedPieceCapture(int i, int j)
         {
 
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
@@ -1078,7 +1074,7 @@ namespace TurkishDraughts
                 if (j < 6)
                     if (pictureBoxButtons[i][j + 1].getValue() % 2 != 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
                     {
-                        robotMove(i, j, i, j + 2);
+                        computerMove(i, j, i, j + 2);
                         j = j + 2;
                         await Task.Delay(300);
                         continue;
@@ -1086,7 +1082,7 @@ namespace TurkishDraughts
                 if (j > 1)
                     if (pictureBoxButtons[i][j - 1].getValue() % 2 != 0 && pictureBoxButtons[i][j - 1].getValue() != 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
                     {
-                        robotMove(i, j, i, j - 2);
+                        computerMove(i, j, i, j - 2);
                         j = j - 2;
                         await Task.Delay(300);
                         continue;
@@ -1094,7 +1090,7 @@ namespace TurkishDraughts
                 if (i > 1)
                     if (pictureBoxButtons[i - 1][j].getValue() % 2 != 0 && pictureBoxButtons[i - 1][j].getValue() != 0 && pictureBoxButtons[i - 2][j].getValue() == 0)
                     {
-                        robotMove(i, j, i - 2, j);
+                        computerMove(i, j, i - 2, j);
                         i = i - 2;
                         await Task.Delay(300);
                         continue;
@@ -1107,11 +1103,9 @@ namespace TurkishDraughts
             swapCurrentPlayerName();
 
         }
-        private async Task AIBlackKingCapture(int i, int j)
+        private async Task computerBlackKingCapture(int i, int j)
         {
             bool firstLoop = true;
-            int i_lastPosition = i;
-            int j_lastPosition = j;
             int i_initial = i;
             int j_initial = j;
             //
@@ -1158,10 +1152,10 @@ namespace TurkishDraughts
                             int j_capture = move.Item2;
 
                             pictureBoxButtons[i_capture][j_capture].setValue(3);
-                            if (checkMultipleMoves(i_capture, j_capture, i_capture, j_capture))
+                            if (checkMultipleMoves(i, j, i_capture, j_capture))
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 specialProprieties.setLastMultipleMoveI(i);
                                 specialProprieties.setLastMultipleMoveJ(j);
@@ -1173,7 +1167,7 @@ namespace TurkishDraughts
                             if (move == captureMoves.LastOrDefault())
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 await Task.Delay(300);
                                 goto continueWhile;
@@ -1194,10 +1188,10 @@ namespace TurkishDraughts
                             int i_capture = move.Item1;
                             int j_capture = move.Item2;
                             pictureBoxButtons[i_capture][j_capture].setValue(3);
-                            if (checkMultipleMoves(i_capture, j_capture, i_capture, j_capture))
+                            if (checkMultipleMoves(i, j, i_capture, j_capture))
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 specialProprieties.setLastMultipleMoveI(i);
                                 specialProprieties.setLastMultipleMoveJ(j);
@@ -1209,7 +1203,7 @@ namespace TurkishDraughts
                             if (move == captureMoves.LastOrDefault())
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 await Task.Delay(300);
                                 goto continueWhile;
@@ -1229,10 +1223,10 @@ namespace TurkishDraughts
                             int i_capture = move.Item1;
                             int j_capture = move.Item2;
                             pictureBoxButtons[i_capture][j_capture].setValue(3);
-                            if (checkMultipleMoves(i_capture, j_capture, i_capture, j_capture))
+                            if (checkMultipleMoves(i, j, i_capture, j_capture))
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 specialProprieties.setLastMultipleMoveI(i);
                                 specialProprieties.setLastMultipleMoveJ(j);
@@ -1244,7 +1238,7 @@ namespace TurkishDraughts
                             if (move == captureMoves.LastOrDefault())
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 await Task.Delay(300);
                                 goto continueWhile;
@@ -1266,10 +1260,10 @@ namespace TurkishDraughts
                             int i_capture = move.Item1;
                             int j_capture = move.Item2;
                             pictureBoxButtons[i_capture][j_capture].setValue(3);
-                            if (checkMultipleMoves(i_capture, j_capture, i_capture, j_capture))
+                            if (checkMultipleMoves(i, j, i_capture, j_capture))
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 specialProprieties.setLastMultipleMoveI(i);
                                 specialProprieties.setLastMultipleMoveJ(j);
@@ -1281,7 +1275,7 @@ namespace TurkishDraughts
                             if (move == captureMoves.LastOrDefault())
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 await Task.Delay(300);
                                 goto continueWhile;
@@ -1294,23 +1288,18 @@ namespace TurkishDraughts
                 continueWhile: continue;
             }
             specialProprieties.setMultipleMoves(false);
-
-            // i = specialProprieties.getLastMultipleMoveI();
-            //  j = specialProprieties.getLastMultipleMoveJ();
             checkIfPieceIsKing(i, j);
             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
         }
 
-        private async Task AIRedKingCapture(int i, int j)
+        private async Task computerRedKingCapture(int i, int j)
         {
             bool firstLoop = true;
-            int i_lastPosition = i;
-            int j_lastPosition = j;
             int i_initial = i;
             int j_initial = j;
-            //
+
             while (checkMultipleMoves(i_initial, j_initial, i, j))
             {
                 List<Tuple<int, int, int>> captureMoves = new List<Tuple<int, int, int>>();
@@ -1318,8 +1307,6 @@ namespace TurkishDraughts
                 bool i_down = false;
                 bool j_right = false;
                 bool j_left = false;
-                //int i_initial = specialProprieties.getLastMultipleMoveI();
-                // int j_initial = specialProprieties.getLastMultipleMoveJ();
 
                 if (!firstLoop)
                 {
@@ -1353,10 +1340,10 @@ namespace TurkishDraughts
                             int j_capture = move.Item2;
 
                             pictureBoxButtons[i_capture][j_capture].setValue(4);
-                            if (checkMultipleMoves(i_capture, j_capture, i_capture, j_capture))
+                            if (checkMultipleMoves(i, j, i_capture, j_capture))
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 specialProprieties.setLastMultipleMoveI(i);
                                 specialProprieties.setLastMultipleMoveJ(j);
@@ -1368,7 +1355,7 @@ namespace TurkishDraughts
                             if (move == captureMoves.LastOrDefault())
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 await Task.Delay(300);
                                 goto continueWhile;
@@ -1389,10 +1376,10 @@ namespace TurkishDraughts
                             int i_capture = move.Item1;
                             int j_capture = move.Item2;
                             pictureBoxButtons[i_capture][j_capture].setValue(4);
-                            if (checkMultipleMoves(i_capture, j_capture, i_capture, j_capture))
+                            if (checkMultipleMoves(i, j, i_capture, j_capture))
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 specialProprieties.setLastMultipleMoveI(i);
                                 specialProprieties.setLastMultipleMoveJ(j);
@@ -1404,7 +1391,7 @@ namespace TurkishDraughts
                             if (move == captureMoves.LastOrDefault())
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 await Task.Delay(300);
                                 goto continueWhile;
@@ -1424,10 +1411,10 @@ namespace TurkishDraughts
                             int i_capture = move.Item1;
                             int j_capture = move.Item2;
                             pictureBoxButtons[i_capture][j_capture].setValue(4);
-                            if (checkMultipleMoves(i_capture, j_capture, i_capture, j_capture))
+                            if (checkMultipleMoves(i, j, i_capture, j_capture))
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 specialProprieties.setLastMultipleMoveI(i);
                                 specialProprieties.setLastMultipleMoveJ(j);
@@ -1439,7 +1426,7 @@ namespace TurkishDraughts
                             if (move == captureMoves.LastOrDefault())
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 await Task.Delay(300);
                                 goto continueWhile;
@@ -1461,10 +1448,10 @@ namespace TurkishDraughts
                             int i_capture = move.Item1;
                             int j_capture = move.Item2;
                             pictureBoxButtons[i_capture][j_capture].setValue(4);
-                            if (checkMultipleMoves(i_capture, j_capture, i_capture, j_capture))
+                            if (checkMultipleMoves(i, j, i_capture, j_capture))
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 specialProprieties.setLastMultipleMoveI(i);
                                 specialProprieties.setLastMultipleMoveJ(j);
@@ -1476,7 +1463,7 @@ namespace TurkishDraughts
                             if (move == captureMoves.LastOrDefault())
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                robotMove(i, j, i_capture, j_capture);
+                                computerMove(i, j, i_capture, j_capture);
                                 i = i_capture; j = j_capture;
                                 await Task.Delay(300);
                                 goto continueWhile;
@@ -1484,7 +1471,6 @@ namespace TurkishDraughts
                             pictureBoxButtons[i_capture][j_capture].setValue(0);
                         }
                     }
-
 
                 continueWhile: continue;
             }
@@ -1496,7 +1482,7 @@ namespace TurkishDraughts
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
         }
-        private async Task AIBlackKingChangePosition()
+        private async Task computerBlackKingChangePosition()
         {
             await Task.Delay(0);
             int temp_i, temp_j, move_j = 0;
@@ -1519,7 +1505,7 @@ namespace TurkishDraughts
                             if (checkMultipleMoves(temp_i, temp_j, temp_i, temp_j))
                             {
                                 pictureBoxButtons[temp_i][temp_j].setValue(0);
-                                robotMove(i, j, temp_i, temp_j);
+                                computerMove(i, j, temp_i, temp_j);
                                 i = temp_i; j = temp_j;
                                 findFutureCapture = true;
                                 await Task.Delay(300);
@@ -1554,7 +1540,7 @@ namespace TurkishDraughts
                                 if (!checkMultipleMoves(lastMove.Item1, lastMove.Item2, lastMove.Item1, lastMove.Item2))
                                 {
                                     pictureBoxButtons[lastMove.Item1][lastMove.Item2].setValue(0);
-                                    robotMove(i, j, lastMove.Item1, lastMove.Item2);
+                                    computerMove(i, j, lastMove.Item1, lastMove.Item2);
                                     i = lastMove.Item1; j = lastMove.Item2;
                                     await Task.Delay(300);
                                     specialProprieties.setMultipleMoves(false);
@@ -1580,13 +1566,13 @@ namespace TurkishDraughts
             }
             else
             {
-                robotFunction(playerRobot, false);
+                computerAISteps(playerRobot, false);
             }
         }
-        private async Task AIRedKingChangePosition()
+        private async Task computerRedKingChangePosition()
         {
             await Task.Delay(0);
-            int temp_i, temp_j, move_j = 0;
+            int temp_i, temp_j;
             bool findFutureCapture = false;
             bool findLastKingPosition = false;
             for (int i = 0; i < 8; i++)
@@ -1606,7 +1592,7 @@ namespace TurkishDraughts
                             if (checkMultipleMoves(temp_i, temp_j, temp_i, temp_j))
                             {
                                 pictureBoxButtons[temp_i][temp_j].setValue(0);
-                                robotMove(i, j, temp_i, temp_j);
+                                computerMove(i, j, temp_i, temp_j);
                                 i = temp_i; j = temp_j;
                                 findFutureCapture = true;
                                 await Task.Delay(300);
@@ -1641,7 +1627,7 @@ namespace TurkishDraughts
                                 if (!checkMultipleMoves(lastMove.Item1, lastMove.Item2, lastMove.Item1, lastMove.Item2))
                                 {
                                     pictureBoxButtons[lastMove.Item1][lastMove.Item2].setValue(0);
-                                    robotMove(i, j, lastMove.Item1, lastMove.Item2);
+                                    computerMove(i, j, lastMove.Item1, lastMove.Item2);
                                     i = lastMove.Item1; j = lastMove.Item2;
                                     await Task.Delay(300);
                                     specialProprieties.setMultipleMoves(false);
@@ -1666,11 +1652,11 @@ namespace TurkishDraughts
             }
             else
             {
-                robotFunction(playerRobot, false);
+                computerAISteps(playerRobot, false);
             }
         }
 
-        private void robotMove(int i_initial, int j_initial, int i_final, int j_final)
+        private void computerMove(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
             swapImage(i_initial, j_initial, i_final, j_final);
@@ -1682,11 +1668,10 @@ namespace TurkishDraughts
             specialProprieties.setCurrentMultipleMoveI(i_final);
             specialProprieties.setCurrentMultipleMoveJ(j_final);
             removeBoardTraces();
-
         }
 
 
-        private int robotFunction(bool playerColor, bool var)
+        private int computerAISteps(bool playerColor, bool var)
         {
             //player false-negru, true-rosu
             int robotIndex;
@@ -1711,12 +1696,12 @@ namespace TurkishDraughts
                         {
                             if (robotIndex == 1)
                             {
-                                AIBlackKingCapture(i, j);
+                                computerBlackKingCapture(i, j);
 
                             }
                             if (robotIndex == 2)
                             {
-                                AIRedKingCapture(i, j);
+                                computerRedKingCapture(i, j);
 
                             }
                             return 0;
@@ -1736,11 +1721,11 @@ namespace TurkishDraughts
                         {
                             if (robotIndex == 1)
                             {
-                                AIBlackPieceCapture(i, j);
+                                computerBlackPieceCapture(i, j);
                             }
                             if (robotIndex == 2)
                             {
-                                AIRedPieceCapture(i, j);
+                                computerRedPieceCapture(i, j);
                             }
                             return 0;
                         }
@@ -1783,9 +1768,9 @@ namespace TurkishDraughts
             if (var)
             {
                 if (robotIndex == 1)
-                    AIBlackKingChangePosition();
+                    computerBlackKingChangePosition();
                 if (robotIndex == 2)
-                    AIRedKingChangePosition();
+                    computerRedKingChangePosition();
 
                 return 0;
 
@@ -1901,7 +1886,7 @@ namespace TurkishDraughts
             blackColorButton.Width = 110;
 
             unblockPictureBox();
-            robotFunction(playerRobot, true);
+            computerAISteps(playerRobot, true);
             player1.setName("Computer");
             player2.setName(playerName);
             player1TextBox.Text = player1.getName();

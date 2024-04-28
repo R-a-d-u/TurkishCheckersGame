@@ -10,7 +10,6 @@ namespace TurkishDraughts
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new GameBoardVsRobot());
             Application.Run(new GameMenu());
         }
     }

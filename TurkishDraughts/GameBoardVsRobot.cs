@@ -62,12 +62,14 @@ namespace TurkishDraughts
            // }
             // pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.BlackKing;
             //  pictureBoxButtons[7][5].setValue(3);
-            // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackKing;
-           //  pictureBoxButtons[3][2].setValue(3);
-            //   pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.RedPiece;
-            //    pictureBoxButtons[3][3].setValue(2);
-            //  pictureBoxButtons[4][7].getPictureBox().BackgroundImage = Resources.RedKing;
-            //   pictureBoxButtons[4][7].setValue(4);
+          // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+          //  pictureBoxButtons[3][2].setValue(1);
+          //    pictureBoxButtons[3][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
+          //     pictureBoxButtons[3][6].setValue(1);
+          // pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
+          // pictureBoxButtons[3][5].setValue(1);
+          // pictureBoxButtons[3][4].getPictureBox().BackgroundImage = Resources.RedKing;
+          //    pictureBoxButtons[3][4].setValue(4);
             // pictureBoxButtons[5][3].setValue(0);
 
         }
@@ -1114,7 +1116,7 @@ namespace TurkishDraughts
         }
         private async Task AIBlackKingCapture(int i, int j)
         {
-            bool firstLoop = false;
+            bool firstLoop = true;
             int i_lastPosition = i;
             int j_lastPosition = j;
             int i_initial = i;
@@ -1130,10 +1132,12 @@ namespace TurkishDraughts
                 //int i_initial = specialProprieties.getLastMultipleMoveI();
                 // int j_initial = specialProprieties.getLastMultipleMoveJ();
 
-                if (firstLoop)
+                if (!firstLoop)
                 {
                     i_initial = specialProprieties.getLastMultipleMoveI();
                     j_initial = specialProprieties.getLastMultipleMoveJ();
+                }
+                firstLoop = false; 
 
                     if (i != i_initial)
                         if (i - i_initial > 0)
@@ -1146,7 +1150,7 @@ namespace TurkishDraughts
                             j_left = true;
                         else
                             j_right = true;
-                }
+                
 
                 if (!j_left)
                     if (checkMultipleMovesBlackKingLeft(i_initial, j_initial, i, j))
@@ -1308,7 +1312,7 @@ namespace TurkishDraughts
 
         private async Task AIRedKingCapture(int i, int j)
         {
-            bool firstLoop = false;
+            bool firstLoop = true;
             int i_lastPosition = i;
             int j_lastPosition = j;
             int i_initial = i;
@@ -1324,11 +1328,12 @@ namespace TurkishDraughts
                 //int i_initial = specialProprieties.getLastMultipleMoveI();
                 // int j_initial = specialProprieties.getLastMultipleMoveJ();
 
-                if (firstLoop)
+                if (!firstLoop)
                 {
                     i_initial = specialProprieties.getLastMultipleMoveI();
-                    j_initial = specialProprieties.getLastMultipleMoveJ();
-
+                    j_initial = specialProprieties.getLastMultipleMoveJ();    
+                }
+                firstLoop = false;
                     if (i != i_initial)
                         if (i - i_initial > 0)
                             i_up = true;
@@ -1340,7 +1345,7 @@ namespace TurkishDraughts
                             j_left = true;
                         else
                             j_right = true;
-                }
+                
 
                 if (!j_left)
                     if (checkMultipleMovesRedKingLeft(i_initial, j_initial, i, j))

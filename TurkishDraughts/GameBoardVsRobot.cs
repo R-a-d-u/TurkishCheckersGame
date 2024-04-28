@@ -56,33 +56,7 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-         for (int i = 0; i < 8; i++)
-         {
-             for (int j = 0; j < 8; j++)
-             {
-                 pictureBoxButtons[i][j].setValue(0);
-                 pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-                 
-             }
-         }
-         //   pictureBoxButtons[6][5].getPictureBox().BackgroundImage = Resources.BlackKing;
-         //     pictureBoxButtons[6][5].setValue(3);
-             pictureBoxButtons[4][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
-             pictureBoxButtons[4][6].setValue(1);
-               pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
-              pictureBoxButtons[3][5].setValue(1);
-
-            pictureBoxButtons[3][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            pictureBoxButtons[3][3].setValue(1);
-
-           // pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
-           // pictureBoxButtons[3][5].setValue(1);
-            //  pictureBoxButtons[1][3].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            //  pictureBoxButtons[1][3].setValue(1);
-            pictureBoxButtons[7][7].getPictureBox().BackgroundImage = Resources.RedKing;
-            pictureBoxButtons[7][7].setValue(4);
-            // pictureBoxButtons[5][3].setValue(0);
-
+         
         }
         private void initPlayerNames()
         {

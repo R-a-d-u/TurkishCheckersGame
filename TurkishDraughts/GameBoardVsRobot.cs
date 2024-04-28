@@ -51,25 +51,25 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-           // for (int i = 0; i < 8; i++)
-           // {
-           //     for (int j = 0; j < 8; j++)
-           //     {
-           //         pictureBoxButtons[i][j].setValue(0);
-           //         pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-           //         
-           //     }
-           // }
+            // for (int i = 0; i < 8; i++)
+            // {
+            //     for (int j = 0; j < 8; j++)
+            //     {
+            //         pictureBoxButtons[i][j].setValue(0);
+            //         pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+            //         
+            //     }
+            // }
             // pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.BlackKing;
             //  pictureBoxButtons[7][5].setValue(3);
-          // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-          //  pictureBoxButtons[3][2].setValue(1);
-          //    pictureBoxButtons[3][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
-          //     pictureBoxButtons[3][6].setValue(1);
-          // pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
-          // pictureBoxButtons[3][5].setValue(1);
-          // pictureBoxButtons[3][4].getPictureBox().BackgroundImage = Resources.RedKing;
-          //    pictureBoxButtons[3][4].setValue(4);
+            // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //  pictureBoxButtons[3][2].setValue(1);
+            //    pictureBoxButtons[3][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //     pictureBoxButtons[3][6].setValue(1);
+            // pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            // pictureBoxButtons[3][5].setValue(1);
+            // pictureBoxButtons[3][4].getPictureBox().BackgroundImage = Resources.RedKing;
+            //    pictureBoxButtons[3][4].setValue(4);
             // pictureBoxButtons[5][3].setValue(0);
 
         }
@@ -162,10 +162,10 @@ namespace TurkishDraughts
 
                 blockPictureBox();
                 removeBoardTraces();
-               
+
 
             }
-           
+
         }
         public void swapCurrentPlayerName()
         {
@@ -254,7 +254,7 @@ namespace TurkishDraughts
                 removeBoardTraces();
             }
             checkGameOver(player1, player2);
-              
+
 
 
         }
@@ -1137,20 +1137,20 @@ namespace TurkishDraughts
                     i_initial = specialProprieties.getLastMultipleMoveI();
                     j_initial = specialProprieties.getLastMultipleMoveJ();
                 }
-                firstLoop = false; 
+                firstLoop = false;
 
-                    if (i != i_initial)
-                        if (i - i_initial > 0)
-                            i_up = true;
-                        else
-                            i_down = true;
+                if (i != i_initial)
+                    if (i - i_initial > 0)
+                        i_up = true;
+                    else
+                        i_down = true;
 
-                    if (j != j_initial)
-                        if (j - j_initial > 0)
-                            j_left = true;
-                        else
-                            j_right = true;
-                
+                if (j != j_initial)
+                    if (j - j_initial > 0)
+                        j_left = true;
+                    else
+                        j_right = true;
+
 
                 if (!j_left)
                     if (checkMultipleMovesBlackKingLeft(i_initial, j_initial, i, j))
@@ -1331,21 +1331,21 @@ namespace TurkishDraughts
                 if (!firstLoop)
                 {
                     i_initial = specialProprieties.getLastMultipleMoveI();
-                    j_initial = specialProprieties.getLastMultipleMoveJ();    
+                    j_initial = specialProprieties.getLastMultipleMoveJ();
                 }
                 firstLoop = false;
-                    if (i != i_initial)
-                        if (i - i_initial > 0)
-                            i_up = true;
-                        else
-                            i_down = true;
+                if (i != i_initial)
+                    if (i - i_initial > 0)
+                        i_up = true;
+                    else
+                        i_down = true;
 
-                    if (j != j_initial)
-                        if (j - j_initial > 0)
-                            j_left = true;
-                        else
-                            j_right = true;
-                
+                if (j != j_initial)
+                    if (j - j_initial > 0)
+                        j_left = true;
+                    else
+                        j_right = true;
+
 
                 if (!j_left)
                     if (checkMultipleMovesRedKingLeft(i_initial, j_initial, i, j))
@@ -1508,6 +1508,7 @@ namespace TurkishDraughts
             await Task.Delay(0);
             int temp_i, temp_j, move_j = 0;
             bool findFutureCapture = false;
+            bool findLastKingPosition = false;
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1544,7 +1545,44 @@ namespace TurkishDraughts
                     }
 
                 }
-            if (findFutureCapture)
+            for (int i = 1; i < 7; i++)
+                for (int j = 0; j < 8; j++)
+                {
+                    if (pictureBoxButtons[i][j].getValue() == 3)
+                    {
+                        List<Tuple<int, int, int>> allMoves = new List<Tuple<int, int, int>>();
+                        allMoves.AddRange(drawBlackKingDownTrace(i, j));
+                        if (allMoves.Any())
+                        {
+                            Tuple<int, int, int> lastMove = allMoves.Last();
+                            if (lastMove.Item1 == 7)
+                            {
+                                pictureBoxButtons[lastMove.Item1][lastMove.Item2].setValue(3);
+                                if (!checkMultipleMoves(lastMove.Item1, lastMove.Item2, lastMove.Item1, lastMove.Item2))
+                                {
+                                    pictureBoxButtons[lastMove.Item1][lastMove.Item2].setValue(0);
+                                    robotMove(i, j, lastMove.Item1, lastMove.Item2);
+                                    i = lastMove.Item1; j = lastMove.Item2;
+                                    await Task.Delay(300);
+                                    specialProprieties.setMultipleMoves(false);
+                                    pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+                                    swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                                    swapCurrentPlayerName();
+                                    findLastKingPosition = true;
+                                    return;
+                                }
+                                else
+                                {
+                                    pictureBoxButtons[lastMove.Item1][lastMove.Item2].setValue(0);
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+            if (findFutureCapture || findLastKingPosition)
             {
             }
             else
@@ -1557,6 +1595,7 @@ namespace TurkishDraughts
             await Task.Delay(0);
             int temp_i, temp_j, move_j = 0;
             bool findFutureCapture = false;
+            bool findLastKingPosition = false;
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1593,7 +1632,43 @@ namespace TurkishDraughts
                     }
 
                 }
-            if (findFutureCapture)
+            for (int i = 1; i < 7; i++)
+                for (int j = 0; j < 8; j++)
+                {
+                    if (pictureBoxButtons[i][j].getValue() == 4)
+                    {
+                        List<Tuple<int, int, int>> allMoves = new List<Tuple<int, int, int>>();
+                        allMoves.AddRange(drawRedKingUpTrace(i, j));
+                        if (allMoves.Any())
+                        {
+                            Tuple<int, int, int> lastMove = allMoves.Last();
+                            if (lastMove.Item1 == 0)
+                            {
+                                pictureBoxButtons[lastMove.Item1][lastMove.Item2].setValue(4);
+                                if (!checkMultipleMoves(lastMove.Item1, lastMove.Item2, lastMove.Item1, lastMove.Item2))
+                                {
+                                    pictureBoxButtons[lastMove.Item1][lastMove.Item2].setValue(0);
+                                    robotMove(i, j, lastMove.Item1, lastMove.Item2);
+                                    i = lastMove.Item1; j = lastMove.Item2;
+                                    await Task.Delay(300);
+                                    specialProprieties.setMultipleMoves(false);
+                                    pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+                                    swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                                    swapCurrentPlayerName();
+                                    findLastKingPosition = true;
+                                    return;
+                                }
+                                else
+                                {
+                                    pictureBoxButtons[lastMove.Item1][lastMove.Item2].setValue(0);
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+            if (findFutureCapture || findLastKingPosition)
             {
             }
             else
@@ -1644,16 +1719,16 @@ namespace TurkishDraughts
                             if (robotIndex == 1)
                             {
                                 AIBlackKingCapture(i, j);
-                               
+
                             }
                             if (robotIndex == 2)
                             {
                                 AIRedKingCapture(i, j);
-                               
-                            }
-                                
 
-                            
+                            }
+
+
+
 
                             return 0;
                         }
@@ -1678,7 +1753,7 @@ namespace TurkishDraughts
                             {
                                 AIRedPieceCapture(i, j);
                             }
-                           
+
 
                             return 0;
                         }
@@ -1709,15 +1784,15 @@ namespace TurkishDraughts
                     }
                 }
             Step4:
-            if(var)
-            for (int i = 1; i < 7; i++)
-                for (int j = 0; j < 8; j++)
-                {
-                    //if(pictureBoxButtons[i][j].getValue())
-                }
+            if (var)
+                for (int i = 1; i < 7; i++)
+                    for (int j = 0; j < 8; j++)
+                    {
+                        //if(pictureBoxButtons[i][j].getValue())
+                    }
 
-            //regele isi schimba pozitia pt captura daca e ultimul rand
-            Step5:
+                //regele isi schimba pozitia pt captura daca e ultimul rand
+                Step5:
             if (var)
             {
                 if (robotIndex == 1)
@@ -1855,10 +1930,10 @@ namespace TurkishDraughts
 
             Controls.Remove(blackColorButton);
             blackColorButton.Dispose();
-            redColorButton.Location= new Point(663, 106);
-            redColorButton.Width=110;
+            redColorButton.Location = new Point(663, 106);
+            redColorButton.Width = 110;
 
-            
+
             unblockPictureBox();
             player1.setName(playerName);
             player2.setName("Computer");

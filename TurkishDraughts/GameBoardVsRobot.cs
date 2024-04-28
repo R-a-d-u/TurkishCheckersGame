@@ -51,25 +51,25 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-            // for (int i = 0; i < 8; i++)
-            // {
-            //     for (int j = 0; j < 8; j++)
-            //     {
-            //         pictureBoxButtons[i][j].setValue(0);
-            //         pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-            //         
-            //     }
-            // }
-            // pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.BlackKing;
+          // for (int i = 0; i < 8; i++)
+          // {
+          //     for (int j = 0; j < 8; j++)
+          //     {
+          //         pictureBoxButtons[i][j].setValue(0);
+          //         pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+          //         
+          //     }
+          // }
+            //pictureBoxButtons[7][5].getPictureBox().BackgroundImage = Resources.BlackKing;
             //  pictureBoxButtons[7][5].setValue(3);
-            // pictureBoxButtons[3][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            //  pictureBoxButtons[3][2].setValue(1);
-            //    pictureBoxButtons[3][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            //     pictureBoxButtons[3][6].setValue(1);
-            // pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            // pictureBoxButtons[3][5].setValue(1);
-            // pictureBoxButtons[3][4].getPictureBox().BackgroundImage = Resources.RedKing;
-            //    pictureBoxButtons[3][4].setValue(4);
+           //  pictureBoxButtons[5][3].getPictureBox().BackgroundImage = Resources.BlackKing;
+          //    pictureBoxButtons[5][3].setValue(3);
+              //  pictureBoxButtons[3][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //    pictureBoxButtons[3][6].setValue(1);
+          //   pictureBoxButtons[3][5].getPictureBox().BackgroundImage = Resources.RedPiece;
+         //    pictureBoxButtons[3][5].setValue(2);
+         //    pictureBoxButtons[3][4].getPictureBox().BackgroundImage = Resources.RedKing;
+        //        pictureBoxButtons[3][4].setValue(4);
             // pictureBoxButtons[5][3].setValue(0);
 
         }
@@ -263,13 +263,6 @@ namespace TurkishDraughts
             if (pictureBoxButtons[i][j].getValue() != 0)
             {
                 drawLegalMovesTraces(i, j);
-            }
-        }
-        private void AIcheckLegalMoves(int i, int j)
-        {
-            if (pictureBoxButtons[i][j].getValue() != 0)
-            {
-                // drawLegalMovesTraces(i, j);
             }
         }
         public bool checkMultipleMovesBlackPiece(int i, int j)
@@ -1726,10 +1719,6 @@ namespace TurkishDraughts
                                 AIRedKingCapture(i, j);
 
                             }
-
-
-
-
                             return 0;
                         }
                     }
@@ -1753,8 +1742,6 @@ namespace TurkishDraughts
                             {
                                 AIRedPieceCapture(i, j);
                             }
-
-
                             return 0;
                         }
                     }

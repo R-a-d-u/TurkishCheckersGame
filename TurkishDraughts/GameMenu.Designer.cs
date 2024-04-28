@@ -55,7 +55,7 @@
             player1LocalTextBox.BackColor = Color.FromArgb(192, 0, 0);
             player1LocalTextBox.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
             player1LocalTextBox.ForeColor = Color.White;
-            player1LocalTextBox.Location = new Point(126, 165);
+            player1LocalTextBox.Location = new Point(126, 185);
             player1LocalTextBox.Name = "player1LocalTextBox";
             player1LocalTextBox.Size = new Size(100, 25);
             player1LocalTextBox.TabIndex = 5;
@@ -66,7 +66,7 @@
             player2LocalTextBox.BackColor = Color.Black;
             player2LocalTextBox.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
             player2LocalTextBox.ForeColor = Color.White;
-            player2LocalTextBox.Location = new Point(126, 213);
+            player2LocalTextBox.Location = new Point(126, 233);
             player2LocalTextBox.Name = "player2LocalTextBox";
             player2LocalTextBox.Size = new Size(100, 25);
             player2LocalTextBox.TabIndex = 6;
@@ -79,7 +79,7 @@
             startGame1Button.FlatStyle = FlatStyle.Popup;
             startGame1Button.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             startGame1Button.ForeColor = Color.White;
-            startGame1Button.Location = new Point(60, 266);
+            startGame1Button.Location = new Point(60, 286);
             startGame1Button.Name = "startGame1Button";
             startGame1Button.Size = new Size(166, 23);
             startGame1Button.TabIndex = 14;
@@ -94,7 +94,7 @@
             playerNetworkTextBox.BorderStyle = BorderStyle.FixedSingle;
             playerNetworkTextBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             playerNetworkTextBox.ForeColor = Color.White;
-            playerNetworkTextBox.Location = new Point(377, 166);
+            playerNetworkTextBox.Location = new Point(377, 186);
             playerNetworkTextBox.Name = "playerNetworkTextBox";
             playerNetworkTextBox.Size = new Size(114, 23);
             playerNetworkTextBox.TabIndex = 18;
@@ -106,7 +106,7 @@
             playerVsAITextBox.BorderStyle = BorderStyle.FixedSingle;
             playerVsAITextBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             playerVsAITextBox.ForeColor = Color.White;
-            playerVsAITextBox.Location = new Point(637, 165);
+            playerVsAITextBox.Location = new Point(637, 185);
             playerVsAITextBox.Name = "playerVsAITextBox";
             playerVsAITextBox.Size = new Size(107, 23);
             playerVsAITextBox.TabIndex = 19;
@@ -118,7 +118,7 @@
             startGame2Button.FlatStyle = FlatStyle.Popup;
             startGame2Button.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             startGame2Button.ForeColor = Color.White;
-            startGame2Button.Location = new Point(325, 266);
+            startGame2Button.Location = new Point(325, 286);
             startGame2Button.Name = "startGame2Button";
             startGame2Button.Size = new Size(166, 23);
             startGame2Button.TabIndex = 20;
@@ -133,7 +133,7 @@
             startGame3Button.FlatStyle = FlatStyle.Popup;
             startGame3Button.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             startGame3Button.ForeColor = Color.White;
-            startGame3Button.Location = new Point(578, 266);
+            startGame3Button.Location = new Point(578, 286);
             startGame3Button.Name = "startGame3Button";
             startGame3Button.Size = new Size(166, 23);
             startGame3Button.TabIndex = 21;
@@ -147,7 +147,7 @@
             textBox2.BackColor = Color.Black;
             textBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             textBox2.ForeColor = Color.White;
-            textBox2.Location = new Point(408, 213);
+            textBox2.Location = new Point(408, 233);
             textBox2.Name = "textBox2";
             textBox2.ReadOnly = true;
             textBox2.Size = new Size(83, 23);
@@ -161,7 +161,7 @@
             textBox3.BackColor = Color.Red;
             textBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             textBox3.ForeColor = Color.White;
-            textBox3.Location = new Point(325, 213);
+            textBox3.Location = new Point(325, 233);
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
             textBox3.Size = new Size(83, 23);
@@ -187,9 +187,9 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(60, 121);
+            label1.Location = new Point(60, 109);
             label1.Name = "label1";
-            label1.Size = new Size(166, 23);
+            label1.Size = new Size(166, 55);
             label1.TabIndex = 28;
             label1.Text = "Player vs Player (Local)";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -199,11 +199,11 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(325, 123);
+            label2.Location = new Point(325, 109);
             label2.Name = "label2";
-            label2.Size = new Size(166, 21);
+            label2.Size = new Size(166, 55);
             label2.TabIndex = 29;
-            label2.Text = "Player vs Player Retea";
+            label2.Text = "Player vs Player (Network)";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
@@ -211,11 +211,11 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(578, 123);
+            label3.Location = new Point(578, 109);
             label3.Name = "label3";
-            label3.Size = new Size(166, 21);
+            label3.Size = new Size(166, 55);
             label3.TabIndex = 30;
-            label3.Text = "Player vs Computer";
+            label3.Text = "Player vs Computer (Local)";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5
@@ -224,7 +224,7 @@
             label5.BackColor = Color.Transparent;
             label5.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(60, 165);
+            label5.Location = new Point(60, 185);
             label5.Name = "label5";
             label5.Size = new Size(61, 19);
             label5.TabIndex = 31;
@@ -237,7 +237,7 @@
             label6.BackColor = Color.Transparent;
             label6.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label6.ForeColor = Color.White;
-            label6.Location = new Point(60, 213);
+            label6.Location = new Point(60, 233);
             label6.Name = "label6";
             label6.Size = new Size(61, 19);
             label6.TabIndex = 32;
@@ -250,7 +250,7 @@
             label7.BackColor = Color.Transparent;
             label7.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(325, 165);
+            label7.Location = new Point(325, 185);
             label7.Name = "label7";
             label7.Size = new Size(53, 19);
             label7.TabIndex = 33;
@@ -263,7 +263,7 @@
             label8.BackColor = Color.Transparent;
             label8.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label8.ForeColor = Color.White;
-            label8.Location = new Point(578, 167);
+            label8.Location = new Point(578, 187);
             label8.Name = "label8";
             label8.Size = new Size(53, 19);
             label8.TabIndex = 34;
@@ -275,7 +275,7 @@
             textBox1.BackColor = Color.Red;
             textBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             textBox1.ForeColor = Color.White;
-            textBox1.Location = new Point(578, 215);
+            textBox1.Location = new Point(578, 235);
             textBox1.Name = "textBox1";
             textBox1.ReadOnly = true;
             textBox1.Size = new Size(83, 23);
@@ -289,7 +289,7 @@
             textBox4.BackColor = Color.Black;
             textBox4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             textBox4.ForeColor = Color.White;
-            textBox4.Location = new Point(659, 215);
+            textBox4.Location = new Point(659, 235);
             textBox4.Name = "textBox4";
             textBox4.ReadOnly = true;
             textBox4.Size = new Size(85, 23);

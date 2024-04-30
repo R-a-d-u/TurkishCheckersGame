@@ -1,20 +1,17 @@
-﻿using Microsoft.VisualBasic.Devices;
-using TurkishDraughts.Properties;
+﻿using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
 {
     public partial class GameBoardVsRobot : Form
     {
-
-        PieceClass[][] pictureBoxButtons;
-        PlayerClass player1, player2, currentPlayer;
-        SpecialProprieties specialProprieties;
+        private PieceClass[][] pictureBoxButtons;
+        private PlayerClass player1, player2, currentPlayer;
+        private SpecialProprieties specialProprieties;
         private int i_firstMove, j_firstMove;
         private bool playerRobot = false;
-        String playerName;
-        List<Task> tasks = new List<Task>();
+        private String playerName;
+        private List<Task> tasks = new List<Task>();
 
-        
         public GameBoardVsRobot(String playerNameForm)
         {
             MaximizeBox = false;
@@ -26,8 +23,8 @@ namespace TurkishDraughts
             initPlayerNames();
             choseColorButtonBlink();
             //stare initiala jucator actual
-            
         }
+
         private async Task choseColorButtonBlink()
         {
             while (choseColorButton.Enabled == true)
@@ -56,8 +53,8 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-         
         }
+
         private void initPlayerNames()
         {
             player1 = new PlayerClass("Red");
@@ -69,12 +66,13 @@ namespace TurkishDraughts
             currentPlayerTextBox.ForeColor = Color.Red;
             player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
             player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
-
         }
+
         private void initStartState()
         {
             specialProprieties = new SpecialProprieties(false, false, false, 0, 0, 0, 0);
         }
+
         private void removeBoardTraces()
         {
             //sterge casutele verzi
@@ -86,6 +84,7 @@ namespace TurkishDraughts
             if (specialProprieties.getMultipleMove())
                 pictureBoxButtons[specialProprieties.getCurrentMultipleMoveI()][specialProprieties.getCurrentMultipleMoveJ()].getPictureBox().BackColor = Color.GreenYellow;
         }
+
         private void blockPictureBox()
         {
             for (int i = 0; i < 8; i++)
@@ -97,6 +96,7 @@ namespace TurkishDraughts
             }
             removeBoardTraces();
         }
+
         private void unblockPictureBox()
         {
             for (int i = 0; i < 8; i++)
@@ -108,6 +108,7 @@ namespace TurkishDraughts
             }
             removeBoardTraces();
         }
+
         private async Task checkGameOver(PlayerClass player1, PlayerClass player2)
         {
             //verifica daca nu exista nici o piesa neagra sau rosie pe tabla
@@ -123,10 +124,9 @@ namespace TurkishDraughts
                         counterBlack++;
                 }
             }
-            
 
             if (counterBlack == 0 || counterRed == 0)
-            {              
+            {
                 if (counterBlack == 0)
                 {
                     MessageBox.Show(player1.getName() + " wins");
@@ -135,8 +135,6 @@ namespace TurkishDraughts
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player1.getName());
-                   
-                    
                 }
                 if (counterRed == 0)
                 {
@@ -146,18 +144,13 @@ namespace TurkishDraughts
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player2.getName());
-                    
-                   
                 }
-
 
                 blockPictureBox();
                 removeBoardTraces();
-
-
             }
-
         }
+
         public void swapCurrentPlayerName()
         {
             if (specialProprieties.getPlayerTurn() == false)
@@ -168,7 +161,6 @@ namespace TurkishDraughts
 
                 player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
-
             }
             else
             {
@@ -177,9 +169,9 @@ namespace TurkishDraughts
                 player2TextBox.BackColor = Color.DarkGoldenrod;
                 player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 player1TextBox.ForeColor = Color.FromArgb(49, 46, 43);
-
             }
         }
+
         public void swapCurrentPlayerTurn(bool turn)
         {
             if (turn == false)
@@ -193,6 +185,7 @@ namespace TurkishDraughts
             pictureBoxButtons[i_final][j_final].getPictureBox().BackgroundImage = pictureBoxButtons[i_initial][j_initial].getPictureBox().BackgroundImage;
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackgroundImage = null;
         }
+
         public void swapValue(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_final][j_final].setValue(pictureBoxButtons[i_initial][j_initial].getValue());
@@ -205,6 +198,7 @@ namespace TurkishDraughts
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
             specialProprieties.setPressed(false);
         }
+
         public void checkInitialMove(int i, int j)
         {
             //retinem pozitia butonului si afisam miscarile posibile lui
@@ -214,13 +208,13 @@ namespace TurkishDraughts
             specialProprieties.setPressed(true);
             checkLegalMoves(i, j);
         }
+
         public async Task checkFinalMove(int i_initial, int j_initial, int i_final, int j_final)
         {
             //await Task.Delay(0);
             //verificam daca locul unde vrem sa mutam e permis, da->muta, nu->reseteaza miscare
             if (specialProprieties.getPressed() == true)
             {
-
                 if (pictureBoxButtons[i_final][j_final].getValue() != 0 ||
                     pictureBoxButtons[i_initial][j_initial].getValue() == 0 ||
                     pictureBoxButtons[i_initial][j_initial].getValue() % 2 != 0 && specialProprieties.getPlayerTurn() == false ||
@@ -240,16 +234,13 @@ namespace TurkishDraughts
 
                     if (specialProprieties.getPlayerTurn() == !playerRobot)
                         computerAISteps(playerRobot, true);
-
                 }
                 removeBoardTraces();
             }
-            
+
             checkGameOver(player1, player2);
-            
-
-
         }
+
         public void checkLegalMoves(int i, int j)
         {
             if (pictureBoxButtons[i][j].getValue() != 0)
@@ -257,6 +248,7 @@ namespace TurkishDraughts
                 drawLegalMovesTraces(i, j);
             }
         }
+
         public bool checkMultipleMovesBlackPiece(int i, int j)
         {
             if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
@@ -299,6 +291,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesRedKingRight(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -319,6 +312,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesRedKingUp(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -340,6 +334,7 @@ namespace TurkishDraughts
 
             return false;
         }
+
         public bool checkMultipleMovesRedKingDown(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -362,9 +357,6 @@ namespace TurkishDraughts
             return false;
         }
 
-
-
-
         public bool checkMultipleMovesBlackKingLeft(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -385,6 +377,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesBlackKingRight(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -406,6 +399,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesBlackKingUp(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -426,8 +420,8 @@ namespace TurkishDraughts
                     return true;
             }
             return false;
-
         }
+
         public bool checkMultipleMovesBlackKingDown(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -449,7 +443,6 @@ namespace TurkishDraughts
             }
             return false;
         }
-
 
         public bool checkMultipleMoves(int i_initial, int j_initial, int i, int j)
         {
@@ -498,7 +491,6 @@ namespace TurkishDraughts
                 if (!i_down)
                     if (checkMultipleMovesRedKingDown(i_initial, j_initial, i, j))
                         return true;
-
             }
             //rege negru
             if (pictureBoxButtons[i][j].getValue() == 3)
@@ -536,7 +528,6 @@ namespace TurkishDraughts
             }
             return false;
         }
-
 
         public void drawRedPieceTrace(int i, int j)
         {
@@ -590,9 +581,6 @@ namespace TurkishDraughts
                 removeBoardTraces();
         }
 
-
-
-
         public List<Tuple<int, int, int>> drawRedKingLeftTrace(int i, int j)
         {
             List<Tuple<int, int, int>> greenYellowPositions = new List<Tuple<int, int, int>>();
@@ -608,7 +596,6 @@ namespace TurkishDraughts
                 {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
                     greenYellowPositions.Add(Tuple.Create(i, j_search, contor));
-
                 }
             }
             return greenYellowPositions;
@@ -676,8 +663,6 @@ namespace TurkishDraughts
             }
             return greenYellowPositions;
         }
-
-
 
         public List<Tuple<int, int, int>> drawBlackKingLeftTrace(int i, int j)
         {
@@ -760,8 +745,6 @@ namespace TurkishDraughts
             }
             return greenYellowPositions;
         }
-
-
 
         public void drawLegalMovesTraces(int i, int j)
         {
@@ -872,7 +855,6 @@ namespace TurkishDraughts
             }
         }
 
-
         public bool removeCapturedPieces(int i_initial, int j_initial, int i_final, int j_final)
         {
             //vector intre pozitia de unde a plecat -> unde a ajuns o piesa, sterge tot intre
@@ -946,6 +928,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public void movePiece(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
@@ -979,7 +962,6 @@ namespace TurkishDraughts
                 swapCurrentPlayerName();
             }
             removeBoardTraces();
-
         }
 
         public bool checkIfPieceIsKing(int i, int j)
@@ -1020,10 +1002,8 @@ namespace TurkishDraughts
 
         private async Task computerBlackPieceCapture(int i, int j)
         {
-
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
             {
-
                 if (j < 6)
                     if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
                     {
@@ -1054,14 +1034,12 @@ namespace TurkishDraughts
             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
-
         }
+
         private async Task computerRedPieceCapture(int i, int j)
         {
-
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
             {
-
                 if (j < 6)
                     if (pictureBoxButtons[i][j + 1].getValue() % 2 != 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
                     {
@@ -1092,8 +1070,8 @@ namespace TurkishDraughts
             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
-
         }
+
         private async Task computerBlackKingCapture(int i, int j)
         {
             bool firstLoop = true;
@@ -1128,7 +1106,6 @@ namespace TurkishDraughts
                         j_left = true;
                     else
                         j_right = true;
-
 
                 if (!j_left)
                     if (checkMultipleMovesBlackKingLeft(i_initial, j_initial, i, j))
@@ -1165,7 +1142,6 @@ namespace TurkishDraughts
                             }
                             pictureBoxButtons[i_capture][j_capture].setValue(0);
                         }
-
                     }
                 if (!j_right)
                     if (checkMultipleMovesBlackKingRight(i_initial, j_initial, i, j))
@@ -1236,8 +1212,6 @@ namespace TurkishDraughts
                             }
                             pictureBoxButtons[i_capture][j_capture].setValue(0);
                         }
-
-
                     }
                 if (!i_down)
                     if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
@@ -1317,7 +1291,6 @@ namespace TurkishDraughts
                     else
                         j_right = true;
 
-
                 if (!j_left)
                     if (checkMultipleMovesRedKingLeft(i_initial, j_initial, i, j))
                     {
@@ -1353,7 +1326,6 @@ namespace TurkishDraughts
                             }
                             pictureBoxButtons[i_capture][j_capture].setValue(0);
                         }
-
                     }
                 if (!j_right)
                     if (checkMultipleMovesRedKingRight(i_initial, j_initial, i, j))
@@ -1424,8 +1396,6 @@ namespace TurkishDraughts
                             }
                             pictureBoxButtons[i_capture][j_capture].setValue(0);
                         }
-
-
                     }
                 if (!i_down)
                     if (checkMultipleMovesRedKingDown(i_initial, j_initial, i, j))
@@ -1467,12 +1437,12 @@ namespace TurkishDraughts
             }
             specialProprieties.setMultipleMoves(false);
 
-
             checkIfPieceIsKing(i, j);
             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
         }
+
         private async Task computerBlackKingChangePosition()
         {
             await Task.Delay(0);
@@ -1484,7 +1454,6 @@ namespace TurkishDraughts
                 {
                     if (pictureBoxButtons[i][j].getValue() == 3 && (i == 7 || i == 0))
                     {
-
                         List<Tuple<int, int, int>> allMoves = new List<Tuple<int, int, int>>();
                         allMoves.AddRange(drawBlackKingLeftTrace(i, j));
                         allMoves.AddRange(drawBlackKingRightTrace(i, j));
@@ -1510,10 +1479,8 @@ namespace TurkishDraughts
                             {
                                 pictureBoxButtons[temp_i][temp_j].setValue(0);
                             }
-
                         }
                     }
-
                 }
             for (int i = 1; i < 7; i++)
                 for (int j = 0; j < 8; j++)
@@ -1547,8 +1514,6 @@ namespace TurkishDraughts
                                 }
                             }
                         }
-
-
                     }
                 }
 
@@ -1560,6 +1525,7 @@ namespace TurkishDraughts
                 computerAISteps(playerRobot, false);
             }
         }
+
         private async Task computerRedKingChangePosition()
         {
             await Task.Delay(0);
@@ -1571,7 +1537,6 @@ namespace TurkishDraughts
                 {
                     if (pictureBoxButtons[i][j].getValue() == 4 && (i == 7 || i == 0))
                     {
-
                         List<Tuple<int, int, int>> allMoves = new List<Tuple<int, int, int>>();
                         allMoves.AddRange(drawRedKingLeftTrace(i, j));
                         allMoves.AddRange(drawRedKingRightTrace(i, j));
@@ -1597,10 +1562,8 @@ namespace TurkishDraughts
                             {
                                 pictureBoxButtons[temp_i][temp_j].setValue(0);
                             }
-
                         }
                     }
-
                 }
             for (int i = 1; i < 7; i++)
                 for (int j = 0; j < 8; j++)
@@ -1634,8 +1597,6 @@ namespace TurkishDraughts
                                 }
                             }
                         }
-
-
                     }
                 }
             if (findFutureCapture || findLastKingPosition)
@@ -1661,7 +1622,6 @@ namespace TurkishDraughts
             removeBoardTraces();
         }
 
-
         private int computerAISteps(bool playerColor, bool var)
         {
             //player false-negru, true-rosu
@@ -1680,7 +1640,6 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-
                     if (pictureBoxButtons[i][j].getValue() == (robotIndex + 2))
                     {
                         if (checkMultipleMoves(i, j, i, j))
@@ -1688,12 +1647,10 @@ namespace TurkishDraughts
                             if (robotIndex == 1)
                             {
                                 computerBlackKingCapture(i, j);
-
                             }
                             if (robotIndex == 2)
                             {
                                 computerRedKingCapture(i, j);
-
                             }
                             return 0;
                         }
@@ -1705,7 +1662,6 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-
                     if (pictureBoxButtons[i][j].getValue() == robotIndex)
                     {
                         if (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
@@ -1716,15 +1672,12 @@ namespace TurkishDraughts
                             }
                             if (robotIndex == 2)
                             {
-                               computerRedPieceCapture(i, j);
+                                computerRedPieceCapture(i, j);
                             }
                             return 0;
                         }
                     }
                 }
-
-
-
 
             //mergi in fata daca e ultimul rand pt rege
             Step3:
@@ -1743,7 +1696,6 @@ namespace TurkishDraughts
                             movePiece(i, j, i - 1, j);
                             return 0;
                         }
-
                     }
                 }
             Step4:
@@ -1764,7 +1716,6 @@ namespace TurkishDraughts
                     computerRedKingChangePosition();
 
                 return 0;
-
             }
             var = true;
 
@@ -1826,7 +1777,7 @@ namespace TurkishDraughts
                             return 0;
                         }
                     }
-                //miscare lateral 
+                //miscare lateral
                 Step9:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
@@ -1896,15 +1847,11 @@ namespace TurkishDraughts
             redColorButton.Location = new Point(663, 106);
             redColorButton.Width = 110;
 
-
             unblockPictureBox();
             player1.setName(playerName);
             player2.setName("Computer");
             player1TextBox.Text = player1.getName();
             player2TextBox.Text = player2.getName();
-
         }
     }
-
-
 }

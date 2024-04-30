@@ -7,19 +7,18 @@ namespace TurkishDraughts
 {
     public partial class GameBoardNetwork : Form
     {
-        PieceClass[][] pictureBoxButtons;
-        PlayerClass player1, player2, currentPlayer;
-        SpecialProprieties specialProprieties;
+        private PieceClass[][] pictureBoxButtons;
+        private PlayerClass player1, player2, currentPlayer;
+        private SpecialProprieties specialProprieties;
         private int i_firstMove, j_firstMove;
         private const int ServerPort = 8888; // Port to communicate
         private TcpClient client;
         private TcpListener server;
         private bool isServer = false;
-        String playerNameGlobal = "";
+        private String playerNameGlobal = "";
 
         public GameBoardNetwork(String playerName)
         {
-
             MaximizeBox = false;
             playerNameGlobal = playerName;
             initStartState();
@@ -27,13 +26,12 @@ namespace TurkishDraughts
             InitializeComponent();
             initPlayerNames();
             choseColorButtonBlink();
-
-
         }
+
         private async Task choseColorButtonBlink()
         {
             int timesToBlink = 3;
-            while (timesToBlink>0)
+            while (timesToBlink > 0)
             {
                 serverStartButton.BackColor = Color.PeachPuff;
                 clientButton.BackColor = Color.PeachPuff;
@@ -44,9 +42,9 @@ namespace TurkishDraughts
                 timesToBlink--;
             }
         }
+
         private void initPlayerNames()
         {
-
             String name1 = "Red";
             String name2 = "Black";
             player1 = new PlayerClass(name1);
@@ -58,8 +56,8 @@ namespace TurkishDraughts
             currentPlayerTextBox.ForeColor = Color.Red;
             player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
             player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
-
         }
+
         private void initLocalNames(String playerName)
         {
             if (isServer)
@@ -74,14 +72,12 @@ namespace TurkishDraughts
                 player2.setName(playerName);
                 player2TextBox.Text = player2.getName();
             }
-
         }
+
         private void initClientNames(String playerName)
         {
-
             if (isServer)
             {
-
                 if (InvokeRequired)
                 {
                     BeginInvoke((Action)(() => initClientNames(playerName)));
@@ -94,6 +90,7 @@ namespace TurkishDraughts
                 player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
             }
         }
+
         private void initServerNames(String playerName)
         {
             if (!isServer)
@@ -110,6 +107,7 @@ namespace TurkishDraughts
                 currentPlayerTextBox.Text = "Red moves";
             }
         }
+
         private void storePlayerName()
         {
             if (client != null && client.Connected)
@@ -119,11 +117,11 @@ namespace TurkishDraughts
                 stream.Write(data, 0, data.Length);
             }
         }
+
         private void startServer()
         {
             try
             {
-
                 server = new TcpListener(IPAddress.Any, ServerPort);
                 server.Start();
                 //MessageBox.Show("Server started. Waiting for connections...");
@@ -136,11 +134,11 @@ namespace TurkishDraughts
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
+
         private void handleClientConnection(IAsyncResult result)
         {
             try
             {
-
                 // Accept the client connection
                 client = server.EndAcceptTcpClient(result);
                 //MessageBox.Show("Client connected.");
@@ -148,7 +146,6 @@ namespace TurkishDraughts
                 receivePlayerName();
                 storePlayerName();
                 receiveGameData();
-
             }
             catch (Exception ex)
             {
@@ -156,12 +153,10 @@ namespace TurkishDraughts
             }
         }
 
-
         private void clientButton_Click(object sender, EventArgs e)
         {
             try
             {
-
                 client = new TcpClient();
                 client.Connect(clientIPTextBox.Text, ServerPort);
                 //MessageBox.Show("Connected to the server.");
@@ -177,8 +172,6 @@ namespace TurkishDraughts
                 initLocalNames(playerNameGlobal);
                 blockPictureBoxes();
                 receiveGameData();
-
-
             }
             catch (Exception ex)
             {
@@ -197,8 +190,6 @@ namespace TurkishDraughts
             clientButton.Enabled = false;
             serverStartButton.Enabled = false;
             startServer();
-
-
         }
 
         private void receivePlayerName()
@@ -223,6 +214,7 @@ namespace TurkishDraughts
                 }
             });
         }
+
         private void receiveGameData()
         {
             ThreadPool.QueueUserWorkItem(state =>
@@ -246,6 +238,7 @@ namespace TurkishDraughts
                 }
             });
         }
+
         private void updatePictureBoxesInNetwork(string message)
         {
             string[] parts = message.Split(',');
@@ -312,6 +305,7 @@ namespace TurkishDraughts
                 removeBoardTraces();
             }
         }
+
         private void checkPlayerTurnInNetwork()
         {
             if (isServer && specialProprieties.getPlayerTurn() == true || !isServer && specialProprieties.getPlayerTurn() == false)
@@ -333,10 +327,6 @@ namespace TurkishDraughts
                 unblockPictureBoxes();
             }
         }
-
-
-
-
 
         private void initBoardButtons()
         {
@@ -362,14 +352,13 @@ namespace TurkishDraughts
                     }
                 }
             }
-
-
         }
 
         private void initStartState()
         {
             specialProprieties = new SpecialProprieties(false, false, false, 0, 0, 0, 0);
         }
+
         private void removeBoardTraces()
         {
             for (int i = 0; i < 8; i++)
@@ -380,6 +369,7 @@ namespace TurkishDraughts
             if (specialProprieties.getMultipleMove())
                 pictureBoxButtons[specialProprieties.getCurrentMultipleMoveI()][specialProprieties.getCurrentMultipleMoveJ()].getPictureBox().BackColor = Color.GreenYellow;
         }
+
         private void blockPictureBoxes()
         {
             if (InvokeRequired)
@@ -398,8 +388,8 @@ namespace TurkishDraughts
                 }
                 removeBoardTraces();
             }
-
         }
+
         private void unblockPictureBoxes()
         {
             if (InvokeRequired)
@@ -418,8 +408,8 @@ namespace TurkishDraughts
                 }
                 removeBoardTraces();
             }
-
         }
+
         private bool checkGameOver(PlayerClass player1, PlayerClass player2)
         {
             if (InvokeRequired)
@@ -461,6 +451,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public void swapCurrentPlayerName()
         {
             if (currentPlayerTextBox.InvokeRequired)
@@ -477,7 +468,6 @@ namespace TurkishDraughts
 
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
-
                 }
                 else
                 {
@@ -486,10 +476,10 @@ namespace TurkishDraughts
                     player2TextBox.BackColor = Color.DarkGoldenrod;
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player1TextBox.ForeColor = Color.FromArgb(49, 46, 43);
-
                 }
             }
         }
+
         public void swapCurrentPlayerTurn(bool turn)
         {
             if (turn == false)
@@ -503,16 +493,19 @@ namespace TurkishDraughts
             pictureBoxButtons[i_final][j_final].getPictureBox().BackgroundImage = pictureBoxButtons[i_initial][j_initial].getPictureBox().BackgroundImage;
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackgroundImage = null;
         }
+
         public void swapValue(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_final][j_final].setValue(pictureBoxButtons[i_initial][j_initial].getValue());
             pictureBoxButtons[i_initial][j_initial].setValue(0);
         }
+
         public void resetPictureboxPressed(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
             specialProprieties.setPressed(false);
         }
+
         public void checkInitialMove(int i, int j)
         {
             i_firstMove = i;
@@ -521,11 +514,11 @@ namespace TurkishDraughts
             specialProprieties.setPressed(true);
             checkLegalMoves(i, j);
         }
+
         public void checkFinalMove(int i_initial, int j_initial, int i_final, int j_final)
         {
             if (specialProprieties.getPressed() == true)
             {
-
                 if (pictureBoxButtons[i_final][j_final].getValue() != 0 ||
                     pictureBoxButtons[i_initial][j_initial].getValue() == 0 ||
                     pictureBoxButtons[i_initial][j_initial].getValue() % 2 != 0 && specialProprieties.getPlayerTurn() == false ||
@@ -544,8 +537,6 @@ namespace TurkishDraughts
                     removeBoardTraces();
 
                     //aici transmiti in retea matricea de pictureboxuri
-
-
                 }
             }
             if (checkGameOver(player1, player2))
@@ -562,6 +553,7 @@ namespace TurkishDraughts
                 drawLegalMovesTraces(i, j);
             }
         }
+
         public bool checkMultipleMovesBlackPiece(int i_intial, int j_initial, int i, int j)
         {
             if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
@@ -572,6 +564,7 @@ namespace TurkishDraughts
                 return true;
             return false;
         }
+
         public bool checkMultipleMovesRedPiece(int i_intial, int j_initial, int i, int j)
         {
             if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
@@ -582,6 +575,7 @@ namespace TurkishDraughts
                 return true;
             return false;
         }
+
         public bool checkMultipleMovesRedKingLeft(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -602,6 +596,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesRedKingRight(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -622,6 +617,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesRedKingUp(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -643,6 +639,7 @@ namespace TurkishDraughts
 
             return false;
         }
+
         public bool checkMultipleMovesRedKingDown(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -664,6 +661,7 @@ namespace TurkishDraughts
 
             return false;
         }
+
         public bool checkMultipleMovesBlackKingLeft(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -684,6 +682,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesBlackKingRight(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -705,6 +704,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesBlackKingUp(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -725,8 +725,8 @@ namespace TurkishDraughts
                     return true;
             }
             return false;
-
         }
+
         public bool checkMultipleMovesBlackKingDown(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -795,7 +795,6 @@ namespace TurkishDraughts
                 if (!i_down)
                     if (checkMultipleMovesRedKingDown(i_initial, j_initial, i, j))
                         return true;
-
             }
             //rege negru
             if (pictureBoxButtons[i][j].getValue() == 3)
@@ -833,6 +832,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public void drawRedPieceTrace(int i, int j)
         {
             //spatiu gol
@@ -858,6 +858,7 @@ namespace TurkishDraughts
            specialProprieties.getMultipleMove())
                 removeBoardTraces();
         }
+
         public void drawBlackPieceTrace(int i, int j)
         {
             //spatiu gol
@@ -883,6 +884,7 @@ namespace TurkishDraughts
             specialProprieties.getMultipleMove())
                 removeBoardTraces();
         }
+
         public void drawRedKingLeftTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -897,6 +899,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawRedKingRightTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -911,6 +914,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawRedKingUpTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -925,6 +929,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawRedKingDownTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -939,6 +944,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawBlackKingLeftTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -953,6 +959,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawBlackKingRightTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -967,6 +974,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawBlackKingUpTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -979,9 +987,9 @@ namespace TurkishDraughts
                     contor = 2;
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
-
             }
         }
+
         public void drawBlackKingDownTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -996,6 +1004,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawLegalMovesTraces(int i, int j)
         {
             //piese rosii
@@ -1104,6 +1113,7 @@ namespace TurkishDraughts
                     }
             }
         }
+
         public bool removeCapturedPieces(int i_initial, int j_initial, int i_final, int j_final)
         {
             if (j_initial > j_final)
@@ -1133,6 +1143,7 @@ namespace TurkishDraughts
                     }
             return false;
         }
+
         public void movePiece(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
@@ -1155,11 +1166,8 @@ namespace TurkishDraughts
                     swapCurrentPlayerName();
                     checkPlayerTurnInNetwork();
 
-
                     specialProprieties.setMultipleMoves(false);
                     //checkIfBoardIsServer();
-
-
                 }
                 else
                 {
@@ -1180,12 +1188,9 @@ namespace TurkishDraughts
                 swapCurrentPlayerName();
 
                 checkPlayerTurnInNetwork();
-
-
-
             }
-
         }
+
         public bool checkIfPieceIsKing(int i, int j)
         {
             if (pictureBoxButtons[i][j].getValue() == 1 && i == 7)
@@ -1211,7 +1216,6 @@ namespace TurkishDraughts
                 {
                     if (sender == pictureBoxButtons[i][j].getPictureBox())
                     {
-
                         if (specialProprieties.getPressed() == false)
                             checkInitialMove(i, j);
                         else
@@ -1221,19 +1225,14 @@ namespace TurkishDraughts
                     }
                 }
             }
-
-
         }
 
         private void player2TextBox_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void player1TextBox_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
-
 }

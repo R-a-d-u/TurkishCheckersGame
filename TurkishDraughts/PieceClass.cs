@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TurkishDraughts.Properties;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Drawing;
-using System.Xml.Serialization;
-using System.Threading.Tasks.Sources;
-using System.CodeDom;
-using System.Runtime.Serialization;
+﻿using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
 {
-    
-    internal class PieceClass 
+    internal class PieceClass
     {
         private int i, j, value;
         private PictureBox? pictureBoxButtons;
@@ -24,20 +12,20 @@ namespace TurkishDraughts
 
         private void pictureBoxClick(object sender, EventArgs e)
         {
-           if(gameBoard!=null)
+            if (gameBoard != null)
                 gameBoard.pictureBoxClick(sender);
-           if(gameBoardNetwork!=null)
+            if (gameBoardNetwork != null)
                 gameBoardNetwork.pictureBoxClick(sender);
             if (gameBoardVsRobot != null)
                 gameBoardVsRobot.pictureBoxClick(sender);
-
         }
+
         //value=0 spatiu gol
         //value=1 piesa neagra
         //value=2 piesa rosie
         //value=3 rege negru
         //value=4 rege rosu
-        public PieceClass(int i, int j, int value, GameBoard gameBoard, GameBoardNetwork gameBoardNetwork,GameBoardVsRobot gameBoardVsRobot)
+        public PieceClass(int i, int j, int value, GameBoard gameBoard, GameBoardNetwork gameBoardNetwork, GameBoardVsRobot gameBoardVsRobot)
         {
             this.gameBoard = gameBoard;
             this.gameBoardNetwork = gameBoardNetwork;
@@ -73,20 +61,20 @@ namespace TurkishDraughts
                 Size = new System.Drawing.Size(68, 68),
                 TabIndex = 9,
                 TabStop = false,
-
             };
             pictureBoxButtons.Click += new System.EventHandler(this.pictureBoxClick); //atribuie functia generala de click de piesa locatiei curente
-            
         }
-        
+
         public PictureBox getPictureBox()
         {
             return pictureBoxButtons;
         }
+
         public int getValue()
         {
             return value;
         }
+
         public void setValue(int value)
         {
             this.value = value;

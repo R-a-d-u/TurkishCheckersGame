@@ -4,11 +4,11 @@ namespace TurkishDraughts
 {
     public partial class GameBoard : Form
     {
-
-        PieceClass[][] pictureBoxButtons;
-        PlayerClass player1, player2, currentPlayer;
-        SpecialProprieties specialProprieties;
+        private PieceClass[][] pictureBoxButtons;
+        private PlayerClass player1, player2, currentPlayer;
+        private SpecialProprieties specialProprieties;
         private int i_firstMove, j_firstMove;
+
         public GameBoard(String player1, String player2)
         {
             MaximizeBox = false;
@@ -37,8 +37,8 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-
         }
+
         private void initPlayerNames(String name1, String name2)
         {
             player1 = new PlayerClass(name1);
@@ -50,12 +50,13 @@ namespace TurkishDraughts
             currentPlayerTextBox.ForeColor = Color.Red;
             player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
             player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
-
         }
+
         private void initStartState()
         {
             specialProprieties = new SpecialProprieties(false, false, false, 0, 0, 0, 0);
         }
+
         private void removeBoardTraces()
         {
             //sterge casutele verzi
@@ -67,6 +68,7 @@ namespace TurkishDraughts
             if (specialProprieties.getMultipleMove())
                 pictureBoxButtons[specialProprieties.getCurrentMultipleMoveI()][specialProprieties.getCurrentMultipleMoveJ()].getPictureBox().BackColor = Color.GreenYellow;
         }
+
         private void blockPictureBox()
         {
             for (int i = 0; i < 8; i++)
@@ -78,6 +80,7 @@ namespace TurkishDraughts
             }
             removeBoardTraces();
         }
+
         private bool checkGameOver(PlayerClass player1, PlayerClass player2)
         {
             //verifica daca nu exista nici o piesa neagra sau rosie pe tabla
@@ -114,6 +117,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public void swapCurrentPlayerName()
         {
             if (specialProprieties.getPlayerTurn() == false)
@@ -124,7 +128,6 @@ namespace TurkishDraughts
 
                 player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
-
             }
             else
             {
@@ -133,9 +136,9 @@ namespace TurkishDraughts
                 player2TextBox.BackColor = Color.DarkGoldenrod;
                 player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 player1TextBox.ForeColor = Color.FromArgb(49, 46, 43);
-
             }
         }
+
         public void swapCurrentPlayerTurn(bool turn)
         {
             if (turn == false)
@@ -149,17 +152,20 @@ namespace TurkishDraughts
             pictureBoxButtons[i_final][j_final].getPictureBox().BackgroundImage = pictureBoxButtons[i_initial][j_initial].getPictureBox().BackgroundImage;
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackgroundImage = null;
         }
+
         public void swapValue(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_final][j_final].setValue(pictureBoxButtons[i_initial][j_initial].getValue());
             pictureBoxButtons[i_initial][j_initial].setValue(0);
         }
+
         public void resetPictureboxPressed(int i_initial, int j_initial, int i_final, int j_final)
         {
             //se trece la starea initiala daca nu e miscarea legala
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
             specialProprieties.setPressed(false);
         }
+
         public void checkInitialMove(int i, int j)
         {
             //retinem pozitia butonului si afisam miscarile posibile lui
@@ -169,12 +175,12 @@ namespace TurkishDraughts
             specialProprieties.setPressed(true);
             checkLegalMoves(i, j);
         }
+
         public void checkFinalMove(int i_initial, int j_initial, int i_final, int j_final)
         {
             //verificam daca locul unde vrem sa mutam e permis, da->muta, nu->reseteaza miscare
             if (specialProprieties.getPressed() == true)
             {
-
                 if (pictureBoxButtons[i_final][j_final].getValue() != 0 ||
                     pictureBoxButtons[i_initial][j_initial].getValue() == 0 ||
                     pictureBoxButtons[i_initial][j_initial].getValue() % 2 != 0 && specialProprieties.getPlayerTurn() == false ||
@@ -199,6 +205,7 @@ namespace TurkishDraughts
                 removeBoardTraces();
             }
         }
+
         public void checkLegalMoves(int i, int j)
         {
             if (pictureBoxButtons[i][j].getValue() != 0)
@@ -206,6 +213,7 @@ namespace TurkishDraughts
                 drawLegalMovesTraces(i, j);
             }
         }
+
         public bool checkMultipleMovesBlackPiece(int i_intial, int j_initial, int i, int j)
         {
             if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
@@ -216,6 +224,7 @@ namespace TurkishDraughts
                 return true;
             return false;
         }
+
         public bool checkMultipleMovesRedPiece(int i_intial, int j_initial, int i, int j)
         {
             if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
@@ -226,6 +235,7 @@ namespace TurkishDraughts
                 return true;
             return false;
         }
+
         public bool checkMultipleMovesRedKingLeft(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -246,6 +256,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesRedKingRight(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -266,6 +277,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesRedKingUp(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -287,6 +299,7 @@ namespace TurkishDraughts
 
             return false;
         }
+
         public bool checkMultipleMovesRedKingDown(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -308,6 +321,7 @@ namespace TurkishDraughts
 
             return false;
         }
+
         public bool checkMultipleMovesBlackKingLeft(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -328,6 +342,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesBlackKingRight(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -349,6 +364,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public bool checkMultipleMovesBlackKingUp(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -369,8 +385,8 @@ namespace TurkishDraughts
                     return true;
             }
             return false;
-
         }
+
         public bool checkMultipleMovesBlackKingDown(int i_intial, int j_initial, int i, int j)
         {
             int i_search = i, j_search = j;
@@ -440,7 +456,6 @@ namespace TurkishDraughts
                 if (!i_down)
                     if (checkMultipleMovesRedKingDown(i_initial, j_initial, i, j))
                         return true;
-
             }
             //rege negru
             if (pictureBoxButtons[i][j].getValue() == 3)
@@ -478,6 +493,7 @@ namespace TurkishDraughts
             }
             return false;
         }
+
         public void drawRedPieceTrace(int i, int j)
         {
             //spatiu gol
@@ -503,6 +519,7 @@ namespace TurkishDraughts
            specialProprieties.getMultipleMove())
                 removeBoardTraces();
         }
+
         public void drawBlackPieceTrace(int i, int j)
         {
             //spatiu gol
@@ -528,6 +545,7 @@ namespace TurkishDraughts
             specialProprieties.getMultipleMove())
                 removeBoardTraces();
         }
+
         public void drawRedKingLeftTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -542,6 +560,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawRedKingRightTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -556,6 +575,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawRedKingUpTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -570,6 +590,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawRedKingDownTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -584,6 +605,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawBlackKingLeftTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -598,6 +620,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawBlackKingRightTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -612,6 +635,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawBlackKingUpTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -624,9 +648,9 @@ namespace TurkishDraughts
                     contor = 2;
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
-
             }
         }
+
         public void drawBlackKingDownTrace(int i, int j)
         {
             int i_search = i, j_search = j, contor = 0;
@@ -641,6 +665,7 @@ namespace TurkishDraughts
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
             }
         }
+
         public void drawLegalMovesTraces(int i, int j)
         {
             //piese rosii
@@ -749,6 +774,7 @@ namespace TurkishDraughts
                     }
             }
         }
+
         public bool removeCapturedPieces(int i_initial, int j_initial, int i_final, int j_final)
         {
             //vector intre pozitia de unde a plecat -> unde a ajuns o piesa, sterge tot intre
@@ -779,6 +805,7 @@ namespace TurkishDraughts
                     }
             return false;
         }
+
         public void movePiece(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
@@ -812,6 +839,7 @@ namespace TurkishDraughts
                 swapCurrentPlayerName();
             }
         }
+
         public bool checkIfPieceIsKing(int i, int j)
         {
             if (pictureBoxButtons[i][j].getValue() == 1 && i == 7)
@@ -846,13 +874,10 @@ namespace TurkishDraughts
                     }
                 }
             }
-
         }
+
         private void player1TextBox_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
-
 }
-

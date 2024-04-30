@@ -2,13 +2,13 @@ namespace TurkishDraughts
 {
     public partial class GameMenu : Form
     {
-
         public GameMenu()
         {
             InitializeComponent();
 
             MaximizeBox = false;
         }
+
         private void startGameLocalButton_Click(object sender, EventArgs e)
         {
             bool isopen = false;
@@ -33,9 +33,9 @@ namespace TurkishDraughts
                 }
             }
         }
+
         private void startGame2Button_Click(object sender, EventArgs e)
         {
-
             bool isopen = false;
             foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
             {
@@ -55,9 +55,9 @@ namespace TurkishDraughts
                     GameBoardNetwork gameBoardNetwork = new GameBoardNetwork(name1);
                     gameBoardNetwork.Show();
                 }
-
             }
         }
+
         private void startGame3Button_Click(object sender, EventArgs e)
         {
             bool isopen = false;
@@ -79,10 +79,6 @@ namespace TurkishDraughts
                     GameBoardVsRobot gameBoardVsRobot = new GameBoardVsRobot(name1);
                     gameBoardVsRobot.Show();
                 }
-
-                
-
-
             }
         }
     }

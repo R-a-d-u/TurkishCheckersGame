@@ -33,11 +33,11 @@ namespace TurkishDraughts
             int timesToBlink = 3;
             while (timesToBlink > 0)
             {
-                serverStartButton.BackColor = Color.PeachPuff;
-                clientButton.BackColor = Color.PeachPuff;
+                serverStartButton.BackColor = Color.FromArgb(241, 217, 181);
+                clientButton.BackColor = Color.FromArgb(241, 217, 181);
                 await Task.Delay(300);
-                serverStartButton.BackColor = Color.DarkGoldenrod;
-                clientButton.BackColor = Color.DarkGoldenrod;
+                serverStartButton.BackColor = Color.FromArgb(181, 136, 99); 
+                clientButton.BackColor = Color.FromArgb(181, 136, 99); 
                 await Task.Delay(300);
                 timesToBlink--;
             }
@@ -464,7 +464,7 @@ namespace TurkishDraughts
                 {
                     currentPlayerTextBox.Text = "Red moves";
                     currentPlayerTextBox.ForeColor = Color.Red;
-                    player1TextBox.BackColor = Color.DarkGoldenrod;
+                    player1TextBox.BackColor = Color.FromArgb(181, 136, 99);
 
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
@@ -473,7 +473,7 @@ namespace TurkishDraughts
                 {
                     currentPlayerTextBox.Text = "Black moves";
                     currentPlayerTextBox.ForeColor = Color.Black;
-                    player2TextBox.BackColor = Color.DarkGoldenrod;
+                    player2TextBox.BackColor = Color.FromArgb(181, 136, 99);
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player1TextBox.ForeColor = Color.FromArgb(49, 46, 43);
                 }

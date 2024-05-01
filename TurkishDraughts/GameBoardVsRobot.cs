@@ -29,9 +29,9 @@ namespace TurkishDraughts
         {
             while (choseColorButton.Enabled == true)
             {
-                choseColorButton.BackColor = Color.PeachPuff;
+                choseColorButton.BackColor = Color.FromArgb(241, 217, 181);
                 await Task.Delay(250);
-                choseColorButton.BackColor = Color.DarkGoldenrod;
+                choseColorButton.BackColor = Color.FromArgb(181, 136, 99);
                 await Task.Delay(250);
             }
         }
@@ -157,7 +157,7 @@ namespace TurkishDraughts
             {
                 currentPlayerTextBox.Text = "Red moves";
                 currentPlayerTextBox.ForeColor = Color.Red;
-                player1TextBox.BackColor = Color.DarkGoldenrod;
+                player1TextBox.BackColor = Color.FromArgb(181, 136, 99);
 
                 player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
@@ -166,7 +166,7 @@ namespace TurkishDraughts
             {
                 currentPlayerTextBox.Text = "Black moves";
                 currentPlayerTextBox.ForeColor = Color.Black;
-                player2TextBox.BackColor = Color.DarkGoldenrod;
+                player2TextBox.BackColor = Color.FromArgb(181, 136, 99);
                 player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 player1TextBox.ForeColor = Color.FromArgb(49, 46, 43);
             }
@@ -230,10 +230,12 @@ namespace TurkishDraughts
                 else
                 {
                     movePiece(i_initial, j_initial, i_final, j_final);
+                    
                     await Task.Delay(300);//delay 0.3 sec intre mutare jucator si robot
 
                     if (specialProprieties.getPlayerTurn() == !playerRobot)
                         computerAISteps(playerRobot, true);
+                   
                 }
                 removeBoardTraces();
             }

@@ -38,7 +38,7 @@
             // 
             // player1TextBox
             // 
-            player1TextBox.BackColor = Color.DarkGoldenrod;
+            player1TextBox.BackColor = Color.FromArgb(181, 136, 99);
             player1TextBox.BorderStyle = BorderStyle.None;
             player1TextBox.Font = new Font("Segoe UI", 23F, FontStyle.Regular, GraphicsUnit.Point);
             player1TextBox.ForeColor = Color.Black;
@@ -68,10 +68,10 @@
             // 
             // currentPlayerTextBox
             // 
-            currentPlayerTextBox.BackColor = Color.PeachPuff;
+            currentPlayerTextBox.BackColor = Color.FromArgb(241, 217, 181);
             currentPlayerTextBox.BorderStyle = BorderStyle.None;
             currentPlayerTextBox.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            currentPlayerTextBox.Location = new Point(669, 346);
+            currentPlayerTextBox.Location = new Point(668, 349);
             currentPlayerTextBox.Multiline = true;
             currentPlayerTextBox.Name = "currentPlayerTextBox";
             currentPlayerTextBox.ReadOnly = true;
@@ -83,7 +83,7 @@
             // 
             // blackColorButton
             // 
-            blackColorButton.BackColor = Color.PeachPuff;
+            blackColorButton.BackColor = Color.FromArgb(241, 217, 181);
             blackColorButton.BackgroundImageLayout = ImageLayout.None;
             blackColorButton.FlatStyle = FlatStyle.Popup;
             blackColorButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
@@ -99,7 +99,7 @@
             // 
             // redColorButton
             // 
-            redColorButton.BackColor = Color.PeachPuff;
+            redColorButton.BackColor = Color.FromArgb(241, 217, 181);
             redColorButton.FlatStyle = FlatStyle.Popup;
             redColorButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             redColorButton.ForeColor = Color.Black;

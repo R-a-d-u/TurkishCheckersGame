@@ -38,9 +38,9 @@
             // 
             // serverStartButton
             // 
-            serverStartButton.BackColor = Color.DarkGoldenrod;
+            serverStartButton.BackColor = Color.FromArgb(181, 136, 99);
             serverStartButton.FlatStyle = FlatStyle.Flat;
-            serverStartButton.Location = new Point(662, 80);
+            serverStartButton.Location = new Point(662, 79);
             serverStartButton.Name = "serverStartButton";
             serverStartButton.Size = new Size(109, 23);
             serverStartButton.TabIndex = 0;
@@ -51,9 +51,9 @@
             // 
             // clientButton
             // 
-            clientButton.BackColor = Color.DarkGoldenrod;
+            clientButton.BackColor = Color.FromArgb(181, 136, 99);
             clientButton.FlatStyle = FlatStyle.Flat;
-            clientButton.Location = new Point(662, 109);
+            clientButton.Location = new Point(662, 106);
             clientButton.Name = "clientButton";
             clientButton.Size = new Size(109, 23);
             clientButton.TabIndex = 1;
@@ -64,8 +64,8 @@
             // 
             // clientIPTextBox
             // 
-            clientIPTextBox.BackColor = Color.PeachPuff;
-            clientIPTextBox.Location = new Point(662, 138);
+            clientIPTextBox.BackColor = Color.FromArgb(241, 217, 181);
+            clientIPTextBox.Location = new Point(662, 134);
             clientIPTextBox.Name = "clientIPTextBox";
             clientIPTextBox.Size = new Size(109, 23);
             clientIPTextBox.TabIndex = 2;
@@ -75,7 +75,7 @@
             // 
             // currentPlayerTextBox
             // 
-            currentPlayerTextBox.BackColor = Color.PeachPuff;
+            currentPlayerTextBox.BackColor = Color.FromArgb(241, 217, 181);
             currentPlayerTextBox.BorderStyle = BorderStyle.None;
             currentPlayerTextBox.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
             currentPlayerTextBox.Location = new Point(668, 350);
@@ -104,7 +104,7 @@
             // 
             // player1TextBox
             // 
-            player1TextBox.BackColor = Color.DarkGoldenrod;
+            player1TextBox.BackColor = Color.FromArgb(181, 136, 99);
             player1TextBox.BorderStyle = BorderStyle.None;
             player1TextBox.Font = new Font("Segoe UI", 19F, FontStyle.Regular, GraphicsUnit.Point);
             player1TextBox.Location = new Point(25, 726);

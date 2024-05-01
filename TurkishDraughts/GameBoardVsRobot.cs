@@ -112,7 +112,7 @@ namespace TurkishDraughts
         private async Task checkGameOver(PlayerClass player1, PlayerClass player2)
         {
             //verifica daca nu exista nici o piesa neagra sau rosie pe tabla
-            await Task.Delay(500);
+            await Task.Delay(1000);
             int counterRed = 0, counterBlack = 0;
             for (int i = 0; i < 8; i++)
             {
@@ -1452,7 +1452,7 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (pictureBoxButtons[i][j].getValue() == 3 && (i == 7 || i == 0))
+                    if (pictureBoxButtons[i][j].getValue() == 3 && (i == 7))
                     {
                         List<Tuple<int, int, int>> allMoves = new List<Tuple<int, int, int>>();
                         allMoves.AddRange(drawBlackKingLeftTrace(i, j));
@@ -1535,7 +1535,7 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (pictureBoxButtons[i][j].getValue() == 4 && (i == 7 || i == 0))
+                    if (pictureBoxButtons[i][j].getValue() == 4 && (i == 0))
                     {
                         List<Tuple<int, int, int>> allMoves = new List<Tuple<int, int, int>>();
                         allMoves.AddRange(drawRedKingLeftTrace(i, j));

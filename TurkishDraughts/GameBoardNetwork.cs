@@ -895,7 +895,7 @@ namespace TurkishDraughts
         public void drawRedPieceTrace(int i, int j)
         {
             //spatiu gol
-            if (specialProprieties.getMultipleMove() == false)
+            if (specialProprieties.getMultipleMove() == false && !checkIfFirstRedPieceCanCapture())
             {
                 if (i > 0 && pictureBoxButtons[i - 1][j].getValue() == 0)
                     pictureBoxButtons[i - 1][j].getPictureBox().BackColor = Color.GreenYellow;
@@ -921,7 +921,7 @@ namespace TurkishDraughts
         public void drawBlackPieceTrace(int i, int j)
         {
             //spatiu gol
-            if (specialProprieties.getMultipleMove() == false)
+            if (specialProprieties.getMultipleMove() == false && !checkIfFirstBlackPieceCanCapture())
             {
                 if (i < 7 && pictureBoxButtons[i + 1][j].getValue() == 0)
                     pictureBoxButtons[i + 1][j].getPictureBox().BackColor = Color.GreenYellow;
@@ -1103,14 +1103,36 @@ namespace TurkishDraughts
             {
                 drawRedPieceTrace(i, j);
 
+                if (checkIfFirstRedPieceCanCapture())
+                {
+                    if (!redPiecesWhoCanCapture.Any(tuple => tuple.Item1 == i && tuple.Item2 == j))
+                        removeBoardTraces();
+                }
+
                 if (pictureBoxButtons[i][j].getValue() == 4)
                 {
                     if (specialProprieties.getMultipleMove() == false)
                     {
-                        drawRedKingLeftTrace(i, j);
-                        drawRedKingRightTrace(i, j);
-                        drawRedKingUpTrace(i, j);
-                        drawRedKingDownTrace(i, j);
+                        if (!checkIfFirstRedPieceCanCapture())
+                        {
+                            drawRedKingLeftTrace(i, j);
+                            drawRedKingRightTrace(i, j);
+                            drawRedKingUpTrace(i, j);
+                            drawRedKingDownTrace(i, j);
+                        }
+                        else
+                        {
+                            if (!redPiecesWhoCanCapture.Any(tuple => tuple.Item1 == i && tuple.Item2 == j))
+                                removeBoardTraces();
+                            if (checkMultipleMovesRedKingLeft(i, j, i, j))
+                                drawRedKingLeftTrace(i, j);
+                            if (checkMultipleMovesRedKingRight(i, j, i, j))
+                                drawRedKingRightTrace(i, j);
+                            if (checkMultipleMovesRedKingUp(i, j, i, j))
+                                drawRedKingUpTrace(i, j);
+                            if (checkMultipleMovesRedKingDown(i, j, i, j))
+                                drawRedKingDownTrace(i, j);
+                        }
                     }
                     else
                     {
@@ -1145,10 +1167,16 @@ namespace TurkishDraughts
                             if (checkMultipleMovesRedKingDown(i_initial, j_initial, i, j))
                                 drawRedKingDownTrace(i, j);
 
-                        if ((specialProprieties.getCurrentMultipleMoveI() != i ||
-                        specialProprieties.getCurrentMultipleMoveJ() != j) &&
-                        specialProprieties.getMultipleMove())
-                            removeBoardTraces();
+                        if (specialProprieties.getMultipleMove())
+                        {
+                            if ((specialProprieties.getCurrentMultipleMoveI() != i || specialProprieties.getCurrentMultipleMoveJ() != j))
+                                removeBoardTraces();
+                        }
+
+
+
+
+
                     }
                 }
             }
@@ -1156,13 +1184,40 @@ namespace TurkishDraughts
             if (pictureBoxButtons[i][j].getValue() % 2 != 0)
             {
                 drawBlackPieceTrace(i, j);
+
+                if (checkIfFirstBlackPieceCanCapture())
+                {
+                    if (!blackPiecesWhoCanCapture.Any(tuple => tuple.Item1 == i && tuple.Item2 == j))
+                        removeBoardTraces();
+                }
+
                 if (pictureBoxButtons[i][j].getValue() == 3)
                     if (specialProprieties.getMultipleMove() == false)
                     {
-                        drawBlackKingLeftTrace(i, j);
-                        drawBlackKingRightTrace(i, j);
-                        drawBlackKingUpTrace(i, j);
-                        drawBlackKingDownTrace(i, j);
+                        if (!checkIfFirstBlackPieceCanCapture())
+                        {
+                            drawBlackKingLeftTrace(i, j);
+                            drawBlackKingRightTrace(i, j);
+                            drawBlackKingUpTrace(i, j);
+                            drawBlackKingDownTrace(i, j);
+                        }
+                        else
+                        {
+                            if (!blackPiecesWhoCanCapture.Any(tuple => tuple.Item1 == i && tuple.Item2 == j))
+                                removeBoardTraces();
+
+                            if (checkMultipleMovesBlackKingLeft(i, j, i, j))
+                                drawBlackKingLeftTrace(i, j);
+
+                            if (checkMultipleMovesBlackKingRight(i, j, i, j))
+                                drawBlackKingRightTrace(i, j);
+
+                            if (checkMultipleMovesBlackKingUp(i, j, i, j))
+                                drawBlackKingUpTrace(i, j);
+
+                            if (checkMultipleMovesBlackKingDown(i, j, i, j))
+                                drawBlackKingDownTrace(i, j);
+                        }
                     }
                     else
                     {
@@ -1197,10 +1252,11 @@ namespace TurkishDraughts
                             if (checkMultipleMovesBlackKingDown(i_initial, j_initial, i, j))
                                 drawBlackKingDownTrace(i, j);
 
-                        if ((specialProprieties.getCurrentMultipleMoveI() != i ||
-                        specialProprieties.getCurrentMultipleMoveJ() != j) &&
-                        specialProprieties.getMultipleMove())
-                            removeBoardTraces();
+                        if (specialProprieties.getMultipleMove())
+                        {
+                            if ((specialProprieties.getCurrentMultipleMoveI() != i || specialProprieties.getCurrentMultipleMoveJ() != j))
+                                removeBoardTraces();
+                        }
                     }
             }
         }

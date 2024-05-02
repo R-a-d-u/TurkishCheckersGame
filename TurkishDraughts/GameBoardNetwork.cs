@@ -391,8 +391,8 @@ namespace TurkishDraughts
         {
             redPiecesWhoCanCapture.Clear();
             bool moveFound = false;
-            for (int i = 0; i < 7; i++)
-                for (int j = 0; j < 7; j++)
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
                 {
                     if (checkMultipleMoves(i, j, i, j) && pictureBoxButtons[i][j].getValue() % 2 == 0 && pictureBoxButtons[i][j].getValue() != 0)
                     {
@@ -407,10 +407,10 @@ namespace TurkishDraughts
         }
         private bool checkIfFirstBlackPieceCanCapture()
         {
-            redPiecesWhoCanCapture.Clear();
+            blackPiecesWhoCanCapture.Clear();
             bool moveFound = false;
-            for (int i = 0; i < 7; i++)
-                for (int j = 0; j < 7; j++)
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
                 {
                     if (checkMultipleMoves(i, j, i, j) && pictureBoxButtons[i][j].getValue() % 2 != 0 && pictureBoxButtons[i][j].getValue() != 0)
                     {

@@ -269,8 +269,9 @@ namespace TurkishDraughts
 
         private void movePieceInNetwork(int i_initial, int j_initial, int i_final, int j_final)
         {
-            
-            
+            redPiecesWhoCanCapture.Clear();
+            blackPiecesWhoCanCapture.Clear();
+
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
             specialProprieties.setPressed(false);
 

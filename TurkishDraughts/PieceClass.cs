@@ -57,8 +57,8 @@ namespace TurkishDraughts
             {
                 BackColor = System.Drawing.Color.Transparent,
                 BackgroundImage = tempRes,
-                BackgroundImageLayout = ImageLayout.Zoom,
-                SizeMode = PictureBoxSizeMode.Zoom, // Set the SizeMode to Zoom
+                BackgroundImageLayout = ImageLayout.Stretch,
+                SizeMode = PictureBoxSizeMode.CenterImage, // Set the SizeMode to Zoom
                 Location = new System.Drawing.Point((29 + j * 79), (83 + i * 77)),
                 Name = "pictureBox" + i + j,
                 Size = new System.Drawing.Size(68, 68), // Increase the size to make it bigger

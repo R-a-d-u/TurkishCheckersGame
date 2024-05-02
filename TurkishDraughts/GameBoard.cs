@@ -125,7 +125,7 @@ namespace TurkishDraughts
                 currentPlayerTextBox.Text = "Red moves";
                 currentPlayerTextBox.ForeColor = Color.Red;
                 player1TextBox.BackColor = Color.FromArgb(181, 136, 99);
-                
+
                 player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 player2TextBox.ForeColor = Color.FromArgb(49, 46, 43);
             }
@@ -557,7 +557,11 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
                     contor = 2;
                 if (pictureBoxButtons[i][j_search].getValue() == 0)
+                {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.Transparent;
+                }
             }
         }
 
@@ -571,8 +575,12 @@ namespace TurkishDraughts
                     contor++;
                 if (pictureBoxButtons[i][j_search].getValue() % 2 == 0 && pictureBoxButtons[i][j_search].getValue() != 0)
                     contor = 2;
-                if (pictureBoxButtons[i][j_search].getValue() == 0)
+               if (pictureBoxButtons[i][j_search].getValue() == 0)
+                {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.Transparent;
+                }
             }
         }
 
@@ -587,7 +595,11 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
                     contor = 2;
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
+                {
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.Transparent;
+                }
             }
         }
 
@@ -602,7 +614,11 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_search][j].getValue() % 2 == 0 && pictureBoxButtons[i_search][j].getValue() != 0)
                     contor = 2;
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
+                {
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.Transparent;
+                }
             }
         }
 
@@ -617,7 +633,11 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
                     contor = 2;
                 if (pictureBoxButtons[i][j_search].getValue() == 0)
+                {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.Transparent;
+                }
             }
         }
 
@@ -632,7 +652,11 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i][j_search].getValue() % 2 != 0 && pictureBoxButtons[i][j_search].getValue() != 0)
                     contor = 2;
                 if (pictureBoxButtons[i][j_search].getValue() == 0)
+                {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.Transparent;
+                }
             }
         }
 
@@ -647,7 +671,11 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
                     contor = 2;
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
+                {
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.Transparent;
+                }
             }
         }
 
@@ -662,7 +690,11 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_search][j].getValue() % 2 != 0 && pictureBoxButtons[i_search][j].getValue() != 0)
                     contor = 2;
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
+                {
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.Transparent;
+                }
             }
         }
 

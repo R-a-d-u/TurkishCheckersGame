@@ -42,10 +42,10 @@
             player1TextBox.BorderStyle = BorderStyle.None;
             player1TextBox.Font = new Font("Segoe UI", 23F, FontStyle.Regular, GraphicsUnit.Point);
             player1TextBox.ForeColor = Color.Black;
-            player1TextBox.Location = new Point(21, 722);
+            player1TextBox.Location = new Point(22, 717);
             player1TextBox.Name = "player1TextBox";
             player1TextBox.ReadOnly = true;
-            player1TextBox.Size = new Size(634, 41);
+            player1TextBox.Size = new Size(633, 41);
             player1TextBox.TabIndex = 1;
             player1TextBox.TabStop = false;
             player1TextBox.Text = "00";
@@ -57,10 +57,10 @@
             player2TextBox.BorderStyle = BorderStyle.None;
             player2TextBox.Font = new Font("Segoe UI", 23F, FontStyle.Regular, GraphicsUnit.Point);
             player2TextBox.ForeColor = Color.Black;
-            player2TextBox.Location = new Point(21, 12);
+            player2TextBox.Location = new Point(22, 16);
             player2TextBox.Name = "player2TextBox";
             player2TextBox.ReadOnly = true;
-            player2TextBox.Size = new Size(634, 41);
+            player2TextBox.Size = new Size(633, 41);
             player2TextBox.TabIndex = 2;
             player2TextBox.TabStop = false;
             player2TextBox.Text = "00";

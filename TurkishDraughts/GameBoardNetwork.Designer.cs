@@ -91,11 +91,11 @@
             // 
             player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
             player2TextBox.BorderStyle = BorderStyle.None;
-            player2TextBox.Font = new Font("Segoe UI", 19F, FontStyle.Regular, GraphicsUnit.Point);
-            player2TextBox.Location = new Point(25, 12);
+            player2TextBox.Font = new Font("Segoe UI", 23F, FontStyle.Regular, GraphicsUnit.Point);
+            player2TextBox.Location = new Point(22, 16);
             player2TextBox.Name = "player2TextBox";
             player2TextBox.ReadOnly = true;
-            player2TextBox.Size = new Size(635, 34);
+            player2TextBox.Size = new Size(635, 41);
             player2TextBox.TabIndex = 4;
             player2TextBox.TabStop = false;
             player2TextBox.Text = "Negru";
@@ -106,11 +106,11 @@
             // 
             player1TextBox.BackColor = Color.FromArgb(181, 136, 99);
             player1TextBox.BorderStyle = BorderStyle.None;
-            player1TextBox.Font = new Font("Segoe UI", 19F, FontStyle.Regular, GraphicsUnit.Point);
-            player1TextBox.Location = new Point(25, 726);
+            player1TextBox.Font = new Font("Segoe UI", 23F, FontStyle.Regular, GraphicsUnit.Point);
+            player1TextBox.Location = new Point(22, 716);
             player1TextBox.Name = "player1TextBox";
             player1TextBox.ReadOnly = true;
-            player1TextBox.Size = new Size(635, 34);
+            player1TextBox.Size = new Size(635, 41);
             player1TextBox.TabIndex = 5;
             player1TextBox.TabStop = false;
             player1TextBox.Text = "Rosu";

@@ -1,4 +1,6 @@
-﻿using TurkishDraughts.Properties;
+﻿using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using TurkishDraughts.Properties;
 
 namespace TurkishDraughts
 {
@@ -10,6 +12,7 @@ namespace TurkishDraughts
         private GameBoardNetwork? gameBoardNetwork;
         private GameBoardVsRobot? gameBoardVsRobot;
 
+      
         private void pictureBoxClick(object sender, EventArgs e)
         {
             if (gameBoard != null)
@@ -19,7 +22,6 @@ namespace TurkishDraughts
             if (gameBoardVsRobot != null)
                 gameBoardVsRobot.pictureBoxClick(sender);
         }
-
         //value=0 spatiu gol
         //value=1 piesa neagra
         //value=2 piesa rosie
@@ -50,21 +52,20 @@ namespace TurkishDraughts
                 value = 0;
             }
             this.value = value;
-           
-
 
             pictureBoxButtons = new RoundPictureBox
             {
                 BackColor = System.Drawing.Color.Transparent,
                 BackgroundImage = tempRes,
-                BackgroundImageLayout = ImageLayout.Stretch,
-                SizeMode = PictureBoxSizeMode.CenterImage, // Set the SizeMode to Zoom
-                Location = new System.Drawing.Point((29 + j * 79), (83 + i * 77)),
+                BackgroundImageLayout = ImageLayout.Center,
+                SizeMode = PictureBoxSizeMode.Zoom, 
+                Location = new System.Drawing.Point((26 + j * 79), (80 + i * 77)),
                 Name = "pictureBox" + i + j,
-                Size = new System.Drawing.Size(68, 68), // Increase the size to make it bigger
+                Size = new System.Drawing.Size(74, 74), 
                 TabIndex = 9,
                 TabStop = false,
             };
+
             pictureBoxButtons.Click += new System.EventHandler(this.pictureBoxClick); //atribuie functia generala de click de piesa locatiei curente
         }
 

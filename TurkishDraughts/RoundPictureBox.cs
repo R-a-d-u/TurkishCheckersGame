@@ -18,7 +18,7 @@ public class RoundPictureBox : PictureBox
         // Create a GraphicsPath to draw the image in a round shape
         using (GraphicsPath path = new GraphicsPath())
         {
-            path.AddEllipse(new Rectangle(0, 0, 68, 68));
+            path.AddEllipse(new Rectangle(0, 0, 74, 74));
             this.Region = new Region(path);
         }
     }

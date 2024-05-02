@@ -888,6 +888,9 @@ namespace TurkishDraughts
             }
             return false;
         }
+        public void resizeImage(object sender)
+        { 
+        }
 
         public void pictureBoxClick(object sender)
         {

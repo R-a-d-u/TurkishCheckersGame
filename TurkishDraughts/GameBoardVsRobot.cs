@@ -597,6 +597,8 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i][j_search].getValue() == 0)
                 {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.Transparent;
                     greenYellowPositions.Add(Tuple.Create(i, j_search, contor));
                 }
             }
@@ -617,6 +619,8 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i][j_search].getValue() == 0)
                 {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.Transparent;
 
                     greenYellowPositions.Add(Tuple.Create(i, j_search, contor));
                 }
@@ -638,6 +642,8 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
                 {
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.Transparent;
 
                     greenYellowPositions.Add(Tuple.Create(i_search, j, contor));
                 }
@@ -659,6 +665,8 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
                 {
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.Transparent;
 
                     greenYellowPositions.Add(Tuple.Create(i_search, j, contor));
                 }
@@ -680,6 +688,8 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i][j_search].getValue() == 0)
                 {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.Transparent;
 
                     greenYellowPositions.Add(Tuple.Create(i, j_search, contor));
                 }
@@ -701,6 +711,8 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i][j_search].getValue() == 0)
                 {
                     pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i][j_search].getPictureBox().BackColor = Color.Transparent;
 
                     greenYellowPositions.Add(Tuple.Create(i, j_search, contor));
                 }
@@ -722,6 +734,9 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
                 {
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.Transparent;
+
                     greenYellowPositions.Add(Tuple.Create(i_search, j, contor));
                 }
             }
@@ -742,6 +757,9 @@ namespace TurkishDraughts
                 if (pictureBoxButtons[i_search][j].getValue() == 0)
                 {
                     pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.GreenYellow;
+                    if (specialProprieties.getMultipleMove() && contor == 0)
+                        pictureBoxButtons[i_search][j].getPictureBox().BackColor = Color.Transparent;
+
                     greenYellowPositions.Add(Tuple.Create(i_search, j, contor));
                 }
             }

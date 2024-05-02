@@ -114,7 +114,7 @@
             // 
             // choseColorButton
             // 
-            choseColorButton.BackColor = Color.DarkGoldenrod;
+            choseColorButton.BackColor = Color.FromArgb(181, 136, 99);
             choseColorButton.FlatStyle = FlatStyle.Popup;
             choseColorButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             choseColorButton.Location = new Point(663, 77);

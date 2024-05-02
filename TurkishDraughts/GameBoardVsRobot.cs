@@ -11,6 +11,8 @@ namespace TurkishDraughts
         private bool playerRobot = false;
         private String playerName;
         private List<Task> tasks = new List<Task>();
+        List<Tuple<int, int>> redPiecesWhoCanCapture = new List<Tuple<int, int>>();
+        List<Tuple<int, int>> blackPiecesWhoCanCapture = new List<Tuple<int, int>>();
 
         public GameBoardVsRobot(String playerNameForm)
         {

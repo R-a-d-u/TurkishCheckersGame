@@ -8,6 +8,8 @@ namespace TurkishDraughts
         private PlayerClass player1, player2, currentPlayer;
         private SpecialProprieties specialProprieties;
         private int i_firstMove, j_firstMove;
+        List<Tuple<int, int>> redPiecesWhoCanCapture = new List<Tuple<int, int>>();
+        List<Tuple<int, int>> blackPiecesWhoCanCapture = new List<Tuple<int, int>>();
 
         public GameBoard(String player1, String player2)
         {
@@ -59,11 +61,24 @@ namespace TurkishDraughts
 
         private void removeBoardTraces()
         {
-            //sterge casutele verzi
+            //sterge casutele verzi,marcheaza tuplul de miscari de capturare
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+                    if (!specialProprieties.getPlayerTurn())
+                    {
+                        if (!redPiecesWhoCanCapture.Any(tuple => tuple.Item1 == i && tuple.Item2 == j))
+                            pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+                        else
+                            pictureBoxButtons[i][j].getPictureBox().BackColor = Color.GreenYellow;
+                    }
+                    else
+                    {
+                        if (!blackPiecesWhoCanCapture.Any(tuple => tuple.Item1 == i && tuple.Item2 == j))
+                            pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
+                        else
+                            pictureBoxButtons[i][j].getPictureBox().BackColor = Color.GreenYellow;
+                    }
                 }
             if (specialProprieties.getMultipleMove())
                 pictureBoxButtons[specialProprieties.getCurrentMultipleMoveI()][specialProprieties.getCurrentMultipleMoveJ()].getPictureBox().BackColor = Color.GreenYellow;
@@ -117,11 +132,48 @@ namespace TurkishDraughts
             }
             return false;
         }
+        private bool checkIfFirstRedPieceCanCapture()
+        {
+            redPiecesWhoCanCapture.Clear();
+            bool moveFound = false;
+            for (int i = 0; i < 7; i++)
+                for (int j = 0; j < 7; j++)
+                {
+                    if (checkMultipleMoves(i,j,i,j) && pictureBoxButtons[i][j].getValue()%2==0 && pictureBoxButtons[i][j].getValue()!=0)
+                    {
+                        moveFound = true;
+                        redPiecesWhoCanCapture.Add(Tuple.Create(i, j));
+                    }
+                }
+            //redPiecesWhoCanCapture.Add(Tuple.Create(-1, -1));
+            if (moveFound)
+                return true;
+            return false;
+        }
+        private bool checkIfFirstBlackPieceCanCapture()
+        {
+            redPiecesWhoCanCapture.Clear();
+            bool moveFound = false;
+            for (int i = 0; i < 7; i++)
+                for (int j = 0; j < 7; j++)
+                {
+                    if (checkMultipleMoves(i, j, i, j) && pictureBoxButtons[i][j].getValue() % 2 != 0 && pictureBoxButtons[i][j].getValue() != 0)
+                    {
+                        moveFound = true;
+                        blackPiecesWhoCanCapture.Add(Tuple.Create(i, j));
+                    }
+                }
+            //redPiecesWhoCanCapture.Add(Tuple.Create(-1, -1));
+            if (moveFound)
+                return true;
+            return false;
+        }
 
         public void swapCurrentPlayerName()
         {
             if (specialProprieties.getPlayerTurn() == false)
             {
+                checkIfFirstRedPieceCanCapture();
                 currentPlayerTextBox.Text = "Red moves";
                 currentPlayerTextBox.ForeColor = Color.Red;
                 player1TextBox.BackColor = Color.FromArgb(181, 136, 99);
@@ -131,6 +183,7 @@ namespace TurkishDraughts
             }
             else
             {
+                checkIfFirstBlackPieceCanCapture();
                 currentPlayerTextBox.Text = "Black moves";
                 currentPlayerTextBox.ForeColor = Color.Black;
                 player2TextBox.BackColor = Color.FromArgb(181, 136, 99);
@@ -195,7 +248,10 @@ namespace TurkishDraughts
                 }
                 else
                 {
+                    redPiecesWhoCanCapture.Clear();
+                    blackPiecesWhoCanCapture.Clear();
                     movePiece(i_initial, j_initial, i_final, j_final);
+                    
                 }
                 removeBoardTraces();
             }

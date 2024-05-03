@@ -55,6 +55,27 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
+          //  for (int i = 0; i < 8; i++)
+          //  {
+          //      for (int j = 0; j < 8; j++)
+          //      {
+          //          pictureBoxButtons[i][j].setValue(0);
+          //          pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+          //
+          //      }
+          //  }
+          //  pictureBoxButtons[0][1].setValue(4);
+          //  pictureBoxButtons[0][1].getPictureBox().BackgroundImage = Resources.RedKing;
+          //
+          //  pictureBoxButtons[2][2].setValue(1);
+          //  pictureBoxButtons[2][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+          //
+          //  pictureBoxButtons[3][4].setValue(1);
+          //  pictureBoxButtons[3][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
+          //
+          //
+          //  pictureBoxButtons[3][6].setValue(1);
+          //  pictureBoxButtons[3][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
         }
 
         private void initPlayerNames()
@@ -285,12 +306,12 @@ namespace TurkishDraughts
                     redPiecesWhoCanCapture.Clear();
                     blackPiecesWhoCanCapture.Clear();
                     movePiece(i_initial, j_initial, i_final, j_final);
-                    
+
                     await Task.Delay(300);//delay 0.3 sec intre mutare jucator si robot
 
                     if (specialProprieties.getPlayerTurn() == !playerRobot)
                         computerAISteps(playerRobot, true);
-                   
+
                 }
                 removeBoardTraces();
             }
@@ -1135,6 +1156,8 @@ namespace TurkishDraughts
         {
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
             {
+                redPiecesWhoCanCapture.Clear();
+                blackPiecesWhoCanCapture.Clear();
                 if (j < 6)
                     if (pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
                     {
@@ -1158,19 +1181,22 @@ namespace TurkishDraughts
                         i = i + 2;
                         await Task.Delay(300);
                         continue;
-                    }
+                    }          
             }
             specialProprieties.setMultipleMoves(false);
             checkIfPieceIsKing(i, j);
             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
+            checkIfFirstRedPieceCanCapture();
         }
 
         private async Task computerRedPieceCapture(int i, int j)
         {
             while (checkMultipleMoves(specialProprieties.getCurrentMultipleMoveI(), specialProprieties.getCurrentMultipleMoveJ(), i, j))
             {
+                redPiecesWhoCanCapture.Clear();
+                blackPiecesWhoCanCapture.Clear();
                 if (j < 6)
                     if (pictureBoxButtons[i][j + 1].getValue() % 2 != 0 && pictureBoxButtons[i][j + 1].getValue() != 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
                     {
@@ -1201,6 +1227,8 @@ namespace TurkishDraughts
             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
+            removeBoardTraces();
+            checkIfFirstBlackPieceCanCapture();
         }
 
         private async Task computerBlackKingCapture(int i, int j)
@@ -1211,6 +1239,8 @@ namespace TurkishDraughts
             //
             while (checkMultipleMoves(i_initial, j_initial, i, j))
             {
+                redPiecesWhoCanCapture.Clear();
+                blackPiecesWhoCanCapture.Clear();
                 List<Tuple<int, int, int>> captureMoves = new List<Tuple<int, int, int>>();
                 bool i_up = false;
                 bool i_down = false;
@@ -1382,12 +1412,17 @@ namespace TurkishDraughts
                 //  drawBlackKingDownTrace(i, j);
 
                 continueWhile: continue;
+                
             }
             specialProprieties.setMultipleMoves(false);
             checkIfPieceIsKing(i, j);
             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
+            redPiecesWhoCanCapture.Clear();
+            blackPiecesWhoCanCapture.Clear();
+            removeBoardTraces();
+            checkIfFirstRedPieceCanCapture();
         }
 
         private async Task computerRedKingCapture(int i, int j)
@@ -1398,6 +1433,8 @@ namespace TurkishDraughts
 
             while (checkMultipleMoves(i_initial, j_initial, i, j))
             {
+                redPiecesWhoCanCapture.Clear();
+                blackPiecesWhoCanCapture.Clear();
                 List<Tuple<int, int, int>> captureMoves = new List<Tuple<int, int, int>>();
                 bool i_up = false;
                 bool i_down = false;
@@ -1564,14 +1601,17 @@ namespace TurkishDraughts
                         }
                     }
 
-                continueWhile: continue;
+                continueWhile:continue;
             }
             specialProprieties.setMultipleMoves(false);
-
             checkIfPieceIsKing(i, j);
             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
             swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
             swapCurrentPlayerName();
+            redPiecesWhoCanCapture.Clear();
+            blackPiecesWhoCanCapture.Clear();
+            removeBoardTraces();
+            checkIfFirstBlackPieceCanCapture();
         }
 
         private async Task computerBlackKingChangePosition()
@@ -1650,6 +1690,7 @@ namespace TurkishDraughts
 
             if (findFutureCapture || findLastKingPosition)
             {
+                checkIfFirstRedPieceCanCapture();
             }
             else
             {
@@ -1732,6 +1773,7 @@ namespace TurkishDraughts
                 }
             if (findFutureCapture || findLastKingPosition)
             {
+                checkIfFirstBlackPieceCanCapture();
             }
             else
             {

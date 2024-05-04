@@ -113,6 +113,16 @@ namespace TurkishDraughts.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GameMenuScreenshot {
+            get {
+                object obj = ResourceManager.GetObject("GameMenuScreenshot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MenuBackground {
             get {
                 object obj = ResourceManager.GetObject("MenuBackground", resourceCulture);

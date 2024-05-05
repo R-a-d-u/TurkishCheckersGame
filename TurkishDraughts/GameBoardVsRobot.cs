@@ -13,9 +13,11 @@ namespace TurkishDraughts
         private List<Task> tasks = new List<Task>();
         List<Tuple<int, int>> redPiecesWhoCanCapture = new List<Tuple<int, int>>();
         List<Tuple<int, int>> blackPiecesWhoCanCapture = new List<Tuple<int, int>>();
+        //bool timer
 
         public GameBoardVsRobot(String playerNameForm)
         {
+            TimerClass timerClass = new TimerClass(this);
             MaximizeBox = false;
             playerName = playerNameForm;
             initStartState();
@@ -24,6 +26,7 @@ namespace TurkishDraughts
             InitializeComponent();
             initPlayerNames();
             choseColorButtonBlink();
+            timerClass.startTimer();
             //stare initiala jucator actual
         }
 
@@ -2026,6 +2029,11 @@ namespace TurkishDraughts
             player2.setName("Computer");
             player1TextBox.Text = player1.getName();
             player2TextBox.Text = player2.getName();
+        }
+
+        public void timer_Tick(object sender, EventArgs e)
+        {
+            
         }
     }
 }

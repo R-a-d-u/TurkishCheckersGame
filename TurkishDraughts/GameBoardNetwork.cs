@@ -165,7 +165,8 @@ namespace TurkishDraughts
                 initBoardButtons();
                 storePlayerName();
                 receivePlayerName();
-
+                serverStartButton.Text = "You play as";
+                clientButton.Text= "Black color";
                 clientIPTextBox.Text = "Client";
                 isServer = false;
                 clientIPTextBox.ReadOnly = true;
@@ -185,7 +186,8 @@ namespace TurkishDraughts
         {
             isServer = true;
             initLocalNames(playerNameGlobal);
-
+            serverStartButton.Text = "You play as";
+            clientButton.Text = "Red color";
             clientIPTextBox.Text = "Server";
 
             clientIPTextBox.ReadOnly = true;

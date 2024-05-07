@@ -224,6 +224,16 @@ namespace TurkishDraughts
                 blockPictureBox();
                 removeBoardTraces();
             }
+            if (counterBlack == 1 && counterRed == 1 && specialProprieties.getMultipleMove() == false)
+            {
+                MessageBox.Show("Draw");
+                player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
+                currentPlayerTextBox.Text = "Game over";
+                currentPlayerTextBox.ForeColor = Color.Blue;
+                blockPictureBox();
+                removeBoardTraces();
+            }
         }
 
         public void swapCurrentPlayerName()

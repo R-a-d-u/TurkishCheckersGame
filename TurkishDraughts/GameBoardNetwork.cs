@@ -506,7 +506,7 @@ namespace TurkishDraughts
                 }
                 return true;
             }
-            if (counterRed == 1 && counterBlack == 1 specialProprieties.getMultipleMove() == false)
+            if (counterRed == 1 && counterBlack == 1 && specialProprieties.getMultipleMove() == false)
             {
                 MessageBox.Show("Draw");
                 player1TextBox.BackColor = Color.FromArgb(49, 46, 43);

@@ -1666,7 +1666,7 @@ namespace TurkishDraughts
                         }
                     }
                 }
-            for (int i = 1; i < 7; i++)
+            for (int i = 1; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
                     if (pictureBoxButtons[i][j].getValue() == 3)
@@ -1750,7 +1750,7 @@ namespace TurkishDraughts
                         }
                     }
                 }
-            for (int i = 1; i < 7; i++)
+            for (int i = 1; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
                     if (pictureBoxButtons[i][j].getValue() == 4)

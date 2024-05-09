@@ -17,7 +17,6 @@ namespace TurkishDraughts
 
         public GameBoardVsRobot(String playerNameForm)
         {
-            TimerClass timerClass = new TimerClass(this);
             MaximizeBox = false;
             playerName = playerNameForm;
             initStartState();
@@ -26,7 +25,6 @@ namespace TurkishDraughts
             InitializeComponent();
             initPlayerNames();
             choseColorButtonBlink();
-            timerClass.startTimer();
             //stare initiala jucator actual
         }
 
@@ -2041,9 +2039,6 @@ namespace TurkishDraughts
             player2TextBox.Text = player2.getName();
         }
 
-        public void timer_Tick(object sender, EventArgs e)
-        {
-            
-        }
+      
     }
 }

@@ -24,7 +24,7 @@ namespace TurkishDraughts
         }
         private void TimerTick(object sender, EventArgs e)
         {
-            gameBoardVsRobot.timer_Tick(sender, e);
+           
         }
         public Timer getTimer()
         {

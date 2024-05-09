@@ -1185,7 +1185,7 @@ namespace TurkishDraughts
                         await Task.Delay(300);
                         continue;
                     }
-                if (i > 1)
+                if (i <6 )
                     if (pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0 && pictureBoxButtons[i + 2][j].getValue() == 0)
                     {
                         computerMove(i, j, i + 2, j);

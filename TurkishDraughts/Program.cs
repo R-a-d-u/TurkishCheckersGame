@@ -10,7 +10,7 @@ namespace TurkishDraughts
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameMenu());
+            Application.Run(new GameOverForm("Game over!\n Radu won!"));
         }
     }
 }

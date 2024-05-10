@@ -16,12 +16,12 @@ namespace TurkishDraughts
         {
             InitializeComponent();
             MaximizeBox = false;
-            label1.Text= text;
-            var pos = label1.Parent.PointToScreen(label1.Location);
+            labelText.Text= text;
+            var pos = labelText.Parent.PointToScreen(labelText.Location);
             pos = pictureBox1.PointToClient(pos);
-            label1.Parent = pictureBox1;
-            label1.Location = pos;
-            label1.BackColor = Color.Transparent;
+            labelText.Parent = pictureBox1;
+            labelText.Location = pos;
+            labelText.BackColor = Color.Transparent;
         }
     }
 }

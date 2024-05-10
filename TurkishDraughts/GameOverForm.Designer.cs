@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             pictureBox1 = new PictureBox();
-            label1 = new Label();
+            labelText = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -43,23 +43,23 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // label1
+            // labelText
             // 
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(70, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(300, 57);
-            label1.TabIndex = 1;
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            labelText.BackColor = Color.Transparent;
+            labelText.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+            labelText.ForeColor = Color.White;
+            labelText.Location = new Point(70, 9);
+            labelText.Name = "labelText";
+            labelText.Size = new Size(300, 57);
+            labelText.TabIndex = 1;
+            labelText.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // GameOverForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(484, 271);
-            Controls.Add(label1);
+            Controls.Add(labelText);
             Controls.Add(pictureBox1);
             DoubleBuffered = true;
             MaximumSize = new Size(500, 310);
@@ -74,6 +74,6 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private Label label1;
+        private Label labelText;
     }
 }

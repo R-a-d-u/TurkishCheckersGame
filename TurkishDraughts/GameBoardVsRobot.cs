@@ -56,45 +56,48 @@ namespace TurkishDraughts
                     Controls.Add(pictureBoxButtons[i][j].getPictureBox());
                 }
             }
-      //        for (int i = 0; i < 8; i++)
-      //        {
-      //            for (int j = 0; j < 8; j++)
-      //            {
-      //                pictureBoxButtons[i][j].setValue(0);
-      //                pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
-      //      
-      //            }
-      //        }
-      //        pictureBoxButtons[0][5].setValue(4);
-      //        pictureBoxButtons[0][5].getPictureBox().BackgroundImage = Resources.RedKing;
-      //
-      //      pictureBoxButtons[2][5].setValue(1);
-      //      pictureBoxButtons[2][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
-      //
-      //      pictureBoxButtons[5][0].setValue(2);
-      //      pictureBoxButtons[5][0].getPictureBox().BackgroundImage = Resources.RedPiece;
-      //
-      //      pictureBoxButtons[6][1].setValue(1);
-      //      pictureBoxButtons[6][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
-      //
-      //      pictureBoxButtons[5][4].setValue(1);
-      //      pictureBoxButtons[5][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
-      //
-      //      pictureBoxButtons[5][6].setValue(1);
-      //     pictureBoxButtons[5][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
-      //
-      //      pictureBoxButtons[1][1].setValue(1);
-      //      pictureBoxButtons[1][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //   for (int i = 0; i < 8; i++)
+            //   {
+            //       for (int j = 0; j < 8; j++)
+            //       {
+            //           pictureBoxButtons[i][j].setValue(0);
+            //           pictureBoxButtons[i][j].getPictureBox().BackgroundImage = null;
+            // 
+            //       }
+            //   }
+            //   pictureBoxButtons[0][5].setValue(4);
+            //   pictureBoxButtons[0][5].getPictureBox().BackgroundImage = Resources.RedKing;
             //
-            //   pictureBoxButtons[2][2].setValue(1);
-            //     pictureBoxButtons[2][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            //   
-            //     pictureBoxButtons[3][4].setValue(1);
-            //     pictureBoxButtons[3][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
-            //   
-            //   
-            //     pictureBoxButtons[3][6].setValue(1);
-            //     pictureBoxButtons[3][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            // pictureBoxButtons[2][5].setValue(1);
+            // pictureBoxButtons[2][5].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //
+            // pictureBoxButtons[5][0].setValue(2);
+            // pictureBoxButtons[5][0].getPictureBox().BackgroundImage = Resources.RedPiece;
+            //
+            // //pictureBoxButtons[6][1].setValue(1);
+            // //pictureBoxButtons[6][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //
+            // pictureBoxButtons[5][4].setValue(1);
+            // pictureBoxButtons[5][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //
+            //// pictureBoxButtons[5][6].setValue(1);
+            /// pictureBoxButtons[5][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //
+            // pictureBoxButtons[1][1].setValue(1);
+            // pictureBoxButtons[1][1].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //
+            //    //pictureBoxButtons[7][4].setValue(1);
+            //    //pictureBoxButtons[7][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //    //
+            //    //   pictureBoxButtons[2][2].setValue(1);
+            //    //     pictureBoxButtons[2][2].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //    //   
+            //    //     pictureBoxButtons[3][4].setValue(1);
+            //    //     pictureBoxButtons[3][4].getPictureBox().BackgroundImage = Resources.BlackPiece;
+            //    //   
+            //    //   
+            //    //     pictureBoxButtons[3][6].setValue(1);
+            //    //     pictureBoxButtons[3][6].getPictureBox().BackgroundImage = Resources.BlackPiece;
         }
 
         private void initPlayerNames()
@@ -203,7 +206,8 @@ namespace TurkishDraughts
         private async Task checkGameOver(PlayerClass player1, PlayerClass player2)
         {
             //verifica daca nu exista nici o piesa neagra sau rosie pe tabla
-            await Task.Delay(1000);
+            //await Task.Delay(1000);
+            await Task.WhenAll(tasks);
             int counterRed = 0, counterBlack = 0;
             for (int i = 0; i < 8; i++)
             {
@@ -314,7 +318,7 @@ namespace TurkishDraughts
 
         public async Task checkFinalMove(int i_initial, int j_initial, int i_final, int j_final)
         {
-            //await Task.Delay(0);
+            //await Task.WhenAll(tasks);
             //verificam daca locul unde vrem sa mutam e permis, da->muta, nu->reseteaza miscare
             if (specialProprieties.getPressed() == true)
             {
@@ -1539,7 +1543,7 @@ namespace TurkishDraughts
                             if (checkMultipleMoves(i, j, i_capture, j_capture))
                             {
                                 pictureBoxButtons[i_capture][j_capture].setValue(0);
-                                computerMove(i, j, i_capture, j_capture);  
+                                computerMove(i, j, i_capture, j_capture);
                                 specialProprieties.setLastMultipleMoveI(i);
                                 specialProprieties.setLastMultipleMoveJ(j);
                                 i = i_capture; j = j_capture;
@@ -1824,9 +1828,10 @@ namespace TurkishDraughts
             removeBoardTraces();
         }
 
-        private int computerAISteps(bool playerColor, bool var)
+        private async Task<int> computerAISteps(bool playerColor, bool var)
         {
             //player false-negru, true-rosu
+            tasks.Clear();
             int robotIndex;
             if (playerColor)
             {
@@ -1849,11 +1854,15 @@ namespace TurkishDraughts
                         {
                             if (robotIndex == 1)
                             {
-                                computerBlackKingCapture(i, j);
+                                Task function1 = computerBlackKingCapture(i, j);
+                                tasks.Add(function1);
+                                await function1;
                             }
                             if (robotIndex == 2)
                             {
-                                computerRedKingCapture(i, j);
+                                Task function1 = computerRedKingCapture(i, j);
+                                tasks.Add(function1);
+                                await function1;
                             }
                             return 0;
                         }
@@ -1871,11 +1880,16 @@ namespace TurkishDraughts
                         {
                             if (robotIndex == 1)
                             {
-                                computerBlackPieceCapture(i, j);
+                                Task function1 = computerBlackPieceCapture(i, j);
+                                tasks.Add(function1);
+                                await function1;
                             }
                             if (robotIndex == 2)
                             {
-                                computerRedPieceCapture(i, j);
+                                Task function1 = computerRedPieceCapture(i, j);
+                                tasks.Add(function1);
+                                await function1;
+
                             }
                             return 0;
                         }
@@ -1914,9 +1928,18 @@ namespace TurkishDraughts
             if (var)
             {
                 if (robotIndex == 1)
-                    computerBlackKingChangePosition();
+                {
+                    Task function1 = computerBlackKingChangePosition();
+                    tasks.Add(function1);
+                    await function1;
+                }
                 if (robotIndex == 2)
-                    computerRedKingChangePosition();
+                {
+                    Task function1 = computerRedKingChangePosition();
+                    tasks.Add(function1);
+                    await function1;
+                }
+
 
                 return 0;
             }

@@ -95,7 +95,7 @@
             MinimumSize = new Size(796, 832);
             Name = "GameBoard";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "GameBoard";
+            Text = "Turkish Draughts";
             ResumeLayout(false);
             PerformLayout();
         }

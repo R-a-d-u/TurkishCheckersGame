@@ -330,7 +330,7 @@
             MinimumSize = new Size(816, 489);
             Name = "GameMenu";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Game Menu";
             ResumeLayout(false);
             PerformLayout();
         }

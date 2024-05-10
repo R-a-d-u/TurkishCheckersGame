@@ -144,7 +144,7 @@
             MinimumSize = new Size(796, 832);
             Name = "GameBoardVsRobot";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "GameBoardVsRobot";
+            Text = "Turkish Draughts";
             ResumeLayout(false);
             PerformLayout();
         }

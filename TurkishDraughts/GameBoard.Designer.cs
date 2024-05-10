@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameBoard));
             currentPlayerTextBox = new TextBox();
             player1TextBox = new TextBox();
             player2TextBox = new TextBox();
@@ -91,6 +92,7 @@
             Controls.Add(currentPlayerTextBox);
             DoubleBuffered = true;
             ForeColor = Color.Black;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximumSize = new Size(796, 832);
             MinimumSize = new Size(796, 832);
             Name = "GameBoard";

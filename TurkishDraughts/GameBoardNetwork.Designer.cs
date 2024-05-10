@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameBoardNetwork));
             serverStartButton = new Button();
             clientButton = new Button();
             clientIPTextBox = new TextBox();
@@ -131,6 +132,7 @@
             Controls.Add(clientButton);
             Controls.Add(serverStartButton);
             DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximumSize = new Size(796, 832);
             MinimumSize = new Size(796, 832);
             Name = "GameBoardNetwork";

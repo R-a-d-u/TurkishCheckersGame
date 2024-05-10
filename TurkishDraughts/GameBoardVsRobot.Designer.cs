@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameBoardVsRobot));
             player1TextBox = new TextBox();
             player2TextBox = new TextBox();
             currentPlayerTextBox = new TextBox();
@@ -139,6 +140,7 @@
             Controls.Add(player2TextBox);
             Controls.Add(player1TextBox);
             DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Location = new Point(796, 832);
             MaximumSize = new Size(796, 832);
             MinimumSize = new Size(796, 832);

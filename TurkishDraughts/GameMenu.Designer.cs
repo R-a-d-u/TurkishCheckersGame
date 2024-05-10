@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameMenu));
             player1LocalTextBox = new TextBox();
             player2LocalTextBox = new TextBox();
             startGame1Button = new Button();
@@ -326,6 +327,7 @@
             Controls.Add(player2LocalTextBox);
             Controls.Add(player1LocalTextBox);
             DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximumSize = new Size(816, 489);
             MinimumSize = new Size(816, 489);
             Name = "GameMenu";

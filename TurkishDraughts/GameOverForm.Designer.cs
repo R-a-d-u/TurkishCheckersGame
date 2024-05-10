@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameOverForm));
             pictureBox1 = new PictureBox();
             labelText = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -62,6 +63,7 @@
             Controls.Add(labelText);
             Controls.Add(pictureBox1);
             DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximumSize = new Size(500, 310);
             MinimumSize = new Size(500, 310);
             Name = "GameOverForm";

@@ -10,7 +10,7 @@ namespace TurkishDraughts
         private int i_firstMove, j_firstMove;
         private bool playerRobot = false;
         private String playerName;
-        private List<Task> tasks = new List<Task>();
+        private List<Task> allRunningAsyncTasks = new List<Task>();
         List<Tuple<int, int>> redPiecesWhoCanCapture = new List<Tuple<int, int>>();
         List<Tuple<int, int>> blackPiecesWhoCanCapture = new List<Tuple<int, int>>();
         //bool timer
@@ -207,7 +207,7 @@ namespace TurkishDraughts
         {
             //verifica daca nu exista nici o piesa neagra sau rosie pe tabla
             //await Task.Delay(1000);
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(allRunningAsyncTasks);
             int counterRed = 0, counterBlack = 0;
             for (int i = 0; i < 8; i++)
             {
@@ -1831,7 +1831,7 @@ namespace TurkishDraughts
         private async Task<int> computerAISteps(bool playerColor, bool var)
         {
             //player false-negru, true-rosu
-            tasks.Clear();
+            allRunningAsyncTasks.Clear();
             int robotIndex;
             if (playerColor)
             {
@@ -1854,15 +1854,15 @@ namespace TurkishDraughts
                         {
                             if (robotIndex == 1)
                             {
-                                Task function1 = computerBlackKingCapture(i, j);
-                                tasks.Add(function1);
-                                await function1;
+                                Task tempAsyncFunction = computerBlackKingCapture(i, j);
+                                allRunningAsyncTasks.Add(tempAsyncFunction);
+                                await tempAsyncFunction;
                             }
                             if (robotIndex == 2)
                             {
-                                Task function1 = computerRedKingCapture(i, j);
-                                tasks.Add(function1);
-                                await function1;
+                                Task tempAsyncFunction = computerRedKingCapture(i, j);
+                                allRunningAsyncTasks.Add(tempAsyncFunction);
+                                await tempAsyncFunction;
                             }
                             return 0;
                         }
@@ -1880,15 +1880,15 @@ namespace TurkishDraughts
                         {
                             if (robotIndex == 1)
                             {
-                                Task function1 = computerBlackPieceCapture(i, j);
-                                tasks.Add(function1);
-                                await function1;
+                                Task tempAsyncFunction = computerBlackPieceCapture(i, j);
+                                allRunningAsyncTasks.Add(tempAsyncFunction);
+                                await tempAsyncFunction;
                             }
                             if (robotIndex == 2)
                             {
-                                Task function1 = computerRedPieceCapture(i, j);
-                                tasks.Add(function1);
-                                await function1;
+                                Task tempAsyncFunction = computerRedPieceCapture(i, j);
+                                allRunningAsyncTasks.Add(tempAsyncFunction);
+                                await tempAsyncFunction;
 
                             }
                             return 0;
@@ -1929,15 +1929,15 @@ namespace TurkishDraughts
             {
                 if (robotIndex == 1)
                 {
-                    Task function1 = computerBlackKingChangePosition();
-                    tasks.Add(function1);
-                    await function1;
+                    Task tempAsyncFunction = computerBlackKingChangePosition();
+                    allRunningAsyncTasks.Add(tempAsyncFunction);
+                    await tempAsyncFunction;
                 }
                 if (robotIndex == 2)
                 {
-                    Task function1 = computerRedKingChangePosition();
-                    tasks.Add(function1);
-                    await function1;
+                    Task tempAsyncFunction = computerRedKingChangePosition();
+                    allRunningAsyncTasks.Add(tempAsyncFunction);
+                    await tempAsyncFunction;
                 }
 
 

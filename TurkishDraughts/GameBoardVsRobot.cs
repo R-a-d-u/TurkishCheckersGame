@@ -20,9 +20,9 @@ namespace TurkishDraughts
             MaximizeBox = false;
             playerName = playerNameForm;
             initStartState();
+            InitializeComponent();
             initBoardButtons();//pune pictureboxurile pe tabla
             blockPictureBox();
-            InitializeComponent();
             initPlayerNames();
             choseColorButtonBlink();
             //stare initiala jucator actual
@@ -234,7 +234,7 @@ namespace TurkishDraughts
                     gameOverForm.Show();
                 }
                 if (counterRed == 0)
-                {    
+                {
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     currentPlayerTextBox.Text = "Game over";

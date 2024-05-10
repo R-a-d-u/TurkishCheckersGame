@@ -224,21 +224,21 @@ namespace TurkishDraughts
             {
                 if (counterBlack == 0)
                 {
-                    MessageBox.Show(player1.getName() + " wins");
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player1.getName());
+                    MessageBox.Show(player1.getName() + " wins");
                 }
                 if (counterRed == 0)
-                {
-                    MessageBox.Show(player2.getName() + " wins");
+                {    
                     player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player2.getName());
+                    MessageBox.Show(player2.getName() + " wins");
                 }
 
                 blockPictureBox();
@@ -246,11 +246,11 @@ namespace TurkishDraughts
             }
             if (counterBlack == 1 && counterRed == 1 && specialProprieties.getMultipleMove() == false)
             {
-                MessageBox.Show("Draw");
                 player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 currentPlayerTextBox.Text = "Game over";
                 currentPlayerTextBox.ForeColor = Color.Blue;
+                MessageBox.Show("Draw");
                 blockPictureBox();
                 removeBoardTraces();
             }

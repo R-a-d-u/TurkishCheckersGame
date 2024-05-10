@@ -66,6 +66,7 @@
             MinimumSize = new Size(500, 310);
             Name = "GameOverForm";
             StartPosition = FormStartPosition.CenterScreen;
+            Text = "Thank you for playing!";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

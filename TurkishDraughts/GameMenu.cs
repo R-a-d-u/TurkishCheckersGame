@@ -14,7 +14,7 @@ namespace TurkishDraughts
             bool isopen = false;
             foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
             {
-                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork" || f.Name == "GameBoardVsRobot")
+                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork" || f.Name == "GameBoardVsRobot" || f.Name == "GameOverForm")
                 {
                     isopen = true;
                     f.BringToFront();//se selecteaza ultimul forms deschis ca principal
@@ -39,7 +39,7 @@ namespace TurkishDraughts
             bool isopen = false;
             foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
             {
-                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork" || f.Name == "GameBoardVsRobot")
+                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork" || f.Name == "GameBoardVsRobot" || f.Name == "GameOverForm")
                 {
                     isopen = true;
                     f.BringToFront();//se selecteaza ultimul forms deschis ca principal
@@ -63,7 +63,7 @@ namespace TurkishDraughts
             bool isopen = false;
             foreach (Form f in Application.OpenForms)//verifica elementele deschise din aplicatie
             {
-                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork" || f.Name == "GameBoardVsRobot")
+                if (f.Name == "GameBoard" || f.Name == "GameBoardNetwork" || f.Name == "GameBoardVsRobot" || f.Name == "GameOverForm")
                 {
                     isopen = true;
                     f.BringToFront();//se selecteaza ultimul forms deschis ca principal

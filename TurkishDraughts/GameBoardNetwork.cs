@@ -494,7 +494,9 @@ namespace TurkishDraughts
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
-                    MessageBox.Show(player1.getName() + " wins!");
+                    GameOverForm gameOverForm = new GameOverForm("Game over.\n" + player1.getName() + " wins!");
+                    gameOverForm.Show();
+                    //MessageBox.Show(player1.getName() + " wins!");
                 }
                 if (counterRed == 0)
                 {
@@ -502,17 +504,21 @@ namespace TurkishDraughts
                     player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
-                    MessageBox.Show(player2.getName() + " wins!");
+                    GameOverForm gameOverForm = new GameOverForm("Game over.\n" + player2.getName() + " wins!");
+                    gameOverForm.Show();
+                    //MessageBox.Show(player2.getName() + " wins!");
                 }
                 return true;
             }
             if (counterRed == 1 && counterBlack == 1 && specialProprieties.getMultipleMove() == false)
             {
-                MessageBox.Show("Draw");
+                //MessageBox.Show("Draw");
                 player1TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 player2TextBox.BackColor = Color.FromArgb(49, 46, 43);
                 currentPlayerTextBox.Text = "Game over";
                 currentPlayerTextBox.ForeColor = Color.Blue;
+                GameOverForm gameOverForm = new GameOverForm("Game over.\n" + "It's a draw!");
+                gameOverForm.Show();
                 removeBoardTraces();
                 return true;
             }

@@ -2,27 +2,27 @@
 {
     internal class SpecialProprieties
     {
+        //false-nu este apasat, true-este apasat
         private bool pressed;
 
-        //false-nu este apasat, true-este apasat
+        //false-negru true-rosu
         private bool playerTurn;
 
-        //false-negru true-rosu
-        private bool multipleMove;
+        private bool pieceCanDoAMultipleMove;
 
         //daca suntem in proces de mutare multipla
-        private int lastMultipleMoveI, lastMultipleMoveJ, currentMultipleMoveI, currentMultipleMoveJ;
+        private int lastMultipleMovePositionI, lastMultipleMovePositionJ, currentMultipleMovePositionI, currentMultipleMovePositionJ;
 
         //pozitia actuala si trecuta a piesei cu miscare multipla
-        public SpecialProprieties(bool pressed, bool playerTurn, bool multipleMove, int lastMultipleMoveI, int lastMultipleMoveJ, int currentMultipleMoveI, int currentMultipleMoveJ)
+        public SpecialProprieties(bool pressed, bool playerTurn, bool pieceCanDoAMultipleMove, int lastMultipleMovePositionI, int lastMultipleMovePositionJ, int currentMultipleMovePositionI, int currentMultipleMovePositionJ)
         {
             this.pressed = pressed;
             this.playerTurn = playerTurn;
-            this.multipleMove = multipleMove;
-            this.lastMultipleMoveI = lastMultipleMoveI;
-            this.lastMultipleMoveJ = lastMultipleMoveJ;
-            this.currentMultipleMoveI = currentMultipleMoveI;
-            this.currentMultipleMoveJ = currentMultipleMoveJ;
+            this.pieceCanDoAMultipleMove = pieceCanDoAMultipleMove;
+            this.lastMultipleMovePositionI = lastMultipleMovePositionI;
+            this.lastMultipleMovePositionJ = lastMultipleMovePositionJ;
+            this.currentMultipleMovePositionI = currentMultipleMovePositionI;
+            this.currentMultipleMovePositionJ = currentMultipleMovePositionJ;
         }
 
         public bool getPressed()
@@ -45,54 +45,54 @@
             this.playerTurn = playerTurn;
         }
 
-        public void setMultipleMoves(bool multipleMove)
+        public void setPieceCanDoAMultipleMove(bool multipleMove)
         {
-            this.multipleMove = multipleMove;
+            this.pieceCanDoAMultipleMove = multipleMove;
         }
 
-        public bool getMultipleMove()
+        public bool getPieceCanDoAMultipleMove()
         {
-            return multipleMove;
+            return pieceCanDoAMultipleMove;
         }
 
-        public void setLastMultipleMoveI(int lastMultipleMoveI)
+        public void setLastMultipleMovePositionI(int lastMultipleMovePositionI)
         {
-            this.lastMultipleMoveI = lastMultipleMoveI;
+            this.lastMultipleMovePositionI = lastMultipleMovePositionI;
         }
 
-        public void setLastMultipleMoveJ(int lastMultipleMoveJ)
+        public void setLastMultipleMovePositionJ(int lastMultipleMovePositionJ)
         {
-            this.lastMultipleMoveJ = lastMultipleMoveJ;
+            this.lastMultipleMovePositionJ = lastMultipleMovePositionJ;
         }
 
-        public void setCurrentMultipleMoveI(int currentMultipleMoveI)
+        public void setCurrentMultipleMovePositionI(int currentMultipleMovePositionI)
         {
-            this.currentMultipleMoveI = currentMultipleMoveI;
+            this.currentMultipleMovePositionI = currentMultipleMovePositionI;
         }
 
-        public void setCurrentMultipleMoveJ(int currentMultipleMoveJ)
+        public void setCurrentMultipleMovePositionJ(int currentMultipleMovePositionJ)
         {
-            this.currentMultipleMoveJ = currentMultipleMoveJ;
+            this.currentMultipleMovePositionJ = currentMultipleMovePositionJ;
         }
 
-        public int getLastMultipleMoveI()
+        public int getLastMultipleMovePositionI()
         {
-            return lastMultipleMoveI;
+            return lastMultipleMovePositionI;
         }
 
-        public int getLastMultipleMoveJ()
+        public int getLastMultipleMovePositionJ()
         {
-            return lastMultipleMoveJ;
+            return lastMultipleMovePositionJ;
         }
 
-        public int getCurrentMultipleMoveI()
+        public int getCurrentMultipleMovePositionI()
         {
-            return currentMultipleMoveI;
+            return currentMultipleMovePositionI;
         }
 
-        public int getCurrentMultipleMoveJ()
+        public int getCurrentMultipleMovePositionJ()
         {
-            return currentMultipleMoveJ;
+            return currentMultipleMovePositionJ;
         }
     }
 }

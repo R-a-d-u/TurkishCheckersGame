@@ -67,6 +67,7 @@
             // 
             clientIPTextBox.BackColor = Color.FromArgb(241, 217, 181);
             clientIPTextBox.Location = new Point(662, 134);
+            clientIPTextBox.MaxLength = 15;
             clientIPTextBox.Name = "clientIPTextBox";
             clientIPTextBox.Size = new Size(109, 23);
             clientIPTextBox.TabIndex = 2;

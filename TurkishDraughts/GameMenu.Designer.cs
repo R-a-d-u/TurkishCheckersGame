@@ -56,6 +56,7 @@
             player1LocalTextBox.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
             player1LocalTextBox.ForeColor = Color.White;
             player1LocalTextBox.Location = new Point(126, 189);
+            player1LocalTextBox.MaxLength = 30;
             player1LocalTextBox.Name = "player1LocalTextBox";
             player1LocalTextBox.Size = new Size(100, 25);
             player1LocalTextBox.TabIndex = 5;
@@ -67,6 +68,7 @@
             player2LocalTextBox.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
             player2LocalTextBox.ForeColor = Color.White;
             player2LocalTextBox.Location = new Point(126, 237);
+            player2LocalTextBox.MaxLength = 30;
             player2LocalTextBox.Name = "player2LocalTextBox";
             player2LocalTextBox.Size = new Size(100, 25);
             player2LocalTextBox.TabIndex = 6;
@@ -95,6 +97,7 @@
             playerNetworkTextBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             playerNetworkTextBox.ForeColor = Color.White;
             playerNetworkTextBox.Location = new Point(377, 190);
+            playerNetworkTextBox.MaxLength = 30;
             playerNetworkTextBox.Name = "playerNetworkTextBox";
             playerNetworkTextBox.Size = new Size(114, 23);
             playerNetworkTextBox.TabIndex = 18;
@@ -107,6 +110,7 @@
             playerVsAITextBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             playerVsAITextBox.ForeColor = Color.White;
             playerVsAITextBox.Location = new Point(637, 189);
+            playerVsAITextBox.MaxLength = 30;
             playerVsAITextBox.Name = "playerVsAITextBox";
             playerVsAITextBox.Size = new Size(107, 23);
             playerVsAITextBox.TabIndex = 19;

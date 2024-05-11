@@ -7,10 +7,10 @@ namespace TurkishDraughts
     internal class PieceClass
     {
         private int i, j, value;
-        private PictureBox? pictureBoxButtons;
-        private GameBoard? gameBoard;
-        private GameBoardNetwork? gameBoardNetwork;
-        private GameBoardVsRobot? gameBoardVsRobot;
+        private PictureBox pictureBoxButtons;
+        private GameBoard gameBoard;
+        private GameBoardNetwork gameBoardNetwork;
+        private GameBoardVsRobot gameBoardVsRobot;
 
       
         private void pictureBoxClick(object sender, EventArgs e)

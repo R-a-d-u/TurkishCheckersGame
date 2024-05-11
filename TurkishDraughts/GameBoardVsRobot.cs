@@ -13,7 +13,6 @@ namespace TurkishDraughts
         private List<Task> allRunningAsyncTasks = new List<Task>();
         List<Tuple<int, int>> redPiecesWhoCanCapture = new List<Tuple<int, int>>();
         List<Tuple<int, int>> blackPiecesWhoCanCapture = new List<Tuple<int, int>>();
-        //bool timer
 
         public GameBoardVsRobot(String playerNameForm)
         {
@@ -21,11 +20,10 @@ namespace TurkishDraughts
             playerName = playerNameForm;
             initStartState();
             InitializeComponent();
-            initBoardButtons();//pune pictureboxurile pe tabla
+            initBoardButtons();
             blockPictureBox();
             initPlayerNames();
             choseColorButtonBlink();
-            //stare initiala jucator actual
         }
 
         private async Task choseColorButtonBlink()
@@ -179,7 +177,6 @@ namespace TurkishDraughts
                         redPiecesWhoCanCapture.Add(Tuple.Create(i, j));
                     }
                 }
-            //redPiecesWhoCanCapture.Add(Tuple.Create(-1, -1));
             if (moveFound)
                 return true;
             return false;
@@ -197,7 +194,6 @@ namespace TurkishDraughts
                         blackPiecesWhoCanCapture.Add(Tuple.Create(i, j));
                     }
                 }
-            //redPiecesWhoCanCapture.Add(Tuple.Create(-1, -1));
             if (moveFound)
                 return true;
             return false;
@@ -205,8 +201,6 @@ namespace TurkishDraughts
 
         private async Task checkGameOver(PlayerClass player1, PlayerClass player2)
         {
-            //verifica daca nu exista nici o piesa neagra sau rosie pe tabla
-            //await Task.Delay(1000);
             await Task.WhenAll(allRunningAsyncTasks);
             int counterRed = 0, counterBlack = 0;
             for (int i = 0; i < 8; i++)
@@ -229,7 +223,6 @@ namespace TurkishDraughts
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player1.getName());
-                    //MessageBox.Show(player1.getName() + " wins");
                     GameOverForm gameOverForm = new GameOverForm("Game over.\n" + player1.getName() + " wins!");
                     gameOverForm.Show();
                 }
@@ -240,7 +233,6 @@ namespace TurkishDraughts
                     currentPlayerTextBox.Text = "Game over";
                     currentPlayerTextBox.ForeColor = Color.Blue;
                     currentPlayer.setName(player2.getName());
-                    //MessageBox.Show(player2.getName() + " wins");
                     GameOverForm gameOverForm = new GameOverForm("Game over.\n" + player2.getName() + " wins!");
                     gameOverForm.Show();
                 }
@@ -256,7 +248,6 @@ namespace TurkishDraughts
                 currentPlayerTextBox.ForeColor = Color.Blue;
                 GameOverForm gameOverForm = new GameOverForm("Game over.\n" + "It's a draw!");
                 gameOverForm.Show();
-                //MessageBox.Show("Draw");
                 blockPictureBox();
                 removeBoardTraces();
             }
@@ -306,15 +297,13 @@ namespace TurkishDraughts
         }
 
         public void resetPictureboxPressed(int i_initial, int j_initial, int i_final, int j_final)
-        {
-            //se trece la starea initiala daca nu e miscarea legala
+        { 
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
             specialProprieties.setPressed(false);
         }
 
         public void checkInitialMove(int i, int j)
         {
-            //retinem pozitia butonului si afisam miscarile posibile lui
             i_firstMove = i;
             j_firstMove = j;
             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.GreenYellow;
@@ -324,7 +313,6 @@ namespace TurkishDraughts
 
         public async Task checkFinalMove(int i_initial, int j_initial, int i_final, int j_final)
         {
-            //await Task.WhenAll(tasks);
             //verificam daca locul unde vrem sa mutam e permis, da->muta, nu->reseteaza miscare
             if (specialProprieties.getPressed() == true)
             {
@@ -346,7 +334,8 @@ namespace TurkishDraughts
                     blackPiecesWhoCanCapture.Clear();
                     movePiece(i_initial, j_initial, i_final, j_final);
 
-                    await Task.Delay(300);//delay 0.3 sec intre mutare jucator si robot
+                    //delay 0.3 sec intre mutare jucator si robot
+                    await Task.Delay(300);
 
                     if (specialProprieties.getPlayerTurn() == !playerRobot)
                         computerAISteps(playerRobot, false);
@@ -648,7 +637,7 @@ namespace TurkishDraughts
 
         public void drawRedPieceTrace(int i, int j)
         {
-            //spatiu gol
+            //spatiul gol
             if (specialProprieties.getMultipleMove() == false && !checkIfFirstRedPieceCanCapture())
             {
                 if (i > 0 && pictureBoxButtons[i - 1][j].getValue() == 0)
@@ -658,7 +647,7 @@ namespace TurkishDraughts
                 if (j < 7 && pictureBoxButtons[i][j + 1].getValue() == 0)
                     pictureBoxButtons[i][j + 1].getPictureBox().BackColor = Color.GreenYellow;
             }
-            //piesa langa
+            //spatiul sariturii peste piesa ce poate fi capturata
             if (i > 1 && pictureBoxButtons[i - 2][j].getValue() == 0 && pictureBoxButtons[i - 1][j].getValue() % 2 != 0)
                 pictureBoxButtons[i - 2][j].getPictureBox().BackColor = Color.GreenYellow;
             if (j > 1 && pictureBoxButtons[i][j - 2].getValue() == 0 && pictureBoxButtons[i][j - 1].getValue() % 2 != 0)
@@ -674,7 +663,7 @@ namespace TurkishDraughts
 
         public void drawBlackPieceTrace(int i, int j)
         {
-            //spatiu gol
+            //spatiul gol
             if (specialProprieties.getMultipleMove() == false && !checkIfFirstBlackPieceCanCapture())
             {
                 if (i < 7 && pictureBoxButtons[i + 1][j].getValue() == 0)
@@ -684,7 +673,7 @@ namespace TurkishDraughts
                 if (j > 0 && pictureBoxButtons[i][j - 1].getValue() == 0)
                     pictureBoxButtons[i][j - 1].getPictureBox().BackColor = Color.GreenYellow;
             }
-            //piesa langa
+            //spatiul sariturii peste piesa ce poate fi capturata
             if (i < 6 && pictureBoxButtons[i + 2][j].getValue() == 0 && pictureBoxButtons[i + 1][j].getValue() % 2 == 0 && pictureBoxButtons[i + 1][j].getValue() != 0)
                 pictureBoxButtons[i + 2][j].getPictureBox().BackColor = Color.GreenYellow;
             if (j < 6 && pictureBoxButtons[i][j + 2].getValue() == 0 && pictureBoxButtons[i][j + 1].getValue() % 2 == 0 && pictureBoxButtons[i][j + 1].getValue() != 0)
@@ -957,11 +946,6 @@ namespace TurkishDraughts
                             if ((specialProprieties.getCurrentMultipleMoveI() != i || specialProprieties.getCurrentMultipleMoveJ() != j))
                                 removeBoardTraces();
                         }
-
-
-
-
-
                     }
                 }
             }
@@ -1048,7 +1032,6 @@ namespace TurkishDraughts
 
         public bool removeCapturedPieces(int i_initial, int j_initial, int i_final, int j_final)
         {
-            //vector intre pozitia de unde a plecat -> unde a ajuns o piesa, sterge tot intre
             if (j_initial > j_final)
             {
                 int j_temp = j_final; j_final = j_initial; j_initial = j_temp;
@@ -1066,6 +1049,7 @@ namespace TurkishDraughts
                         pictureBoxButtons[i][j_final].getPictureBox().BackgroundImage = null;
                         return true;
                     }
+
             if (i_initial == i_final && j_initial != j_final + 1)
                 for (int j = j_initial + 1; j < j_final; j++)
                     if (pictureBoxButtons[i_initial][j].getValue() != 0)
@@ -1074,12 +1058,12 @@ namespace TurkishDraughts
                         pictureBoxButtons[i_initial][j].getPictureBox().BackgroundImage = null;
                         return true;
                     }
+
             return false;
         }
 
         public bool AIremoveCapturedPieces(int i_initial, int j_initial, int i_final, int j_final, int[,] valuesMatrix)
         {
-            // Swapping the initial and final indices if necessary
             if (j_initial > j_final)
             {
                 int j_temp = j_final;
@@ -1093,7 +1077,6 @@ namespace TurkishDraughts
                 i_initial = i_temp;
             }
 
-            // Removing captured pieces along a column
             if (j_initial == j_final && i_initial != i_final + 1)
             {
                 for (int i = i_initial + 1; i < i_final; i++)
@@ -1105,7 +1088,7 @@ namespace TurkishDraughts
                     }
                 }
             }
-            // Removing captured pieces along a row
+
             if (i_initial == i_final && j_initial != j_final + 1)
             {
                 for (int j = j_initial + 1; j < j_final; j++)
@@ -1143,7 +1126,6 @@ namespace TurkishDraughts
                     specialProprieties.setLastMultipleMoveJ(j_initial);
                     specialProprieties.setCurrentMultipleMoveI(i_final);
                     specialProprieties.setCurrentMultipleMoveJ(j_final);
-                    //daca piesa ajunge la final si inca mai poate sari peste alta piesa, sare pestea ea apoi devine rege
                 }
             }
             else
@@ -1285,8 +1267,6 @@ namespace TurkishDraughts
                 bool i_down = false;
                 bool j_right = false;
                 bool j_left = false;
-                //int i_initial = specialProprieties.getLastMultipleMoveI();
-                // int j_initial = specialProprieties.getLastMultipleMoveJ();
 
                 if (!firstLoop)
                 {
@@ -1448,7 +1428,6 @@ namespace TurkishDraughts
                             pictureBoxButtons[i_capture][j_capture].setValue(0);
                         }
                     }
-                //  drawBlackKingDownTrace(i, j);
 
                 continueWhile: continue;
 
@@ -1836,8 +1815,11 @@ namespace TurkishDraughts
 
         private async Task<int> computerAISteps(bool playerColor, bool startWithStep5)
         {
-            //player false-negru, true-rosu
+            redPiecesWhoCanCapture.Clear();
+            blackPiecesWhoCanCapture.Clear();
             allRunningAsyncTasks.Clear();
+
+            //playerColor false-negru, true-rosu
             int robotIndex;
             if (playerColor)
             {
@@ -1847,13 +1829,12 @@ namespace TurkishDraughts
             {
                 robotIndex = 1;
             }
-            redPiecesWhoCanCapture.Clear();
-            blackPiecesWhoCanCapture.Clear();
+            //sarim la pasul 5 daca regele nu isi poate schimba pozitia de pe ultimul rand
             if (startWithStep5)
             {
                 goto Step5;
             }
-        //rege negru captura
+        //regele cauta cat mai multe capturi posibile 
         Step1:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
@@ -1879,7 +1860,7 @@ namespace TurkishDraughts
                     }
                 }
 
-            //piesa neagra captura
+            //piesa cauta cat mai multe capturi posibile
             Step2:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
@@ -1906,7 +1887,7 @@ namespace TurkishDraughts
                     }
                 }
 
-            //mergi in fata daca e ultimul rand pt rege
+            //mergi in fata daca piesa e penultimul rand pt. a deveni rege
             Step3:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
@@ -1926,7 +1907,7 @@ namespace TurkishDraughts
                     }
                 }
 
-            //regele isi schimba pozitia pt captura daca e ultimul rand
+            //regele isi schimba pozitia pt captura daca e ultimul rand sau se muta pe ultimul rand
             Step4:
             if (!startWithStep5)
             {
@@ -1942,13 +1923,11 @@ namespace TurkishDraughts
                     allRunningAsyncTasks.Add(tempAsyncFunction);
                     await tempAsyncFunction;
                 }
-
-
                 return 0;
             }
            
 
-        //miscare in fata daca e spatiu liber
+        //piesa misca in fata daca exista spatiu liber si nu e atacata
         Step5:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
@@ -1969,7 +1948,7 @@ namespace TurkishDraughts
                             }
                     }
                 }
-            //miscare lateral daca e spatiu gol
+            //piesa misca in lateral daca exista spatiu liber si nu e atacata
             Step6:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
@@ -1989,7 +1968,7 @@ namespace TurkishDraughts
                             return 0;
                         }
                 }
-            //miscare in fata
+            //miscare in fata chiar daca piesa va fi atacata
             Step7:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
@@ -2008,7 +1987,7 @@ namespace TurkishDraughts
                         }
                     }
                 }
-            //miscare lateral
+            //miscare lateral chiar daca piesa va fi atacata
             Step8:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)

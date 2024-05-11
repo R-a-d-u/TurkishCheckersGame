@@ -14,12 +14,10 @@ namespace TurkishDraughts
         public GameBoard(String player1, String player2)
         {
             MaximizeBox = false;
-
             initStartState();
             InitializeComponent();
-            initBoardButtons();//pune pictureboxurile pe tabla
+            initBoardButtons();
             initPlayerNames(player1, player2);
-            //stare initiala jucator actual
         }
 
         private void initBoardButtons()

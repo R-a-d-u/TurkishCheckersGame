@@ -349,7 +349,7 @@ namespace TurkishDraughts
                     await Task.Delay(300);//delay 0.3 sec intre mutare jucator si robot
 
                     if (specialProprieties.getPlayerTurn() == !playerRobot)
-                        computerAISteps(playerRobot, true);
+                        computerAISteps(playerRobot, false);
 
                 }
                 removeBoardTraces();
@@ -1733,7 +1733,7 @@ namespace TurkishDraughts
             }
             else
             {
-                computerAISteps(playerRobot, false);
+                computerAISteps(playerRobot, true);
             }
         }
 
@@ -1834,7 +1834,7 @@ namespace TurkishDraughts
             removeBoardTraces();
         }
 
-        private async Task<int> computerAISteps(bool playerColor, bool var)
+        private async Task<int> computerAISteps(bool playerColor, bool startWithStep5)
         {
             //player false-negru, true-rosu
             allRunningAsyncTasks.Clear();
@@ -1849,6 +1849,10 @@ namespace TurkishDraughts
             }
             redPiecesWhoCanCapture.Clear();
             blackPiecesWhoCanCapture.Clear();
+            if (startWithStep5)
+            {
+                goto Step5;
+            }
         //rege negru captura
         Step1:
             for (int i = 0; i < 8; i++)
@@ -1924,7 +1928,7 @@ namespace TurkishDraughts
 
             //regele isi schimba pozitia pt captura daca e ultimul rand
             Step4:
-            if (var)
+            if (!startWithStep5)
             {
                 if (robotIndex == 1)
                 {
@@ -1942,7 +1946,7 @@ namespace TurkishDraughts
 
                 return 0;
             }
-            var = true;
+           
 
         //miscare in fata daca e spatiu liber
         Step5:

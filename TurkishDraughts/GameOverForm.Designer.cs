@@ -49,9 +49,9 @@
             labelText.BackColor = Color.Transparent;
             labelText.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
             labelText.ForeColor = Color.White;
-            labelText.Location = new Point(70, 9);
+            labelText.Location = new Point(19, 9);
             labelText.Name = "labelText";
-            labelText.Size = new Size(300, 57);
+            labelText.Size = new Size(401, 57);
             labelText.TabIndex = 1;
             labelText.TextAlign = ContentAlignment.MiddleCenter;
             // 

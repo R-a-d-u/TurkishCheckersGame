@@ -36,7 +36,6 @@
             playerVsAITextBox = new TextBox();
             startGame2Button = new Button();
             startGame3Button = new Button();
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             textBox2 = new TextBox();
             textBox3 = new TextBox();
             label4 = new Label();
@@ -345,7 +344,6 @@
         private TextBox playerVsAITextBox;
         private Button startGame2Button;
         private Button startGame3Button;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private TextBox textBox2;
         private TextBox textBox3;
         private Label label4;

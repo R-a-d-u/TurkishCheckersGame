@@ -297,7 +297,7 @@ namespace TurkishDraughts
         }
 
         public void resetPictureboxPressed(int i_initial, int j_initial, int i_final, int j_final)
-        { 
+        {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
             specialProprieties.setPressed(false);
         }
@@ -1834,8 +1834,9 @@ namespace TurkishDraughts
             {
                 goto Step5;
             }
+
         //regele cauta cat mai multe capturi posibile 
-        Step1:
+        //Step1:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1861,7 +1862,7 @@ namespace TurkishDraughts
                 }
 
             //piesa cauta cat mai multe capturi posibile
-            Step2:
+            //Step2:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1888,7 +1889,7 @@ namespace TurkishDraughts
                 }
 
             //mergi in fata daca piesa e penultimul rand pt. a deveni rege
-            Step3:
+            //Step3:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1908,7 +1909,7 @@ namespace TurkishDraughts
                 }
 
             //regele isi schimba pozitia pt captura daca e ultimul rand sau se muta pe ultimul rand
-            Step4:
+            //Step4:
             if (!startWithStep5)
             {
                 if (robotIndex == 1)
@@ -1925,7 +1926,7 @@ namespace TurkishDraughts
                 }
                 return 0;
             }
-           
+
 
         //piesa misca in fata daca exista spatiu liber si nu e atacata
         Step5:
@@ -1949,7 +1950,7 @@ namespace TurkishDraughts
                     }
                 }
             //piesa misca in lateral daca exista spatiu liber si nu e atacata
-            Step6:
+            //Step6:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1969,7 +1970,7 @@ namespace TurkishDraughts
                         }
                 }
             //miscare in fata chiar daca piesa va fi atacata
-            Step7:
+            //Step7:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -1988,7 +1989,7 @@ namespace TurkishDraughts
                     }
                 }
             //miscare lateral chiar daca piesa va fi atacata
-            Step8:
+            //Step8:
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {

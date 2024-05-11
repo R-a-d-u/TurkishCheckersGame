@@ -338,7 +338,7 @@ namespace TurkishDraughts
                     await Task.Delay(300);
 
                     if (specialProprieties.getPlayerTurn() == !playerRobot)
-                        computerAISteps(playerRobot, false);
+                        computerAIMoveSteps(playerRobot, false);
 
                 }
                 removeBoardTraces();
@@ -1712,7 +1712,7 @@ namespace TurkishDraughts
             }
             else
             {
-                computerAISteps(playerRobot, true);
+                computerAIMoveSteps(playerRobot, true);
             }
         }
 
@@ -1795,7 +1795,7 @@ namespace TurkishDraughts
             }
             else
             {
-                computerAISteps(playerRobot, false);
+                computerAIMoveSteps(playerRobot, false);
             }
         }
 
@@ -1813,21 +1813,21 @@ namespace TurkishDraughts
             removeBoardTraces();
         }
 
-        private async Task<int> computerAISteps(bool playerColor, bool startWithStep5)
+        private async Task<int> computerAIMoveSteps(bool playerColor, bool startWithStep5)
         {
             redPiecesWhoCanCapture.Clear();
             blackPiecesWhoCanCapture.Clear();
             allRunningAsyncTasks.Clear();
 
             //playerColor false-negru, true-rosu
-            int robotIndex;
+            int computerPieceColorIndex;
             if (playerColor)
             {
-                robotIndex = 2;
+                computerPieceColorIndex = 2;
             }
             else
             {
-                robotIndex = 1;
+                computerPieceColorIndex = 1;
             }
             //sarim la pasul 5 daca regele nu isi poate schimba pozitia de pe ultimul rand
             if (startWithStep5)
@@ -1840,17 +1840,17 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (pictureBoxButtons[i][j].getValue() == (robotIndex + 2))
+                    if (pictureBoxButtons[i][j].getValue() == (computerPieceColorIndex + 2))
                     {
                         if (checkMultipleMoves(i, j, i, j))
                         {
-                            if (robotIndex == 1)
+                            if (computerPieceColorIndex == 1)
                             {
                                 Task tempAsyncFunction = computerBlackKingCapture(i, j);
                                 allRunningAsyncTasks.Add(tempAsyncFunction);
                                 await tempAsyncFunction;
                             }
-                            if (robotIndex == 2)
+                            if (computerPieceColorIndex == 2)
                             {
                                 Task tempAsyncFunction = computerRedKingCapture(i, j);
                                 allRunningAsyncTasks.Add(tempAsyncFunction);
@@ -1866,17 +1866,17 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (pictureBoxButtons[i][j].getValue() == robotIndex)
+                    if (pictureBoxButtons[i][j].getValue() == computerPieceColorIndex)
                     {
                         if (checkMultipleMoves(specialProprieties.getCurrentMultipleMovePositionI(), specialProprieties.getCurrentMultipleMovePositionJ(), i, j))
                         {
-                            if (robotIndex == 1)
+                            if (computerPieceColorIndex == 1)
                             {
                                 Task tempAsyncFunction = computerBlackPieceCapture(i, j);
                                 allRunningAsyncTasks.Add(tempAsyncFunction);
                                 await tempAsyncFunction;
                             }
-                            if (robotIndex == 2)
+                            if (computerPieceColorIndex == 2)
                             {
                                 Task tempAsyncFunction = computerRedPieceCapture(i, j);
                                 allRunningAsyncTasks.Add(tempAsyncFunction);
@@ -1893,14 +1893,14 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (pictureBoxButtons[i][j].getValue() == robotIndex)
+                    if (pictureBoxButtons[i][j].getValue() == computerPieceColorIndex)
                     {
-                        if (pictureBoxButtons[i + 1][j].getValue() == 0 && i == 6 && robotIndex == 1)
+                        if (pictureBoxButtons[i + 1][j].getValue() == 0 && i == 6 && computerPieceColorIndex == 1)
                         {
                             movePiece(i, j, i + 1, j);
                             return 0;
                         }
-                        if (pictureBoxButtons[i - 1][j].getValue() == 0 && i == 1 && robotIndex == 2)
+                        if (pictureBoxButtons[i - 1][j].getValue() == 0 && i == 1 && computerPieceColorIndex == 2)
                         {
                             movePiece(i, j, i - 1, j);
                             return 0;
@@ -1912,13 +1912,13 @@ namespace TurkishDraughts
             //Step4:
             if (!startWithStep5)
             {
-                if (robotIndex == 1)
+                if (computerPieceColorIndex == 1)
                 {
                     Task tempAsyncFunction = computerBlackKingChangePosition();
                     allRunningAsyncTasks.Add(tempAsyncFunction);
                     await tempAsyncFunction;
                 }
-                if (robotIndex == 2)
+                if (computerPieceColorIndex == 2)
                 {
                     Task tempAsyncFunction = computerRedKingChangePosition();
                     allRunningAsyncTasks.Add(tempAsyncFunction);
@@ -1933,15 +1933,15 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (pictureBoxButtons[i][j].getValue() == robotIndex)
+                    if (pictureBoxButtons[i][j].getValue() == computerPieceColorIndex)
                     {
-                        if (i < 6 && robotIndex == 1)
+                        if (i < 6 && computerPieceColorIndex == 1)
                             if (pictureBoxButtons[i + 1][j].getValue() == 0 && (pictureBoxButtons[i + 2][j].getValue() % 2 == 1 || pictureBoxButtons[i + 2][j].getValue() == 0))
                             {
                                 movePiece(i, j, i + 1, j);
                                 return 0;
                             }
-                        if (i > 1 && robotIndex == 2)
+                        if (i > 1 && computerPieceColorIndex == 2)
                             if (pictureBoxButtons[i - 1][j].getValue() == 0 && (pictureBoxButtons[i - 2][j].getValue() % 2 == 0 || pictureBoxButtons[i - 2][j].getValue() == 0))
                             {
                                 movePiece(i, j, i - 1, j);
@@ -1954,7 +1954,7 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (pictureBoxButtons[i][j].getValue() == robotIndex && j < 6)
+                    if (pictureBoxButtons[i][j].getValue() == computerPieceColorIndex && j < 6)
                     {
                         if (pictureBoxButtons[i][j + 1].getValue() == 0 && pictureBoxButtons[i][j + 2].getValue() == 0)
                         {
@@ -1962,7 +1962,7 @@ namespace TurkishDraughts
                             return 0;
                         }
                     }
-                    if (pictureBoxButtons[i][j].getValue() == robotIndex && j > 1)
+                    if (pictureBoxButtons[i][j].getValue() == computerPieceColorIndex && j > 1)
                         if (pictureBoxButtons[i][j - 1].getValue() == 0 && pictureBoxButtons[i][j - 2].getValue() == 0)
                         {
                             movePiece(i, j, i, j - 1);
@@ -1974,14 +1974,14 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (pictureBoxButtons[i][j].getValue() == robotIndex)
+                    if (pictureBoxButtons[i][j].getValue() == computerPieceColorIndex)
                     {
-                        if (pictureBoxButtons[i + 1][j].getValue() == 0 && robotIndex == 1 && i < 7)
+                        if (pictureBoxButtons[i + 1][j].getValue() == 0 && computerPieceColorIndex == 1 && i < 7)
                         {
                             movePiece(i, j, i + 1, j);
                             return 0;
                         }
-                        if (pictureBoxButtons[i - 1][j].getValue() == 0 && robotIndex == 2 && i > 0)
+                        if (pictureBoxButtons[i - 1][j].getValue() == 0 && computerPieceColorIndex == 2 && i > 0)
                         {
                             movePiece(i, j, i - 1, j);
                             return 0;
@@ -1993,7 +1993,7 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (pictureBoxButtons[i][j].getValue() == robotIndex)
+                    if (pictureBoxButtons[i][j].getValue() == computerPieceColorIndex)
                     {
                         if (pictureBoxButtons[i][j + 1].getValue() == 0 && j < 7)
                         {
@@ -2001,14 +2001,14 @@ namespace TurkishDraughts
                             return 0;
                         }
                     }
-                    if (pictureBoxButtons[i][j].getValue() == robotIndex && j > 0)
+                    if (pictureBoxButtons[i][j].getValue() == computerPieceColorIndex && j > 0)
                         if (pictureBoxButtons[i][j - 1].getValue() == 0)
                         {
                             movePiece(i, j, i, j - 1);
                             return 0;
                         }
 
-                    if (pictureBoxButtons[i][j].getValue() == robotIndex + 2 && j < 7)
+                    if (pictureBoxButtons[i][j].getValue() == computerPieceColorIndex + 2 && j < 7)
                     {
                         if (pictureBoxButtons[i][j + 1].getValue() == 0)
                         {
@@ -2016,7 +2016,7 @@ namespace TurkishDraughts
                             return 0;
                         }
                     }
-                    if (pictureBoxButtons[i][j].getValue() == robotIndex + 2 && j > 0)
+                    if (pictureBoxButtons[i][j].getValue() == computerPieceColorIndex + 2 && j > 0)
                         if (pictureBoxButtons[i][j - 1].getValue() == 0)
                         {
                             movePiece(i, j, i, j - 1);
@@ -2039,7 +2039,7 @@ namespace TurkishDraughts
             blackColorButton.Width = 110;
 
             unblockPictureBox();
-            computerAISteps(playerRobot, true);
+            computerAIMoveSteps(playerRobot, true);
             player1.setName("Computer");
             player2.setName(playerName);
             player1TextBox.Text = player1.getName();

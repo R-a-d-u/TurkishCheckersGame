@@ -18,6 +18,14 @@ A C# Windows Forms application for playing Turkish Draughts locally or online ag
 - UI: Windows Forms
 - Networking: TCP/IP Sockets
 - AI: Best Move algorithm using Binary Tree
+
+
+
+<div style="display: flex; justify-content: space-between;">
+<img src="https://raw.githubusercontent.com/RaduCruceat/TurkishDraughts/master/TurkishDraughts/Resources/KingMoveAnimation.gif" alt="King Move" width="400">
+<img src="https://raw.githubusercontent.com/RaduCruceat/TurkishDraughts/master/TurkishDraughts/Resources/GameWinAnimation.gif" alt="Game Win" width="400">
+
+</div>
 ## Game Rules
 
 - The game is played on an 8x8 board.
@@ -30,10 +38,3 @@ A C# Windows Forms application for playing Turkish Draughts locally or online ag
 - If there is more than one way to jump, the one capturing the most number of pieces must be taken. 
 - A king is not allowed to turn 180 degrees between two captures.
 
-
-
-<div style="display: flex; justify-content: space-between;">
-<img src="https://raw.githubusercontent.com/RaduCruceat/TurkishDraughts/master/TurkishDraughts/Resources/KingMoveAnimation.gif" alt="King Move" width="400">
-<img src="https://raw.githubusercontent.com/RaduCruceat/TurkishDraughts/master/TurkishDraughts/Resources/GameWinAnimation.gif" alt="Game Win" width="400">
-
-</div>

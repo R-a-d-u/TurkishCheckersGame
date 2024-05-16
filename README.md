@@ -1,5 +1,5 @@
-<span>
-<img src="https://raw.githubusercontent.com/RaduCruceat/TurkishDraughts/master/TurkishDraughts/Resources/KingMoveAnimation.gif" alt="King Move">
-<img src="https://github.com/RaduCruceat/TurkishDraughts/tree/master/TurkishDraughts/Resources/GameWinAnimation.gif" alt="Game Win">
+<div style="display: flex; justify-content: space-between;">
+<img src="https://raw.githubusercontent.com/RaduCruceat/TurkishDraughts/master/TurkishDraughts/Resources/KingMoveAnimation.gif" alt="King Move" width="400">
+<img src="https://raw.githubusercontent.com//RaduCruceat/TurkishDraughts/tree/master/TurkishDraughts/Resources/GameWinAnimation.gif" alt="Game Win" width="400">
 
-</span>
+</div>

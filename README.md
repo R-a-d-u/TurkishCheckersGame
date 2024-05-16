@@ -26,6 +26,7 @@ A C# Windows Forms application for playing Turkish Draughts locally or online ag
 <img src="https://raw.githubusercontent.com/RaduCruceat/TurkishDraughts/master/TurkishDraughts/Resources/GameWinAnimation.gif" alt="Game Win" width="400">
 
 </div>
+<br>
 ## Game Rules
 
 - The game is played on an 8x8 board.

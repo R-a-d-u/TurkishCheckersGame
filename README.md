@@ -1,4 +1,3 @@
-
 # Turkish Draughts Game
 
 A C# Windows Forms application for playing Turkish Draughts locally or online against another player or the computer.
@@ -12,6 +11,13 @@ A C# Windows Forms application for playing Turkish Draughts locally or online ag
 - User-Friendly Interface: Intuitive and easy-to-use graphical interface.
 
 
+## Technologies Used
+
+- Programming Language: C#
+- Framework: .NET Framework
+- UI: Windows Forms
+- Networking: TCP/IP Sockets
+- AI: Best Move algorithm using Binary Tree
 ## Game Rules
 
 - The game is played on an 8x8 board.
@@ -23,14 +29,6 @@ A C# Windows Forms application for playing Turkish Draughts locally or online ag
 - If a jump is available it must be taken. 
 - If there is more than one way to jump, the one capturing the most number of pieces must be taken. 
 - A king is not allowed to turn 180 degrees between two captures.
-## Technologies Used
-
-- Programming Language: C#
-- Framework: .NET Framework
-- UI: Windows Forms
-- Networking: TCP/IP Sockets
-- AI: Best Move algorithm using Binary Tree
-
 
 
 

@@ -24,6 +24,7 @@ namespace TurkishDraughts
             blockPictureBox();
             initPlayerNames();
             choseColorButtonBlink();
+            allRunningAsyncTasks.Clear();
         }
 
         private async Task choseColorButtonBlink()
@@ -1754,7 +1755,7 @@ namespace TurkishDraughts
             }
             else
             {
-                computerAIMoveSteps(playerRobot, false);
+                computerAIMoveSteps(playerRobot, true);
             }
         }
 
@@ -1998,7 +1999,9 @@ namespace TurkishDraughts
             blackColorButton.Width = 110;
 
             unblockPictureBox();
-            computerAIMoveSteps(playerRobot, true);
+            Random rand = new Random();
+            int randJ = rand.Next(8);
+            movePiece(5, randJ, 4, randJ);
             player1.setName("Computer");
             player2.setName(playerName);
             player1TextBox.Text = player1.getName();

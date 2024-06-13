@@ -15,7 +15,7 @@ A C# Windows Forms application for playing Turkish Draughts locally or online ag
 - Framework: .NET Framework
 - UI: Windows Forms
 - Networking: TCP/IP Sockets
-- AI: Best Move algorithm using Binary Tree
+- AI: MinMax algorithm using Binary Tree
 
 ## Game Rules
 

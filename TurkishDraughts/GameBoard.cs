@@ -7,6 +7,8 @@ namespace TurkishDraughts
         private PieceClass[][] pictureBoxButtons;
         private PlayerClass player1, player2, currentPlayer;
         private SpecialProprieties specialProprieties;
+        private PictureBoxPressedClass pictureBoxPressedClass;
+        private PlayerTurnClass playerTurnClass;
         private int i_firstMove, j_firstMove;
         List<Tuple<int, int>> redPiecesWhoCanCapture = new List<Tuple<int, int>>();
         List<Tuple<int, int>> blackPiecesWhoCanCapture = new List<Tuple<int, int>>();
@@ -54,7 +56,9 @@ namespace TurkishDraughts
 
         private void initStartState()
         {
-            specialProprieties = new SpecialProprieties(false, false, false, 0, 0, 0, 0);
+            specialProprieties = new SpecialProprieties(false, 0, 0, 0, 0);
+            pictureBoxPressedClass = new PictureBoxPressedClass(false);
+            playerTurnClass=new PlayerTurnClass(false);
         }
 
         private void removeBoardTraces()
@@ -63,7 +67,7 @@ namespace TurkishDraughts
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
-                    if (!specialProprieties.getPlayerTurn())
+                    if (!playerTurnClass.getPlayerTurn())
                     {
                         if (!redPiecesWhoCanCapture.Any(tuple => tuple.Item1 == i && tuple.Item2 == j))
                             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.Transparent;
@@ -188,7 +192,7 @@ namespace TurkishDraughts
 
         public void swapCurrentPlayerName()
         {
-            if (specialProprieties.getPlayerTurn() == false)
+            if (playerTurnClass.getPlayerTurn() == false)
             {
                 checkIfFirstRedPieceCanCapture();
                 currentPlayerTextBox.Text = "Red moves";
@@ -212,9 +216,9 @@ namespace TurkishDraughts
         public void swapCurrentPlayerTurn(bool turn)
         {
             if (turn == false)
-                specialProprieties.setPlayerTurn(true);
+                playerTurnClass.setPlayerTurn(true);
             else
-                specialProprieties.setPlayerTurn(false);
+                playerTurnClass.setPlayerTurn(false);
         }
 
         public void swapImage(int i_initial, int j_initial, int i_final, int j_final)
@@ -233,7 +237,7 @@ namespace TurkishDraughts
         {
             //se trece la starea initiala daca nu e miscarea legala
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
-            specialProprieties.setPressed(false);
+            pictureBoxPressedClass.setPressed(false);
         }
 
         public void checkInitialMove(int i, int j)
@@ -242,19 +246,19 @@ namespace TurkishDraughts
             i_firstMove = i;
             j_firstMove = j;
             pictureBoxButtons[i][j].getPictureBox().BackColor = Color.GreenYellow;
-            specialProprieties.setPressed(true);
+            pictureBoxPressedClass.setPressed(true);
             checkLegalMoves(i, j);
         }
 
         public void checkFinalMove(int i_initial, int j_initial, int i_final, int j_final)
         {
             //verificam daca locul unde vrem sa mutam e permis, da->muta, nu->reseteaza miscare
-            if (specialProprieties.getPressed() == true)
+            if (pictureBoxPressedClass.getPressed() == true)
             {
                 if (pictureBoxButtons[i_final][j_final].getValue() != 0 ||
                     pictureBoxButtons[i_initial][j_initial].getValue() == 0 ||
-                    pictureBoxButtons[i_initial][j_initial].getValue() % 2 != 0 && specialProprieties.getPlayerTurn() == false ||
-                    pictureBoxButtons[i_initial][j_initial].getValue() % 2 == 0 && specialProprieties.getPlayerTurn() == true ||
+                    pictureBoxButtons[i_initial][j_initial].getValue() % 2 != 0 && playerTurnClass.getPlayerTurn() == false ||
+                    pictureBoxButtons[i_initial][j_initial].getValue() % 2 == 0 && playerTurnClass.getPlayerTurn() == true ||
                     pictureBoxButtons[i_final][j_final].getPictureBox().BackColor != Color.GreenYellow ||
                     (specialProprieties.getPieceCanDoAMultipleMove() == true &&
                     (specialProprieties.getCurrentMultipleMovePositionI() != i_initial || specialProprieties.getCurrentMultipleMovePositionJ() != j_initial))
@@ -970,7 +974,7 @@ namespace TurkishDraughts
         public void movePiece(int i_initial, int j_initial, int i_final, int j_final)
         {
             pictureBoxButtons[i_initial][j_initial].getPictureBox().BackColor = Color.Transparent;
-            specialProprieties.setPressed(false);
+            pictureBoxPressedClass.setPressed(false);
             swapImage(i_initial, j_initial, i_final, j_final);
             swapValue(i_initial, j_initial, i_final, j_final);
             if (removeCapturedPieces(i_initial, j_initial, i_final, j_final))
@@ -979,7 +983,7 @@ namespace TurkishDraughts
                 if (checkMultipleMoves(i_initial, j_initial, i_final, j_final) == false)
                 {
                     checkIfPieceIsKing(i_final, j_final);
-                    swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                    swapCurrentPlayerTurn(playerTurnClass.getPlayerTurn());
                     swapCurrentPlayerName();
                     specialProprieties.setPieceCanDoAMultipleMove(false);
                 }
@@ -996,7 +1000,7 @@ namespace TurkishDraughts
             else
             {
                 checkIfPieceIsKing(i_final, j_final);
-                swapCurrentPlayerTurn(specialProprieties.getPlayerTurn());
+                swapCurrentPlayerTurn(playerTurnClass.getPlayerTurn());
                 swapCurrentPlayerName();
             }
         }
@@ -1029,7 +1033,7 @@ namespace TurkishDraughts
                 {
                     if (sender == pictureBoxButtons[i][j].getPictureBox())
                     {
-                        if (specialProprieties.getPressed() == false)
+                        if (pictureBoxPressedClass.getPressed() == false)
                             checkInitialMove(i, j);
                         else
                         {

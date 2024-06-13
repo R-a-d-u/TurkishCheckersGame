@@ -1,11 +1,11 @@
 ﻿namespace TurkishDraughts
 {
-    internal class SpecialProprieties
+    internal class MultipleMovesClass
     {
         private bool pieceCanDoAMultipleMove;
         private int lastMultipleMovePositionI, lastMultipleMovePositionJ, currentMultipleMovePositionI, currentMultipleMovePositionJ;
 
-        public SpecialProprieties(bool pieceCanDoAMultipleMove, int lastMultipleMovePositionI, int lastMultipleMovePositionJ, int currentMultipleMovePositionI, int currentMultipleMovePositionJ)
+        public MultipleMovesClass(bool pieceCanDoAMultipleMove, int lastMultipleMovePositionI, int lastMultipleMovePositionJ, int currentMultipleMovePositionI, int currentMultipleMovePositionJ)
         {
             this.pieceCanDoAMultipleMove = pieceCanDoAMultipleMove;
             this.lastMultipleMovePositionI = lastMultipleMovePositionI;

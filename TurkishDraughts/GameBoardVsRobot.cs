@@ -42,7 +42,6 @@ namespace TurkishDraughts
 
         private void initBoardButtons()
         {
-            //atribuim o matrice de clase piesa, fiecare legat de picturebox
             int value = 0;
             pictureBoxButtons = new PieceClass[8][];
             for (int i = 0; i < 8; i++)
@@ -82,7 +81,6 @@ namespace TurkishDraughts
 
         private void removeBoardTraces()
         {
-            //sterge casutele verzi,marcheaza tuplul de miscari de capturare
             for (int i = 0; i < 8; i++)
                 for (int j = 0; j < 8; j++)
                 {
@@ -298,7 +296,6 @@ namespace TurkishDraughts
                     blackPiecesWhoCanCapture.Clear();
                     movePiece(i_initial, j_initial, i_final, j_final);
 
-                    //delay 0.3 sec intre mutare jucator si robot
                     await Task.Delay(300);
 
                     if (playerTurnClass.getPlayerTurn() == !playerRobot)
@@ -531,7 +528,6 @@ namespace TurkishDraughts
             //rege rosu
             if (pictureBoxButtons[i][j].getValue() == 4)
             {
-                //nu permitem ca regele sa faca o miscare multipla la 180 de grade, zona din care a venit e falsa
                 bool i_up = false;
                 bool i_down = false;
                 bool j_right = false;
@@ -548,7 +544,6 @@ namespace TurkishDraughts
                     else
                         j_right = true;
 
-                //verifica miscari legale in toate directiile cu exceptia locului de unde a venit
                 if (!j_left)
                     if (checkMultipleMovesRedKingLeft(i_initial, j_initial, i, j))
                         return true;
@@ -564,8 +559,7 @@ namespace TurkishDraughts
             }
             //rege negru
             if (pictureBoxButtons[i][j].getValue() == 3)
-            {
-                //nu permitem ca regele sa faca o miscare multipla la 180 de grade, zona din care a venit e falsa
+            {          
                 bool i_up = false;
                 bool i_down = false;
                 bool j_right = false;
